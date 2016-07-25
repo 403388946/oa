@@ -1,7 +1,7 @@
-package com.demo.userInfo.mapper;
+package com.oa.userInfo.mapper;
 
 
-import com.demo.userInfo.model.User;
+import com.oa.userInfo.model.User;
 import org.apache.ibatis.annotations.Param;
 
 /**

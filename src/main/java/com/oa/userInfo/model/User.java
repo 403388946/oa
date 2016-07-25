@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package com.demo.userInfo.model;
+package com.oa.userInfo.model;
 
 /**
  * 类职责简要描述

@@ -3,9 +3,9 @@
  * All rights reserved.
  */
 
-package com.demo.userInfo.service;
+package com.oa.userInfo.service;
 
-import com.demo.userInfo.model.User;
+import com.oa.userInfo.model.User;
 import org.springframework.stereotype.Service;
 
 /**
