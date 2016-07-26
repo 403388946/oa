@@ -1,13 +1,14 @@
-package com.oa.userInfo.model;
+package com.oa.userInfo.dto;
+
+import com.oa.userInfo.utils.BaseDto;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * 员工
- * @author YiMing on 2016/7/25.
+ * Created by 46637 on 2016/7/26.
  */
-public class Employee {
+public class EmployeeDto extends BaseDto {
     private Long id;
     private String code;//编号
     private String name;//姓名
@@ -15,7 +16,7 @@ public class Employee {
     private String orderCode;//单号
     private String customCode;//客户编号
     private String customName;//客户名称
-    private String customPriceNum;//客户报价
+    private BigDecimal customPrice;//客户报价
     private String payCode;//工资卡号
     private Integer serviceStatus;//在职状态 0离职 1在职 2离职申请中
     private Integer employmentForm;//用工形式 1代理 2派遣
@@ -82,12 +83,12 @@ public class Employee {
         this.customName = customName;
     }
 
-    public String getCustomPriceNum() {
-        return customPriceNum;
+    public BigDecimal getCustomPrice() {
+        return customPrice;
     }
 
-    public void setCustomPriceNum(String customPriceNum) {
-        this.customPriceNum = customPriceNum;
+    public void setCustomPrice(BigDecimal customPrice) {
+        this.customPrice = customPrice;
     }
 
     public String getPayCode() {
