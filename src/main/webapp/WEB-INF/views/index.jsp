@@ -11,6 +11,7 @@
     <title>欢迎进入dome</title>
 </head>
 <body>
-
+<jsp:include page="../../common/BasePage.jsp"/>
 </body>
 </html>
+
