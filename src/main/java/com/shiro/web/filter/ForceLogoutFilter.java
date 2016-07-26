@@ -19,6 +19,9 @@ public class ForceLogoutFilter extends AccessControlFilter {
         return session.getAttribute(Constants.SESSION_FORCE_LOGOUT_KEY) == null;
     }
 
+
+
+
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
         try {
