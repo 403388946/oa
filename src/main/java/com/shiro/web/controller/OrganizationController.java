@@ -76,25 +76,25 @@ public class OrganizationController {
     }
 
 
-    @RequiresPermissions("organization:update")
-    @RequestMapping(value = "/{sourceId}/move", method = RequestMethod.GET)
-    public String showMoveForm(@PathVariable("sourceId") Long sourceId, Model model) {
-        Organization source = organizationService.findOne(sourceId);
-        model.addAttribute("source", source);
-        model.addAttribute("targetList", organizationService.findAllWithExclude(source));
-        return "organization/move";
-    }
+//    @RequiresPermissions("organization:update")
+//    @RequestMapping(value = "/{sourceId}/move", method = RequestMethod.GET)
+//    public String showMoveForm(@PathVariable("sourceId") Long sourceId, Model model) {
+//        Organization source = organizationService.findOne(sourceId);
+//        model.addAttribute("source", source);
+//        model.addAttribute("targetList", organizationService.findAllWithExclude(source));
+//        return "organization/move";
+//    }
 
-    @RequiresPermissions("organization:update")
-    @RequestMapping(value = "/{sourceId}/move", method = RequestMethod.POST)
-    public String move(
-            @PathVariable("sourceId") Long sourceId,
-            @RequestParam("targetId") Long targetId) {
-        Organization source = organizationService.findOne(sourceId);
-        Organization target = organizationService.findOne(targetId);
-        organizationService.move(source, target);
-        return "redirect:/organization/success";
-    }
+//    @RequiresPermissions("organization:update")
+//    @RequestMapping(value = "/{sourceId}/move", method = RequestMethod.POST)
+//    public String move(
+//            @PathVariable("sourceId") Long sourceId,
+//            @RequestParam("targetId") Long targetId) {
+//        Organization source = organizationService.findOne(sourceId);
+//        Organization target = organizationService.findOne(targetId);
+//        organizationService.move(source, target);
+//        return "redirect:/organization/success";
+//    }
 
     @RequiresPermissions("organization:view")
     @RequestMapping(value = "/success", method = RequestMethod.GET)

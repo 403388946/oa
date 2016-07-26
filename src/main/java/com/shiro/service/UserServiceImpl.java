@@ -1,10 +1,11 @@
 package com.shiro.service;
 
 
-import com.shiro.dao.UserDao;
+import com.shiro.dao.UserMapper;
 import com.shiro.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import java.util.Collections;
 import java.util.List;
@@ -15,9 +16,12 @@ import java.util.Set;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserDao userDao;
+    private UserMapper userMapper;
+
     @Autowired
     private PasswordHelper passwordHelper;
+
+
     @Autowired
     private RoleService roleService;
 
@@ -28,17 +32,23 @@ public class UserServiceImpl implements UserService {
     public User createUser(User user) {
         //加密密码
         passwordHelper.encryptPassword(user);
-        return userDao.createUser(user);
+        if(userMapper.insert(user) > 0) {
+            return user;
+        }
+        return null;
     }
 
     @Override
     public User updateUser(User user) {
-        return userDao.updateUser(user);
+        if(userMapper.updateByPrimaryKey(user) > 0) {
+            return user;
+        }
+        return null;
     }
 
     @Override
-    public void deleteUser(Long userId) {
-        userDao.deleteUser(userId);
+    public int deleteUser(Long userId) {
+        return userMapper.deleteByPrimaryKey(userId);
     }
 
     /**
@@ -47,20 +57,20 @@ public class UserServiceImpl implements UserService {
      * @param newPassword
      */
     public void changePassword(Long userId, String newPassword) {
-        User user =userDao.findOne(userId);
+        User user = userMapper.selectByPrimaryKey(userId);
         user.setPassword(newPassword);
         passwordHelper.encryptPassword(user);
-        userDao.updateUser(user);
+        userMapper.updateByPrimaryKey(user);
     }
 
     @Override
     public User findOne(Long userId) {
-        return userDao.findOne(userId);
+        return userMapper.selectByPrimaryKey(userId);
     }
 
     @Override
     public List<User> findAll() {
-        return userDao.findAll();
+        return userMapper.findUsers(null, 0, 0);
     }
 
     /**
@@ -69,7 +79,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     public User findByUsername(String username) {
-        return userDao.findByUsername(username);
+        return userMapper.findUserByName(username);
     }
 
     /**
@@ -78,11 +88,11 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     public Set<String> findRoles(String username) {
-        User user =findByUsername(username);
+        User user = findByUsername(username);
         if(user == null) {
             return Collections.EMPTY_SET;
         }
-        return roleService.findRoles(user.getRoleIds().toArray(new Long[0]));
+        return roleService.findRoles(user.getRoleIdsList().toArray(new Long[0]));
     }
 
     /**
@@ -95,7 +105,7 @@ public class UserServiceImpl implements UserService {
         if(user == null) {
             return Collections.EMPTY_SET;
         }
-        return roleService.findPermissions(user.getRoleIds().toArray(new Long[0]));
+        return roleService.findPermissions(user.getRoleIdsList().toArray(new Long[0]));
     }
 
 }

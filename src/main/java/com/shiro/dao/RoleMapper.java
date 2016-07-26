@@ -1,11 +1,9 @@
 package com.shiro.dao;
 
-import com.shiro.model.Role;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import com.shiro.entity.Role;
+import org.apache.ibatis.annotations.*;
+
+import java.util.List;
 
 public interface RoleMapper {
     /**
@@ -82,4 +80,7 @@ public interface RoleMapper {
         "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(Role record);
+
+
+    List<Role> findRoles(@Param("description")String description, @Param("start")int start, @Param("pageSize")int pageSize);
 }

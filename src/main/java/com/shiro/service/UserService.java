@@ -16,7 +16,7 @@ public interface UserService {
 
     User updateUser(User user);
 
-    void deleteUser(Long userId);
+    int deleteUser(Long userId);
 
     /**
      * 修改密码

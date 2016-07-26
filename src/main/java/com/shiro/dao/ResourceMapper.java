@@ -1,11 +1,9 @@
 package com.shiro.dao;
 
-import com.shiro.model.Resource;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import com.shiro.entity.Resource;
+import org.apache.ibatis.annotations.*;
+
+import java.util.List;
 
 public interface ResourceMapper {
     /**
@@ -87,4 +85,6 @@ public interface ResourceMapper {
         "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(Resource record);
+
+    List<Resource> findResources(@Param("name")String name, @Param("start")int start, @Param("pageSize")int pageSize);
 }
