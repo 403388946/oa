@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface UserDao {
 
-    User createUser(User user);
-    User updateUser(User user);
-    void deleteUser(Long userId);
+    int createUser(User user);
+    int updateUser(User user);
+    int deleteUser(Long userId);
 
     User findOne(Long userId);
 

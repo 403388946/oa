@@ -42,7 +42,7 @@
 	 	
     <bean id="mybatisConfigurer_user" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory_user"/>
-        <property name="basePackage" value="com.oa.*.mapper,com.shiro.*.mapper" />
+        <property name="basePackage" value="com.oa.*.mapper,com.shiro.*.dao" />
     </bean>
     
     <!-- 事务配置 -->
