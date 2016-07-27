@@ -1,17 +1,10 @@
 package com.shiro.entity;
 
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * <p>User: Zhang Kaitao
- * <p>Date: 14-1-28
- * <p>Version: 1.0
- */
+
 public class User implements Serializable {
     private Long id; //编号
     private Long organizationId; //所属公司
@@ -83,7 +76,7 @@ public class User implements Serializable {
 
 
     public List<Long> getRoleIdsList() {
-        if("".equals(roleIds) && roleIds != null) {
+        if(!"".equals(roleIds) && roleIds != null) {
             List<Long> ids = new ArrayList<Long>();
             for(String id : roleIds.split(",")) {
                 ids.add(Long.valueOf(id));

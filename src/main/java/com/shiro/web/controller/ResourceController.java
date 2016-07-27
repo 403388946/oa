@@ -25,7 +25,7 @@ public class ResourceController {
     }
 
     @RequiresPermissions("resource:view")
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String list(Model model) {
         model.addAttribute("resourceList", resourceService.findAll());
         return "resource/list";

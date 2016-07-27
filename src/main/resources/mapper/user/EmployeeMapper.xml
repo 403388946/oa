@@ -7,16 +7,16 @@
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="id_card" property="idCard" jdbcType="VARCHAR" />
     <result column="custom_code" property="customCode" jdbcType="VARCHAR" />
-    <result column="custom_price" property="customPrice" jdbcType="DECIMAL" />
+    <result column="custom_price" property="customPriceNum" jdbcType="VARCHAR" />
     <result column="order_code" property="orderCode" jdbcType="VARCHAR" />
     <result column="custom_name" property="customName" jdbcType="VARCHAR" />
-    <result column="join_date" property="joinDate" jdbcType="TIMESTAMP" />
+    <result column="join_date" property="jionDate" jdbcType="TIMESTAMP" />
     <result column="pay_code" property="payCode" jdbcType="VARCHAR" />
     <result column="service_status" property="serviceStatus" jdbcType="INTEGER" />
     <result column="employment_form" property="employmentForm" jdbcType="INTEGER" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createDate" jdbcType="TIMESTAMP" />
     <result column="creater" property="creater" jdbcType="BIGINT" />
-    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateDate" jdbcType="TIMESTAMP" />
     <result column="updater" property="updater" jdbcType="BIGINT" />
     <result column="is_del" property="isDel" jdbcType="INTEGER" />
   </resultMap>
@@ -252,7 +252,7 @@
     </if>
     limit #{start},#{rows}
   </select>
-  <select id="findEmployeeByPageCount" resultMap="java.lang.Integer" parameterType="com.oa.userInfo.dto.EmployeeDto" >
+  <select id="findEmployeeByPageCount" resultType="java.lang.Integer" parameterType="com.oa.userInfo.dto.EmployeeDto" >
     select
     count(1);
     from oa_employee

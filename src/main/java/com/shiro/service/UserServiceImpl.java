@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     public Set<String> findPermissions(String username) {
-        User user =findByUsername(username);
+        User user = findByUsername(username);
         if(user == null) {
             return Collections.EMPTY_SET;
         }

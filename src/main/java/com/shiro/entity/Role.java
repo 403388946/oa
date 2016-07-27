@@ -8,11 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * <p>User: Zhang Kaitao
- * <p>Date: 14-1-28
- * <p>Version: 1.0
- */
+
 public class Role implements Serializable {
     private Long id; //编号
     private String role; //角色标识 程序中判断使用,如"admin"
@@ -62,7 +58,7 @@ public class Role implements Serializable {
     }
 
     public List<Long> getResourceIdsList() {
-        if("".equals(resourceIds) && resourceIds != null) {
+        if(!"".equals(resourceIds) && resourceIds != null) {
             List<Long> ids = new ArrayList<Long>();
             for(String id : resourceIds.split(",")) {
                 ids.add(Long.valueOf(id));
