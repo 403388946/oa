@@ -1,11 +1,9 @@
 package com.shiro.dao;
 
-import com.shiro.model.Organization;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import com.shiro.entity.Organization;
+import org.apache.ibatis.annotations.*;
+
+import java.util.List;
 
 public interface OrganizationMapper {
     /**
@@ -82,4 +80,6 @@ public interface OrganizationMapper {
         "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(Organization record);
+
+    List<Organization> findOrganizations(@Param("name")String name, @Param("start")int start, @Param("pageSize")int pageSize);
 }

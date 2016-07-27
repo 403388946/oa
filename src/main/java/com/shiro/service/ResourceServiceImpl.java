@@ -1,7 +1,7 @@
 package com.shiro.service;
 
 
-import com.shiro.dao.ResourceDao;
+import com.shiro.dao.ResourceMapper;
 import com.shiro.entity.Resource;
 import org.apache.shiro.authz.permission.WildcardPermission;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,31 +18,37 @@ import java.util.Set;
 public class ResourceServiceImpl implements ResourceService {
 
     @Autowired
-    private ResourceDao resourceDao;
+    private ResourceMapper resourceMapper;
 
     @Override
     public Resource createResource(Resource resource) {
-        return resourceDao.createResource(resource);
+        if(resourceMapper.insert(resource) > 0) {
+            return resource;
+        }
+        return null;
     }
 
     @Override
     public Resource updateResource(Resource resource) {
-        return resourceDao.updateResource(resource);
+        if(resourceMapper.updateByPrimaryKey(resource) > 0) {
+            return resource;
+        }
+        return null;
     }
 
     @Override
-    public void deleteResource(Long resourceId) {
-        resourceDao.deleteResource(resourceId);
+    public int deleteResource(Long resourceId) {
+        return resourceMapper.deleteByPrimaryKey(resourceId);
     }
 
     @Override
     public Resource findOne(Long resourceId) {
-        return resourceDao.findOne(resourceId);
+        return resourceMapper.selectByPrimaryKey(resourceId);
     }
 
     @Override
     public List<Resource> findAll() {
-        return resourceDao.findAll();
+        return resourceMapper.findResources(null, 0, 0);
     }
 
     @Override

@@ -18,7 +18,7 @@ public class User implements Serializable {
     private String username; //用户名
     private String password; //密码
     private String salt; //加密密码的盐
-    private List<Long> roleIds; //拥有的角色列表
+    private String roleIds; //拥有的角色列表
     private Boolean locked = Boolean.FALSE;
 
     public User() {
@@ -73,43 +73,27 @@ public class User implements Serializable {
         return username + salt;
     }
 
-    public List<Long> getRoleIds() {
-        if(roleIds == null) {
-            roleIds = new ArrayList<Long>();
-        }
+    public String getRoleIds() {
         return roleIds;
     }
 
-    public void setRoleIds(List<Long> roleIds) {
+    public void setRoleIds(String roleIds) {
         this.roleIds = roleIds;
     }
 
 
-    public String getRoleIdsStr() {
-        if(CollectionUtils.isEmpty(roleIds)) {
-            return "";
+    public List<Long> getRoleIdsList() {
+        if("".equals(roleIds) && roleIds != null) {
+            List<Long> ids = new ArrayList<Long>();
+            for(String id : roleIds.split(",")) {
+                ids.add(Long.valueOf(id));
+            }
+            return ids;
         }
-        StringBuilder s = new StringBuilder();
-        for(Long roleId : roleIds) {
-            s.append(roleId);
-            s.append(",");
-        }
-        return s.toString();
+        return null;
     }
 
-    public void setRoleIdsStr(String roleIdsStr) {
-        if(StringUtils.isEmpty(roleIdsStr)) {
-            return;
-        }
-        String[] roleIdStrs = roleIdsStr.split(",");
-        for(String roleIdStr : roleIdStrs) {
-            if(StringUtils.isEmpty(roleIdStr)) {
-                continue;
-            }
-            getRoleIds().add(Long.valueOf(roleIdStr));
-        }
-    }
-    
+
     public Boolean getLocked() {
         return locked;
     }

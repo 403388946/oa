@@ -35,14 +35,15 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="mapperLocations">
 			<array>
-				<value>classpath:mapper/user/*.xml</value>
+				<value>classpath:mapper/user/*Mapper.xml</value>
+				<value>classpath:mapper/shiro/*Mapper.xml</value>
 			</array>
 		</property>
 	</bean>
 	 	
     <bean id="mybatisConfigurer_user" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory_user"/>
-        <property name="basePackage" value="com.oa.*.mapper,com.shiro.*.dao" />
+        <property name="basePackage" value="com.oa.*.mapper,com.shiro.dao" />
     </bean>
     
     <!-- 事务配置 -->

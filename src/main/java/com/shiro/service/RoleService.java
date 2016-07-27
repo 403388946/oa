@@ -11,7 +11,7 @@ public interface RoleService {
 
     Role createRole(Role role);
     Role updateRole(Role role);
-    void deleteRole(Long roleId);
+    int deleteRole(Long roleId);
 
     Role findOne(Long roleId);
     List<Role> findAll();
