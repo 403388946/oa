@@ -20,7 +20,7 @@ public class OrganizationController {
     private OrganizationService organizationService;
 
     @RequiresPermissions("organization:view")
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(Model model) {
         return "organization/index";
     }

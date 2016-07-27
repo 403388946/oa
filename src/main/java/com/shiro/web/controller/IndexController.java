@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 import java.util.Set;
@@ -22,11 +23,8 @@ public class IndexController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/")
+    @RequestMapping("/index")
     public String index(@CurrentUser User loginUser, Model model) {
-        if(loginUser == null || StringUtils.isBlank(loginUser.getUsername())) {
-            return "login";
-        }
         Set<String> permissions = userService.findPermissions(loginUser.getUsername());
         List<Resource> menus = resourceService.findMenus(permissions);
         model.addAttribute("menus", menus);
@@ -37,6 +35,4 @@ public class IndexController {
     public String welcome() {
         return "welcome";
     }
-
-
 }

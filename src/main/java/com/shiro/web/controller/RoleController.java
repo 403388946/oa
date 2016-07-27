@@ -23,7 +23,7 @@ public class RoleController {
     private ResourceService resourceService;
 
     @RequiresPermissions("role:view")
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String list(Model model) {
         model.addAttribute("roleList", roleService.findAll());
         return "role/list";
