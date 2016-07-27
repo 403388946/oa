@@ -5,6 +5,8 @@ import com.oa.userInfo.model.Employee;
 import com.oa.userInfo.utils.Pagination;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -45,4 +47,12 @@ public interface EmployeeService {
      * @return
      */
     Employee findOne(Long id);
+
+    /**
+     * 导出员工信息
+     * @param emps  员工信息
+     * @param request   请求
+     * @param response  响应
+     */
+    public void export(List<Employee> emps, HttpServletRequest request, HttpServletResponse response);
 }

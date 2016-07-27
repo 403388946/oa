@@ -18,60 +18,71 @@
     <script type="text/javascript" >
         $(function () {
             initTable();
+            //重置
+            $("#g_reset").bind("click", function(){
+                $('#code').val('');
+                $('#name').val('') ;
+                $('#idCard').val('') ;
+                $('#customName').val('');
+            });
+            //查询
+            $("#g_search").bind("click", function(){
+                queryParams();
+            });
+            //导出
+            $("#g_import").bind("click", function(){
 
+            });
         });
         //初始化表格
         function initTable(){
              $('#employeeList').bootstrapTable({
                 method: 'post',
                 contentType: "application/x-www-form-urlencoded",
-                url: "${ctx}/employee/getEmployeeList?",
-                    height: $(window).height() - 200,
-                    striped: true,
-                    pagination: true,
-                    singleSelect: false,
-                    pageSize: 50,
-                    pageList: [10, 50, 100, 200, 500],
-                    search: false, //不显示 搜索框
-                    showColumns: false, //不显示下拉框（选择显示的列）
-                    sidePagination: "server", //服务端请求
-                    queryParams: {
-                        code : $('#code').val(),
-                        name : $('#name').val(),
-                        idCard : $('#idCard').val(),
-                        customName : $('#customName').val()
-                    },
-                    minimunCountColumns: 2,
-                    columns: [
-                        {field: 'id', checkbox: true},
-                        {field: 'code', title: '编号', width: 100,align: 'center',valign: 'middle',sortable: true},
-                        {field: 'name', title: '姓名', width: 100,align: 'center',valign: 'middle',sortable: true,formatter: nameFormatter},
-                        {field: 'idCard', title: '身份证号码', width: 100,align: 'center',valign: 'middle',sortable: true},
-                        {field: 'customCode', title: '客户编号', width: 100,align: 'center',valign: 'middle',sortable: true},
-                        {field: 'customPriceNum', title: '客户报价单号', width: 100,align: 'center',valign: 'middle',sortable: true},
-                        {field: 'customName', title: '客户名称', width: 100,align: 'center',valign: 'middle',sortable: true},
-                        {field: 'jionDate', title: '入职日期', width: 100,align: 'center',valign: 'middle',sortable: true,formatter: function(value){
-                            return new Date(value).Format("yyyy-MM-dd HH:mm:ss");
-                        }},
-                        {field: 'payCode', title: '工资卡号', width: 100,align: 'center',valign: 'middle',sortable: true,formatter: nameFormatter},
-                        {field: 'serviceStatus', title: '在职状态', width: 100,align: 'center',valign: 'middle',sortable: true,formatter: nameFormatter},
-                        {field: 'operation', title: '操作', width: 100,align: 'center',valign: 'middle',sortable: true,formatter: function(value,row,index){
+                url: "${ctx}/employee/getEmployeeList",
+                height: $(window).height() - 200,
+                striped: true,
+                pagination: true,
+                singleSelect: false,
+                pageSize: 50,
+                pageList: [10, 50, 100, 200, 500],
+                search: false, //不显示 搜索框
+                showColumns: false, //不显示下拉框（选择显示的列）
+                sidePagination: "server", //服务端请求
+                queryParams: {
+                    code : $('#code').val(),
+                    name : $('#name').val(),
+                    idCard : $('#idCard').val(),
+                    customName : $('#customName').val()
+                },
+                minimunCountColumns: 2,
+                 columns: [
+                     {field: 'id', checkbox: true},
+                     {field: 'code', title: '编号', width: 100,align: 'center',valign: 'middle',sortable: true},
+                     {field: 'name', title: '姓名', width: 100,align: 'center',valign: 'middle',sortable: true,formatter: nameFormatter},
+                     {field: 'idCard', title: '身份证号码', width: 100,align: 'center',valign: 'middle',sortable: true},
+                     {field: 'customCode', title: '客户编号', width: 100,align: 'center',valign: 'middle',sortable: true},
+                     {field: 'customPriceNum', title: '客户报价单号', width: 100,align: 'center',valign: 'middle',sortable: true},
+                     {field: 'customName', title: '客户名称', width: 100,align: 'center',valign: 'middle',sortable: true},
+                     {field: 'jionDate', title: '入职日期', width: 100,align: 'center',valign: 'middle',sortable: true,formatter: function(value){
+                         return new Date(value).Format("yyyy-MM-dd HH:mm:ss");
+                     }},
+                     {field: 'payCode', title: '工资卡号', width: 100,align: 'center',valign: 'middle',sortable: true,formatter: nameFormatter},
+                     {field: 'serviceStatus', title: '在职状态', width: 100,align: 'center',valign: 'middle',sortable: true,formatter: nameFormatter},
+                     {field: 'operation', title: '操作', width: 100,align: 'center',valign: 'middle',sortable: true,formatter: function(value,row,index){
 
-                            return "<a href=''>修改</a><a href=''>上传电子文件</a>";
-                        }}
-                    ],
-                 onLoadError: function () {alert("数据加载失败！");}
+                         return "<a href=''>修改</a><a href=''>上传电子文件</a>";
+                     }}
+                 ],
+                onLoadError: function () {alert("数据加载失败！");}
             });
         }
 
         //查询
         function queryParams() {
-            var queryParams = {};
-            queryParamsp.code = $('#code').val();
-            queryParamsp.name = $('#name').val();
-            queryParamsp.idCard = $('#idCard').val();
-            queryParamsp.customName = $('#customName').val();
-            $("#employeeList").bootstrapTable('refresh', queryParams);
+            var url = "${ctx}/employee/getEmployeeList?code" + $('#code').val() +"&name="
+                    + $('#name').val() +"&idCard=" + $('#idCard').val() +"&customName=" +$('#customName').val();
+            $("#employeeList").bootstrapTable('refresh', url);
         }
     </script>
 </head>
