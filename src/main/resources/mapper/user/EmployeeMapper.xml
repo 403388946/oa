@@ -35,7 +35,7 @@
     delete from oa_employee
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.oa.userInfo.model.Employee" >
+  <insert id="insert" parameterType="com.oa.userInfo.dto.EmployeeDto" >
     insert into oa_employee (id, code, name, 
       id_card, custom_code, custom_price, 
       order_code, custom_name, join_date, 
@@ -49,7 +49,7 @@
       #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{updater,jdbcType=BIGINT}, #{isDel,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.oa.userInfo.model.Employee" >
+  <insert id="insertSelective" parameterType="com.oa.userInfo.dto.EmployeeDto" >
     insert into oa_employee
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -158,7 +158,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.oa.userInfo.model.Employee" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.oa.userInfo.dto.EmployeeDto" >
     update oa_employee
     <set >
       <if test="code != null" >
@@ -212,7 +212,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.oa.userInfo.model.Employee" >
+  <update id="updateByPrimaryKey" parameterType="com.oa.userInfo.dto.EmployeeDto" >
     update oa_employee
     set code = #{code,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
@@ -232,4 +232,42 @@
       is_del = #{isDel,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="findEmployeeByPage" resultMap="BaseResultMap" parameterType="com.oa.userInfo.dto.EmployeeDto" >
+    select
+    <include refid="Base_Column_List" />
+    from oa_employee
+    where is_del = 0
+    <if test="code != null and code != ''" >
+      code like concat('%',replace(#{code,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+    </if>
+    <if test="name != null and name != ''" >
+      name  like concat('%',replace(#{name,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+    </if>
+    <if test="idCard != null and idCard != ''" >
+      id_card  like concat('%',replace(#{idCard,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+    </if>
+    <if test="customCode != null and customCode != ''" >
+      custom_code like concat('%',replace(#{customCode,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+    </if>
+    limit #{start},#{rows}
+  </select>
+  <select id="findEmployeeByPageCount" resultMap="java.lang.Integer" parameterType="com.oa.userInfo.dto.EmployeeDto" >
+    select
+    count(1);
+    from oa_employee
+    where is_del = 0
+    <if test="code != null and code != ''" >
+      code like concat('%',replace(#{code,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+    </if>
+    <if test="name != null and name != ''" >
+      name  like concat('%',replace(#{name,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+    </if>
+    <if test="idCard != null and idCard != ''" >
+      id_card  like concat('%',replace(#{idCard,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+    </if>
+    <if test="customCode != null and customCode != ''" >
+      custom_code like concat('%',replace(#{customCode,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+    </if>
+  </select>
 </mapper>

@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <link rel="stylesheet" type="text/css" href="${ctx}/static/css/bootstrap/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="${ctx}/static/css/bootstrap/bootstrap-table.css"/>
 <link rel="stylesheet" type="text/css" href="${ctx}/static/css/libs/font-awesome.css"/>
 <link rel="stylesheet" type="text/css" href="${ctx}/static/css/libs/nanoscroller.css"/>
 <link rel="stylesheet" type="text/css" href="${ctx}/static/css/compiled/theme_styles.css"/>
@@ -14,6 +15,10 @@
 <link type="image/x-icon" href="favicon.png" rel="shortcut icon"/>
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
 <script src="${ctx}/static/js/demo-rtl.js"></script>
+<script src="${ctx}/static/js/jquery.js"></script>
+<script src="${ctx}/static/js/bootstrap.js"></script>
+<script src="${ctx}/static/js/bootstrap-table.js"></script>
+<script src="${ctx}/static/js/bootstrap-table-zh-CN.js"></script>
 <header class="navbar" id="header-navbar">
     <div class="container">
         <a href="index.html" id="logo" class="navbar-brand">
