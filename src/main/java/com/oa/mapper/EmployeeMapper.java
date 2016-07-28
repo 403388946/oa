@@ -1,7 +1,7 @@
-package com.oa.userInfo.mapper;
+package com.oa.mapper;
 
-import com.oa.userInfo.dto.EmployeeDto;
-import com.oa.userInfo.model.Employee;
+import com.oa.dto.EmployeeDto;
+import com.oa.model.Employee;
 
 import java.util.List;
 

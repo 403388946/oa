@@ -1,11 +1,11 @@
-package com.oa.userInfo.service.impl;
+package com.oa.service.impl;
 
-import com.oa.userInfo.dto.EmployeeDto;
-import com.oa.userInfo.mapper.EmployeeMapper;
-import com.oa.userInfo.model.Employee;
-import com.oa.userInfo.service.EmployeeService;
-import com.oa.userInfo.utils.ExcelData;
-import com.oa.userInfo.utils.Pagination;
+import com.oa.dto.EmployeeDto;
+import com.oa.mapper.EmployeeMapper;
+import com.oa.model.Employee;
+import com.oa.service.EmployeeService;
+import com.oa.utils.ExcelData;
+import com.oa.utils.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

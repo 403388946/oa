@@ -1,4 +1,4 @@
-package com.oa.userInfo.model;
+package com.oa.model;
 
 import java.util.Date;
 

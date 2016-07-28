@@ -11,7 +11,7 @@
 
 <iframe name="content" class="ui-layout-center"
         src="${ctx}/welcome" frameborder="0" scrolling="auto"></iframe>
-<div class="ui-layout-north">${ctx}欢迎[<shiro:principal/>]，<a href="${ctx}/logout">退出</a></div>
+<div class="ui-layout-north">欢迎[<shiro:principal/>]，<a href="${ctx}/logout">退出</a></div>
 <div class="ui-layout-west">
     功能菜单<br/>
     <c:forEach items="${menus}" var="m">

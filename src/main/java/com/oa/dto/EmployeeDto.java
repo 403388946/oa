@@ -1,13 +1,13 @@
-package com.oa.userInfo.model;
+package com.oa.dto;
 
-import java.math.BigDecimal;
+import com.oa.utils.BaseDto;
+
 import java.util.Date;
 
 /**
- * 员工
- * @author YiMing on 2016/7/25.
+ * Created by 46637 on 2016/7/26.
  */
-public class Employee {
+public class EmployeeDto extends BaseDto {
     private Long id;
     private String code;//编号
     private String name;//姓名

@@ -1,4 +1,4 @@
-package com.oa.userInfo.utils;
+package com.oa.utils;
 
 
 import org.apache.commons.lang3.StringUtils;

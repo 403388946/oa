@@ -1,8 +1,8 @@
-package com.oa.userInfo.service;
+package com.oa.service;
 
-import com.oa.userInfo.dto.EmployeeDto;
-import com.oa.userInfo.model.Employee;
-import com.oa.userInfo.utils.Pagination;
+import com.oa.dto.EmployeeDto;
+import com.oa.model.Employee;
+import com.oa.utils.Pagination;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;

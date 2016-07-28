@@ -1,9 +1,9 @@
-package com.oa.userInfo.controller;
+package com.oa.controller;
 
-import com.oa.userInfo.dto.EmployeeDto;
-import com.oa.userInfo.model.Employee;
-import com.oa.userInfo.service.EmployeeService;
-import com.oa.userInfo.utils.Pagination;
+import com.oa.dto.EmployeeDto;
+import com.oa.model.Employee;
+import com.oa.service.EmployeeService;
+import com.oa.utils.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by 46637 on 2016/7/26.

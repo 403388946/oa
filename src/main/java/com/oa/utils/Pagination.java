@@ -1,4 +1,4 @@
-package com.oa.userInfo.utils;
+package com.oa.utils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
