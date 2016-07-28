@@ -1,11 +1,7 @@
-package com.shiro.entity;
-
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
+package com.shiro.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 

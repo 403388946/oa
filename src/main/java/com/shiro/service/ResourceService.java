@@ -1,7 +1,7 @@
 package com.shiro.service;
 
 
-import com.shiro.entity.Resource;
+import com.shiro.model.Resource;
 
 import java.util.List;
 import java.util.Set;

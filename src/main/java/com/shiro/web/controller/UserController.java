@@ -1,6 +1,6 @@
 package com.shiro.web.controller;
 
-import com.shiro.entity.User;
+import com.shiro.model.User;
 import com.shiro.service.OrganizationService;
 import com.shiro.service.RoleService;
 import com.shiro.service.UserService;

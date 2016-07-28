@@ -1,6 +1,6 @@
 package com.shiro.web.controller;
 
-import com.shiro.entity.Role;
+import com.shiro.model.Role;
 import com.shiro.service.ResourceService;
 import com.shiro.service.RoleService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;

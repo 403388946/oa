@@ -1,7 +1,7 @@
 package com.shiro.realm;
 
 
-import com.shiro.entity.User;
+import com.shiro.model.User;
 import com.shiro.service.UserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;

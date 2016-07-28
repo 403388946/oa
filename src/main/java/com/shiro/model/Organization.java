@@ -1,31 +1,14 @@
-package com.shiro.entity;
+package com.shiro.model;
 
 import java.io.Serializable;
 
 
-public class Resource implements Serializable {
+public class Organization implements Serializable {
     private Long id; //编号
-    private String name; //资源名称
-    private ResourceType type = ResourceType.menu; //资源类型
-    private String url; //资源路径
-    private String permission; //权限字符串
+    private String name; //组织机构名称
     private Long parentId; //父编号
-    private String parentIds; //父编号列表
+    private String parentIds; //父编号列表，如1/2/
     private Boolean available = Boolean.FALSE;
-
-    public static enum ResourceType {
-        menu("菜单"), button("按钮");
-
-        private final String info;
-        private ResourceType(String info) {
-            this.info = info;
-        }
-
-        public String getInfo() {
-            return info;
-        }
-    }
-
 
 
     public Long getId() {
@@ -42,30 +25,6 @@ public class Resource implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public ResourceType getType() {
-        return type;
-    }
-
-    public void setType(ResourceType type) {
-        this.type = type;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getPermission() {
-        return permission;
-    }
-
-    public void setPermission(String permission) {
-        this.permission = permission;
     }
 
     public Long getParentId() {
@@ -99,14 +58,15 @@ public class Resource implements Serializable {
     public String makeSelfAsParentIds() {
         return getParentIds() + getId() + "/";
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Resource resource = (Resource) o;
+        Organization that = (Organization) o;
 
-        if (id != null ? !id.equals(resource.id) : resource.id != null) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
 
         return true;
     }
@@ -118,11 +78,9 @@ public class Resource implements Serializable {
 
     @Override
     public String toString() {
-        return "Resource{" +
+        return "Organization{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", type=" + type +
-                ", permission='" + permission + '\'' +
                 ", parentId=" + parentId +
                 ", parentIds='" + parentIds + '\'' +
                 ", available=" + available +
