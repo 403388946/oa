@@ -303,7 +303,7 @@
         <!-- 展示 end -->
     </dependencies>
     <build>
-        <finalName>oa_generator</finalName>
+        <finalName>OA</finalName>
         <plugins>
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
