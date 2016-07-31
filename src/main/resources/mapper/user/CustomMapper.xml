@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oa.mapper.CustomMapper" >
+  <resultMap id="BaseResultMap" type="com.oa.model.Custom" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="create_time" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="creater" property="creater" jdbcType="BIGINT" />
+    <result column="update_time" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="updater" property="updater" jdbcType="BIGINT" />
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, code, name, create_time, creater, update_time, updater,is_del
+  </sql>
+
+  <insert id="insert" parameterType="com.oa.dto.CustomDto" flushCache="true">
+
+  </insert>
+
+  <update id="update" parameterType="com.oa.dto.CustomDto" flushCache="true">
+
+  </update>
+
+  <delete id="delete" flushCache="true">
+
+  </delete>
+
+  <select id="findOne" resultMap="BaseResultMap">
+
+  </select>
+
+  <select id="findCustomByPage" resultMap="BaseResultMap" parameterType="com.oa.dto.EmployeeDto" >
+    select
+    <include refid="Base_Column_List" />
+    from oa_custom
+    where is_del = 0
+    <if test="code != null and code != ''" >
+      code like concat('%',replace(#{code,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+    </if>
+    <if test="name != null and name != ''" >
+      name  like concat('%',replace(#{name,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+    </if>
+    limit #{start},#{rows}
+  </select>
+  <select id="findCustomByPageCount" resultType="java.lang.Integer" parameterType="com.oa.dto.EmployeeDto" >
+    select
+    count(1);
+    from oa_employee
+    where is_del = 0
+    <if test="code != null and code != ''" >
+      code like concat('%',replace(#{code,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+    </if>
+    <if test="name != null and name != ''" >
+      name  like concat('%',replace(#{name,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+    </if>
+  </select>
+</mapper>

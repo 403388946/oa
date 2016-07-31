@@ -1,4 +1,4 @@
-package com.oa.model;
+package com.oa.dto;
 
 import java.util.Date;
 
@@ -6,7 +6,7 @@ import java.util.Date;
  * 客户信息
  * @author YiMing on 2016/7/25.
  */
-public class Custom {
+public class CustomDto {
 
     private Long id;
     private String name;//公司名称

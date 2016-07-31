@@ -12,13 +12,13 @@
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<!-- Connection Info -->
 		<property name="driverClassName" value="${jdbc.driver}"/>
-		<property name="url" value="${jdbc.url_user}"/>
-		<property name="username" value="${jdbc.username_user}"/>
-		<property name="password" value="${jdbc.password_user}"/>
+		<property name="url" value="${jdbc.url_oa}"/>
+		<property name="username" value="${jdbc.username_oa}"/>
+		<property name="password" value="${jdbc.password_oa}"/>
 
 		<!-- Connection Pooling Info -->
-		<property name="maxActive" value="${dbcp.maxActive_user}"/>
-		<property name="maxIdle" value="${dbcp.maxIdle_user}"/>
+		<property name="maxActive" value="${dbcp.maxActive_oa}"/>
+		<property name="maxIdle" value="${dbcp.maxIdle_oa}"/>
 		<property name="defaultAutoCommit" value="false"/>
 		<!-- 连接Idle一个小时后超时 -->
 		<property name="timeBetweenEvictionRunsMillis" value="3600000"/>
@@ -26,7 +26,7 @@
 	</bean>
 
 	
-	<bean id="sqlSessionFactory_user" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<bean id="sqlSessionFactory_oa" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="mapperLocations">
 			<array>
@@ -35,23 +35,24 @@
 		</property>
 	</bean>
 	 	
-    <bean id="mybatisConfigurer_user" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory_user"/>
+    <bean id="mybatisConfigurer_oa" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory_oa"/>
         <property name="basePackage" value="com.*.mapper" />
     </bean>
     
     <!-- 事务配置 -->
-    <bean id="transactionManager_user"
+    <bean id="transactionManager_oa"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
 	<!--  配置事务传播特性 -->
-	<tx:advice id="userTxAdvice" transaction-manager="transactionManager_user">
+	<tx:advice id="userTxAdvice" transaction-manager="transactionManager_oa">
 		<tx:attributes>
 			<tx:method name="insert*" propagation="REQUIRED" read-only="false" isolation="READ_COMMITTED" rollback-for="java.lang.Exception" />
 			<tx:method name="save*" propagation="REQUIRED" read-only="false" isolation="READ_COMMITTED" rollback-for="java.lang.Exception" />
 			<tx:method name="add*" propagation="REQUIRED" read-only="false" isolation="READ_COMMITTED" rollback-for="java.lang.Exception" />
+			<tx:method name="edit*" propagation="REQUIRED" read-only="false" isolation="READ_COMMITTED" rollback-for="java.lang.Exception" />
 			<tx:method name="update*" propagation="REQUIRED" read-only="false" isolation="READ_COMMITTED" rollback-for="java.lang.Exception" />
 			<tx:method name="delete*" propagation="REQUIRED" read-only="false" isolation="READ_COMMITTED" rollback-for="java.lang.Exception" />
 			<tx:method name="remove*" propagation="REQUIRED" read-only="false" isolation="READ_COMMITTED" rollback-for="java.lang.Exception" />
@@ -66,5 +67,5 @@
 	</aop:config>
 
 
-	<tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager_user" />
+	<tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager_oa" />
 </beans>  
