@@ -19,5 +19,5 @@
 	<import resource="classpath:spring/spring-config-cache.xml"/>
 	<import resource="classpath:spring/spring-config-shiro.xml"/>
 	<!--数据源-->
-	<import resource="classpath:datasource/datasource_user.xml"/>
+	<import resource="classpath:datasource/datasource_oa.xml"/>
 </beans>  

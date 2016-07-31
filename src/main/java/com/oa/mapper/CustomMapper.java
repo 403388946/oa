@@ -16,6 +16,6 @@ public interface CustomMapper {
     int update(CustomDto param);
     int delete(@Param("id")Long id);
     Custom findOne(@Param("id")Long id);
-    List<Custom> findCustomByPage(CustomDto param);
+    List<Custom> findCustomByPage(CustomDto param, Integer currentPage, Integer pageSize);
     Integer findCustomByPageCount(CustomDto param);
 }

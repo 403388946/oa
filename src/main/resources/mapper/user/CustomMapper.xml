@@ -17,19 +17,38 @@
   </sql>
 
   <insert id="insert" parameterType="com.oa.dto.CustomDto" flushCache="true">
-
+    <selectKey keyProperty="id" resultType="long" order="AFTER">
+      SELECT @@IDENTITY AS id
+    </selectKey>
+    INSERT INTO oa_custom (
+        code
+        ,name
+        ,create_time
+        ,creater
+        ) VALUE (
+        #{code}
+        ,#{name}
+        ,now()
+        ,#{creater}
+    )
   </insert>
 
   <update id="update" parameterType="com.oa.dto.CustomDto" flushCache="true">
-
+    UPDATE oa_custom SET
+        code = #{code}
+        ,name = #{name}
+        ,update_time = now()
+        ,updater = #{updater}
+    WHERE id = #{id}
   </update>
 
-  <delete id="delete" flushCache="true">
-
-  </delete>
+  <update id="delete" flushCache="true">
+    UPDATE oa_custom SET is_del = 1 WHERE id = #{id}
+  </update>
 
   <select id="findOne" resultMap="BaseResultMap">
-
+    SELECT <include refid="Base_Column_List"/> FROM oa_custom
+    WHERE id = #{id}
   </select>
 
   <select id="findCustomByPage" resultMap="BaseResultMap" parameterType="com.oa.dto.EmployeeDto" >
@@ -48,7 +67,7 @@
   <select id="findCustomByPageCount" resultType="java.lang.Integer" parameterType="com.oa.dto.EmployeeDto" >
     select
     count(1);
-    from oa_employee
+    from oa_custom
     where is_del = 0
     <if test="code != null and code != ''" >
       code like concat('%',replace(#{code,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
