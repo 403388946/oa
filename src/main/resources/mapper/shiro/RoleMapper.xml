@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.shiro.dao.RoleMapper" >
-  <resultMap id="BaseResultMap" type="com.shiro.entity.Role" >
+<mapper namespace="com.shiro.mapper.RoleMapper" >
+  <resultMap id="BaseResultMap" type="com.shiro.model.Role" >
       <id column="id" property="id" jdbcType="BIGINT"/>
       <result column="role" property="role" jdbcType="VARCHAR"/>
       <result column="description" property="description" jdbcType="VARCHAR"/>
@@ -11,7 +11,7 @@
   <sql id="Base_Column_List" >
     id, role, description, resource_ids, available
   </sql>
-  <insert id="insertSelective" parameterType="com.shiro.entity.Role" >
+  <insert id="insertSelective" parameterType="com.shiro.model.Role" >
     insert into sys_role
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -48,7 +48,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.shiro.entity.Role" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.shiro.model.Role" >
     update sys_role
     <set >
       <if test="role != null" >

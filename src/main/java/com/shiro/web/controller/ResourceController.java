@@ -1,6 +1,6 @@
 package com.shiro.web.controller;
 
-import com.shiro.entity.Resource;
+import com.shiro.model.Resource;
 import com.shiro.service.ResourceService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;

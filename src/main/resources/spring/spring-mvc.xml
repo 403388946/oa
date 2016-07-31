@@ -10,7 +10,7 @@
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <context:component-scan base-package="com.shiro.web.controller,com.oa" use-default-filters="false">
+    <context:component-scan base-package="com.oa,com.shiro" use-default-filters="false">
         <context:include-filter type="annotation"
                                 expression="org.springframework.stereotype.Controller" />
         <context:include-filter type="annotation"
@@ -36,23 +36,29 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
+
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
+    <!-- 支持Shiro对Controller的方法级AOP安全控制 begin-->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor">
+        <property name="proxyTargetClass" value="true" />
+    </bean>
     <!--全局异常处理-->
     <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
         <property name="exceptionMappings">
             <props>
-                <!--不通Exception对应不同的异常页面-->
                 <prop key="org.apache.shiro.authz.UnauthorizedException">error/403</prop>
+                <prop key="java.lang.Throwable">error/500</prop>
             </props>
         </property>
     </bean>
-    <!-- 控制器异常处理 -->
-    <bean id="exceptionHandlerExceptionResolver" class="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver">
-    </bean>
+    <!-- 支持Shiro对Controller的方法级AOP安全控制 end -->
 
-    <bean class="com.shiro.web.exception.DefaultExceptionHandler"/>
-
-    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
-        <property name="securityManager" ref="securityManager"/>
+    <!-- 上传文件拦截，设置最大上传文件大小   10M=10*1024*1024(B)=10485760 bytes -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="10485760" />
     </bean>
 
 </beans>

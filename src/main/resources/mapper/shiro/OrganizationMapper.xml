@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.shiro.dao.OrganizationMapper" >
-  <resultMap id="BaseResultMap" type="com.shiro.entity.Organization" >
+<mapper namespace="com.shiro.mapper.OrganizationMapper" >
+  <resultMap id="BaseResultMap" type="com.shiro.model.Organization" >
       <id column="id" property="id" jdbcType="BIGINT"/>
       <result column="name" property="name" jdbcType="VARCHAR"/>
       <result column="parent_id" property="parentId" jdbcType="BIGINT"/>
@@ -11,7 +11,7 @@
   <sql id="Base_Column_List" >
     id, name, parent_id, parent_ids, available
   </sql>
-  <insert id="insertSelective" parameterType="com.shiro.entity.Organization" >
+  <insert id="insertSelective" parameterType="com.shiro.model.Organization" >
     insert into sys_organization
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -48,7 +48,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.shiro.entity.Organization" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.shiro.model.Organization" >
     update sys_organization
     <set >
       <if test="name != null" >

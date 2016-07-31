@@ -15,8 +15,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.Collection;
 
 
-@RequiresPermissions("session:*")
 @Controller
+@RequiresPermissions("session:*")
 @RequestMapping("/sessions")
 public class SessionController {
     @Autowired
@@ -30,8 +30,7 @@ public class SessionController {
     }
 
     @RequestMapping("/{sessionId}/forceLogout")
-    public String forceLogout(
-            @PathVariable("sessionId") String sessionId, RedirectAttributes redirectAttributes) {
+    public String forceLogout(@PathVariable("sessionId") String sessionId, RedirectAttributes redirectAttributes) {
         try {
             Session session = sessionDAO.readSession(sessionId);
             if(session != null) {
@@ -39,7 +38,7 @@ public class SessionController {
             }
         } catch (Exception e) {/*ignore*/}
         redirectAttributes.addFlashAttribute("msg", "强制退出成功！");
-        return "redirect:/sessions";
+        return "redirect:/sessions/index";
     }
 
 }

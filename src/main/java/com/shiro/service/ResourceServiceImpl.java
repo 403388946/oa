@@ -1,8 +1,8 @@
 package com.shiro.service;
 
 
-import com.shiro.dao.ResourceMapper;
-import com.shiro.entity.Resource;
+import com.shiro.mapper.ResourceMapper;
+import com.shiro.model.Resource;
 import org.apache.shiro.authz.permission.WildcardPermission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
-package com.shiro.dao;
+package com.shiro.mapper;
 
-import com.shiro.entity.User;
+import com.shiro.model.User;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

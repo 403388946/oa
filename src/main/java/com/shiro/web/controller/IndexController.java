@@ -1,16 +1,14 @@
 package com.shiro.web.controller;
 
-import com.shiro.entity.Resource;
-import com.shiro.entity.User;
+import com.shiro.model.Resource;
+import com.shiro.model.User;
 import com.shiro.service.ResourceService;
 import com.shiro.service.UserService;
 import com.shiro.web.bind.annotation.CurrentUser;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 import java.util.Set;
@@ -28,6 +26,7 @@ public class IndexController {
         Set<String> permissions = userService.findPermissions(loginUser.getUsername());
         List<Resource> menus = resourceService.findMenus(permissions);
         model.addAttribute("menus", menus);
+        //return this.userStylePath(user) + "/index";
         return "index";
     }
 

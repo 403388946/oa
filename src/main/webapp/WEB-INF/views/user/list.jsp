@@ -22,8 +22,6 @@
     <thead>
         <tr>
             <th>用户名</th>
-            <th>所属组织</th>
-            <th>角色列表</th>
             <th>操作</th>
         </tr>
     </thead>
@@ -31,8 +29,6 @@
         <c:forEach items="${userList}" var="user">
             <tr>
                 <td>${user.username}</td>
-                <td>${zhangfn:organizationName(user.organizationId)}</td>
-                <td>${zhangfn:roleNames(user.roleIds)}</td>
                 <td>
                     <shiro:hasPermission name="user:update">
                         <a href="${ctx}/user/${user.id}/update">修改</a>

@@ -1,7 +1,7 @@
 package com.shiro.service;
 
-import com.shiro.dao.RoleMapper;
-import com.shiro.entity.Role;
+import com.shiro.mapper.RoleMapper;
+import com.shiro.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

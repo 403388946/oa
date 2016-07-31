@@ -1,7 +1,7 @@
 package com.shiro.service;
 
 
-import com.shiro.entity.Role;
+import com.shiro.model.Role;
 
 import java.util.List;
 import java.util.Set;

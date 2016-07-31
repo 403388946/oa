@@ -1,7 +1,7 @@
 package com.shiro.service;
 
-import com.shiro.dao.OrganizationMapper;
-import com.shiro.entity.Organization;
+import com.shiro.mapper.OrganizationMapper;
+import com.shiro.model.Organization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,5 +1,6 @@
 package com.shiro;
 
+import com.shiro.realm.UserRealm;
 import com.shiro.service.UserService;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,18 @@ public class Test {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserRealm userRealm;
+
 
 
     @org.junit.Test
     public void changePassword() {
         userService.changePassword(1l, "123456");
+    }
+    @org.junit.Test
+    public void clearAllCache() {
+        userRealm.clearAllCache();
     }
 
 }

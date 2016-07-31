@@ -1,9 +1,9 @@
 package com.shiro.web.taglib;
 
 import com.shiro.Constants;
-import com.shiro.entity.Organization;
-import com.shiro.entity.Resource;
-import com.shiro.entity.Role;
+import com.shiro.model.Organization;
+import com.shiro.model.Resource;
+import com.shiro.model.Role;
 import com.shiro.service.OrganizationService;
 import com.shiro.service.ResourceService;
 import com.shiro.service.RoleService;

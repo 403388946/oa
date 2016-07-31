@@ -32,7 +32,7 @@
                 <td>${session.id}</td>
                 <td>${zhangfn:principal(session)}</td>
                 <td>${session.host}</td>
-                <td><fmt:formatDate value="${session.lastAccessTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                <td><fmt:formatDate value="${session.getLastAccessTime()}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                 <td>${zhangfn:isForceLogout(session) ? '是' : '否'}</td>
                 <td>
                     <c:if test="${not zhangfn:isForceLogout(session)}">
