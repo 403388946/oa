@@ -26,6 +26,7 @@ public class IndexController {
         Set<String> permissions = userService.findPermissions(loginUser.getUsername());
         List<Resource> menus = resourceService.findMenus(permissions);
         model.addAttribute("menus", menus);
+        //return this.userStylePath(user) + "/index";
         return "index";
     }
 

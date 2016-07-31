@@ -43,7 +43,7 @@
     <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
         <constructor-arg value="rememberMe"/>
         <property name="httpOnly" value="true"/>
-        <property name="maxAge" value="2592000"/><!-- 30天 -->
+        <property name="maxAge" value="300"/><!-- 30天 -->
     </bean>
 
     <!-- rememberMe管理器 -->
@@ -96,6 +96,7 @@
         <property name="usernameParam" value="username"/>
         <property name="passwordParam" value="password"/>
         <property name="rememberMeParam" value="rememberMe"/>
+        <!--只拦截这里的登录地址-->
         <property name="loginUrl" value="/login"/>
     </bean>
 
@@ -106,7 +107,9 @@
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
         <property name="loginUrl" value="/login"/>
+        <!--当没有首次访问路径时跳转这里-->
         <property name="successUrl" value="/index"/>
+        <property name="unauthorizedUrl" value="/login"/>
         <property name="filters">
             <util:map>
                 <entry key="authc" value-ref="formAuthenticationFilter"/>
@@ -116,10 +119,11 @@
         </property>
         <property name="filterChainDefinitions">
             <value>
+                /static/** = anon
                 /login = authc
                 /logout = logout
                 /authenticated = authc
-                /** = forceLogout,user,sysUser
+                /** = forceLogout,authc,sysUser
             </value>
         </property>
     </bean>
