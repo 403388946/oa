@@ -7,10 +7,7 @@ import com.oa.utils.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -59,9 +56,9 @@ public class EmployeeController {
      * @param employeeDto
      * @return
      */
-    @RequestMapping(value = "getEmployeeList", method = RequestMethod.GET)
+    @RequestMapping(value = "getEmployeeList", method = RequestMethod.POST)
     @ResponseBody
-    public Pagination<Employee> getEmployeeList(EmployeeDto employeeDto) {
+    public Pagination<Employee> getEmployeeList(@ModelAttribute("employee") EmployeeDto employeeDto) {
         Pagination<Employee> page = employeeService.findEmployeeByPage(employeeDto);
         return page;
     }

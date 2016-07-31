@@ -15,8 +15,20 @@
     <style type="text/css">
 
     </style>
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/css/compiled/theme_styles.css"/>
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/css/bootstrap/bootstrap.min.css"/>
+    <script src="${ctx}/static/js/bootstrap-datepicker/css/datepicker.css"></script>
+    <script src="${ctx}/static/js/jquery.js"></script>
+    <script src="${ctx}/static/js/bootstrap.js"></script>
+    <script src="${ctx}/static/js/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="${ctx}/static/js/moment.min.js"></script>
+    <script src="${ctx}/static/js/daterangepicker.js"></script>
     <script type="text/javascript" >
-
+$(function(){
+    $('#jionDate_datetimepicker').datepicker({
+        format: 'yyyy-mm-dd'
+    });
+});
     </script>
 </head>
 <body >
@@ -41,50 +53,56 @@
                                     <div class="main-box-body clearfix">
                                         <form role="form" class="form-horizontal">
                                             <div class="form-group">
-                                                <label class="col-lg-2 control-label" for="code">员工编号：</label>
-                                                <div class="col-lg-10">
+                                                <label class="col-lg-1 control-label" for="code">员工编号：</label>
+                                                <div class="col-lg-11">
                                                     <input type="text" placeholder="请输入员工编号" id="code" name="code" class="form-control" value="${employee.code}">
                                                     <input type="hidden" id="id" name="id" class="form-control" value="${employee.id}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-lg-2 control-label" for="name">员工姓名：</label>
-                                                <div class="col-lg-10">
+                                                <label class="col-lg-1 control-label" for="name">员工姓名：</label>
+                                                <div class="col-lg-11">
                                                     <input type="text" placeholder="请输入员工姓名" id="name" name="name" class="form-control" value="${employee.name}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-lg-2 control-label" for="name">身份证号：</label>
-                                                <div class="col-lg-10">
+                                                <label class="col-lg-1 control-label" for="name">身份证号：</label>
+                                                <div class="col-lg-11">
                                                     <input type="text" placeholder="请输入身份证号" id="idCard" name="idCard" class="form-control" value="${employee.idCard}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-lg-2 control-label" for="name">选择客户：</label>
-                                                <div class="col-lg-10">
-                                                    <input type="button" placeholder="请输入身份证号" id="selectCustom"  class="btn">
+                                                <label class="col-lg-1 control-label" for="name">选择客户：</label>
+                                                <div class="col-lg-11">
+                                                    <input type="button" value="选择客户" id="selectCustom"  class="btn">
                                                 </div>
-                                                <div class="col-lg-10">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-1 control-label" for="name"></label>
+                                                <div class="col-lg-11">
                                                     客户编号：<span id="custom-code">${employee.customCode}</span>
                                                     客户报价单号：<span id="custom-price-num">${employee.customPriceNum}</span>
                                                     客户姓名：<span id="custom-name">${employee.customName}</span>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-lg-2 control-label" for="jionDate">入职日期：</label>
-                                                <div class="col-lg-10">
+                                                <label class="col-lg-1 control-label" for="jionDate">入职日期：</label>
+                                                <div class="col-lg-11 input-group date"  id="jionDate_datetimepicker" data-date-format="yyyy-mm-dd">
+                                                    <span class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </span>
                                                     <input type="text" placeholder="请选择入职日期" id="jionDate" name="jionDate" class="form-control" value="${employee.jionDate}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-lg-2 control-label" for="payCode">工资卡号：</label>
-                                                <div class="col-lg-10">
+                                                <label class="col-lg-1 control-label" for="payCode">工资卡号：</label>
+                                                <div class="col-lg-11">
                                                     <input type="text" placeholder="请选择工资卡号" id="payCode" name="payCode" class="form-control" value="${employee.payCode}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-lg-2 control-label" for="serviceStatus">在职状态：</label>
-                                                <div class="col-lg-10">
+                                                <label class="col-lg-1 control-label" for="serviceStatus">在职状态：</label>
+                                                <div class="col-lg-11">
                                                     <select id="serviceStatus" name="serviceStatus">
                                                         <option value="">--请选择--</option>
                                                         <option value="0" <c:if test="${employee.serviceStatus == 0}">selected</c:if>>离职</option>
@@ -94,8 +112,8 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-lg-2 control-label" for="payCode">用工形式：</label>
-                                                <div class="col-lg-10">
+                                                <label class="col-lg-1 control-label" for="payCode">用工形式：</label>
+                                                <div class="col-lg-11">
                                                     <select id="employmentForm" name="employmentForm">
                                                         <option value="">--请选择--</option>
                                                         <option value="1" <c:if test="${employee.employmentForm == 1}">selected</c:if>>代理</option>
