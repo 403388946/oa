@@ -15,7 +15,7 @@ public class Employee {
     private String orderCode;//单号
     private String customCode;//客户编号
     private String customName;//客户名称
-    private String customPriceNum;//客户报价
+    private String customPriceNum;//客户报价单号
     private String payCode;//工资卡号
     private Integer serviceStatus;//在职状态 0离职 1在职 2离职申请中
     private Integer employmentForm;//用工形式 1代理 2派遣

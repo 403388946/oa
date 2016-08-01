@@ -2,8 +2,10 @@ package com.oa.mapper;
 
 import com.oa.dto.EmployeeDto;
 import com.oa.model.Employee;
+import com.oa.utils.Page;
 
 import java.util.List;
+import java.util.Map;
 
 public interface EmployeeMapper {
     int deleteByPrimaryKey(Long id);
@@ -18,7 +20,7 @@ public interface EmployeeMapper {
 
     int updateByPrimaryKey(EmployeeDto employee);
 
-    List<Employee> findEmployeeByPage(EmployeeDto empDto);
+    List<EmployeeDto> findEmployeeByPage(Page<EmployeeDto> page);
 
-    int findEmployeeByPageCount(EmployeeDto empDto);
+    List<EmployeeDto> selectEmployeeByMap(Map<String, Object> paramMap);
 }

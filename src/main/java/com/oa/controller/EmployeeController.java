@@ -3,6 +3,7 @@ package com.oa.controller;
 import com.oa.dto.EmployeeDto;
 import com.oa.model.Employee;
 import com.oa.service.EmployeeService;
+import com.oa.utils.Page;
 import com.oa.utils.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by 46637 on 2016/7/26.
@@ -52,15 +55,48 @@ public class EmployeeController {
     }
 
     /**
-     * 获取列表数据
-     * @param employeeDto
+     * 进入选择客户页
      * @return
      */
-    @RequestMapping(value = "getEmployeeList", method = RequestMethod.POST)
+    @RequestMapping(value = "customerList", method = RequestMethod.GET)
+    public String customerList() {
+        return "/employee/customerList";
+    }
+
+    /**
+     * 获取列表数据
+     * @param offset
+     * @param limit
+     * @param code
+     * @param name
+     * @param idCard
+     * @param customName
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "getEmployeeList")
     @ResponseBody
-    public Pagination<Employee> getEmployeeList(@ModelAttribute("employee") EmployeeDto employeeDto) {
-        Pagination<Employee> page = employeeService.findEmployeeByPage(employeeDto);
-        return page;
+    public Page<EmployeeDto> getEmployeeList(
+            @RequestParam("offset") int offset,
+            @RequestParam("limit") int limit,
+            @RequestParam(value = "code", defaultValue = "", required = false) String code,
+            @RequestParam(value = "name", defaultValue = "", required = false) String name,
+            @RequestParam(value = "idCard", defaultValue = "", required = false) String idCard,
+            @RequestParam(value = "customName", defaultValue = "", required = false) String customName,
+            HttpServletRequest request,HttpServletResponse response, Model model) {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("code", code);
+        paramMap.put("name", name);
+        paramMap.put("idCard", idCard);
+        paramMap.put("customName", customName);
+        Page<EmployeeDto> pages = new Page<EmployeeDto>();
+        pages.setOffset(offset);
+        pages.setLimit(limit);
+        pages.setParamMap(paramMap);
+        pages = employeeService.findEmployeeByPage(pages);
+        return pages;
     }
 
     /**
@@ -80,8 +116,17 @@ public class EmployeeController {
      * @param response
      */
     @RequestMapping(value = "exportExcel", method = RequestMethod.GET)
-    public void exportExcel(EmployeeDto employeeDto, HttpServletRequest request, HttpServletResponse response) {
-        List<Employee> list = employeeService.selectEmployee(employeeDto);
+    public void exportExcel( @RequestParam(value = "code", defaultValue = "") String code,
+                             @RequestParam(value = "name", defaultValue = "") String name,
+                             @RequestParam(value = "idCard", defaultValue = "") String idCard,
+                             @RequestParam(value = "customName", defaultValue = "") String customName,
+                             HttpServletRequest request, HttpServletResponse response) {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("code", code);
+        paramMap.put("name", name);
+        paramMap.put("idCard", idCard);
+        paramMap.put("customName", customName);
+        List<EmployeeDto> list = employeeService.selectEmployee(paramMap);
         if (list != null && list.size() > 0) {
             employeeService.export(list, request, response);
         }

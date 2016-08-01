@@ -5,6 +5,7 @@ import com.oa.mapper.EmployeeMapper;
 import com.oa.model.Employee;
 import com.oa.service.EmployeeService;
 import com.oa.utils.ExcelData;
+import com.oa.utils.Page;
 import com.oa.utils.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,23 +35,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeMapper.updateByPrimaryKey(emp);
     }
 
-    public Pagination<Employee> findEmployeeByPage(EmployeeDto empDto) {
-        Pagination<Employee> page = new Pagination<Employee>();
-        List<Employee> list = employeeMapper.findEmployeeByPage(empDto);
-        if (list == null || list.size() == 0) {
-            page.setRows(list);
-            page.setTotal(0);
-        } else {
-            //查询留言与议价总数
-            int total = employeeMapper.findEmployeeByPageCount(empDto);
-            page.setRows(list);
-            page.setTotal(total);
-        }
+    public Page<EmployeeDto> findEmployeeByPage(Page<EmployeeDto> page) {
+        List<EmployeeDto> list = employeeMapper.findEmployeeByPage(page);
+        page.setRows(list);
         return page;
     }
 
-    public List<Employee> selectEmployee(EmployeeDto empDto) {
-        List<Employee> list = employeeMapper.findEmployeeByPage(empDto);
+    public List<EmployeeDto> selectEmployee(Map<String, Object> paramMap) {
+        List<EmployeeDto> list = employeeMapper.selectEmployeeByMap(paramMap);
         return list;
     }
 
@@ -64,7 +56,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param request   请求
      * @param response  响应
      */
-    public void export(List<Employee> emps, HttpServletRequest request, HttpServletResponse response) {
+    public void export(List<EmployeeDto> emps, HttpServletRequest request, HttpServletResponse response) {
         //sheet
         List<List<String>> fileData = new ArrayList();
         //文件头-第一行
