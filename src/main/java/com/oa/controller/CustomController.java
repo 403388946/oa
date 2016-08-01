@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.util.WebUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * 客户管理
@@ -40,9 +44,9 @@ public class CustomController {
     }
 
 
-    @RequestMapping(value = "findData", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "findData",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public String findData(@ModelAttribute("param")CustomDto param) {
+    public String findData(HttpServletRequest request, @ModelAttribute("param")CustomDto param) {
         Pagination<Custom> customs = customService.findCustomByPage(param, 0, 10);
         return JSON.toJSONString(customs);
     }

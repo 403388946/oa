@@ -52,7 +52,9 @@ public class CustomServiceImpl implements CustomService {
         Pagination<Custom> page = new Pagination<>();
         page.setCurrentPage(currentPage);
         page.setPageSize(pageSize);
-        List<Custom> customs = customMapper.findCustomByPage(param, startItem, pageSize);
+        param.setStartItem(startItem);
+        param.setPageSize(pageSize);
+        List<Custom> customs = customMapper.findCustomByPage(param);
         Integer total = customMapper.findCustomByPageCount(param);
         page.setRows(customs);
         page.setTotal(total);

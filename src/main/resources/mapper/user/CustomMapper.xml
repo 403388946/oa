@@ -51,29 +51,29 @@
     WHERE id = #{id}
   </select>
 
-  <select id="findCustomByPage" resultMap="BaseResultMap" parameterType="com.oa.dto.EmployeeDto" >
-    select
+  <select id="findCustomByPage" resultMap="BaseResultMap" parameterType="com.oa.dto.CustomDto" >
+    SELECT
     <include refid="Base_Column_List" />
-    from oa_custom
-    where is_del = 0
+    FROM oa_custom
+    WHERE is_del = 0
     <if test="code != null and code != ''" >
-      code like concat('%',replace(#{code,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+      ,AND code LIKE #{code}
     </if>
     <if test="name != null and name != ''" >
-      name  like concat('%',replace(#{name,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+      ,AND name  LIKE #{name}
     </if>
-    limit #{start},#{rows}
+    limit #{startItem},#{pageSize}
   </select>
-  <select id="findCustomByPageCount" resultType="java.lang.Integer" parameterType="com.oa.dto.EmployeeDto" >
-    select
-    count(1);
-    from oa_custom
-    where is_del = 0
+  <select id="findCustomByPageCount" parameterType="com.oa.dto.CustomDto" resultType="java.lang.Integer">
+    SELECT
+    COUNT(1)
+    FROM oa_custom
+    WHERE is_del = 0
     <if test="code != null and code != ''" >
-      code like concat('%',replace(#{code,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+      ,AND code LIKE #{code}
     </if>
     <if test="name != null and name != ''" >
-      name  like concat('%',replace(#{name,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+      ,AND name  LIKE #{name}
     </if>
   </select>
 </mapper>

@@ -4,7 +4,7 @@ delete from sys_role;
 delete from sys_resource;
 delete from sys_organization;
 
-insert into sys_user values(1,1,'admin','d3c59d25033dbf980d29554025c23a75','8d78869f470951332959580424d4bf4f', '1', false);
+insert into sys_user values(1,1,'admin','a90faad70f1a0dac2664cfd2f8d701cd','7a087888dc3f90ef5da8dafe9508efb7', '1', false);
 insert into sys_organization values(1, '总公司', 0, '0/', true);
 insert into sys_organization values(2, '分公司1', 1, '0/1/', true);
 insert into sys_organization values(3, '分公司2', 1, '0/1/', true);

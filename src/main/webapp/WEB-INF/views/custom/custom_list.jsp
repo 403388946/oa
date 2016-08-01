@@ -8,6 +8,13 @@
     <style type="text/css">
 
     </style>
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/css/compiled/theme_styles.css"/>
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/css/bootstrap/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/css/bootstrap/bootstrap-table.css"/>
+    <script src="${ctx}/static/js/jquery.js"></script>
+    <script src="${ctx}/static/js/bootstrap.js"></script>
+    <script src="${ctx}/static/js/bootstrap-table.js"></script>
+    <script src="${ctx}/static/js/bootstrap-table-zh-CN.js"></script>
     <script type="text/javascript" >
         $(function () {
             initTable();
@@ -24,30 +31,31 @@
         //初始化表格
         function initTable(){
              $('#customs').bootstrapTable({
-                method: 'post',
-                contentType: "application/x-www-form-urlencoded",
-                url: "${ctx}/custom/findData",
-                height: $(window).height() - 200,
-                striped: true,
-                pagination: true,
-                singleSelect: false,
-                pageSize: 10,
-                pageList: [10, 50],
-                search: false, //不显示 搜索框
-                showColumns: false, //不显示下拉框（选择显示的列）
-                sidePagination: "server", //服务端请求
-                queryParams: {param : {
+                 method: 'post',
+                 contentType: "application/json",
+                 url: "${ctx}/custom/findData.json",
+                 height: $(window).height() - 200,
+                 striped: true,
+                 pagination: true,
+                 singleSelect: false,
+                 showToggle: true,
+                 pageSize: 10,
+                 pageList: [10, 50],
+                 search: false, //不显示 搜索框
+                 showColumns: true, //不显示下拉框（选择显示的列）
+                 sidePagination: "server", //服务端请求
+                 queryParams: {param : {
                     code: $('#code').val(),
                     name: $('#name').val()
-                }
-                },
-                minimunCountColumns: 2,
+                 }
+                 },
+                 minimunCountColumns: 2,
                  columns: [
                      {field: 'id', checkbox: true},
-                     {field: 'code', title: '编号', width: 100,align: 'center',valign: 'middle',sortable: true},
-                     {field: 'name', title: '姓名', width: 100,align: 'center',valign: 'middle',sortable: true,formatter: nameFormatter},
+                     {field: 'code', title: '客户编号', width: 100,align: 'center',valign: 'middle',sortable: true},
+                     {field: 'name', title: '客户名称', width: 100,align: 'center',valign: 'middle',sortable: true},
                      {field: 'operation', title: '操作', width: 100,align: 'center',valign: 'middle',sortable: true,formatter: function(value,row,index){
-                         return "<a href=''>修改</a><a href=''>上传电子文件</a>";
+                         return "<a href=''>修改</a><a href=''>删除</a>";
                      }}
                  ],
                 onLoadError: function () {alert("数据加载失败！");}
@@ -56,6 +64,10 @@
 
         //查询
         function queryParams() {
+            $("#customs").bootstrapTable.queryParams = {param : {
+                code: $('#code').val(),
+                name: $('#name').val()
+            }};
             $("#customs").bootstrapTable('refresh');
         }
     </script>
