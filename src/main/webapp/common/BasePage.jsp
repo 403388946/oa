@@ -9,9 +9,31 @@
     <style type="text/css">
 
     </style>
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/css/bootstrap/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/css/bootstrap/bootstrap-table.css"/>
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/css/libs/font-awesome.css"/>
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/css/libs/nanoscroller.css"/>
+    <link  rel="stylesheet" src="${ctx}/static/js/bootstrap-datepicker/css/datepicker.css"/>
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/css/compiled/theme_styles.css"/>
+    <link rel="stylesheet" href="${ctx}/static/css/libs/fullcalendar.css" type="text/css"/>
+    <link rel="stylesheet" href="${ctx}/static/css/compiled/calendar.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="${ctx}/static/css/libs/morris.css" type="text/css"/>
+    <link rel="stylesheet" href="${ctx}/static/css/libs/daterangepicker.css" type="text/css"/>
+    <script src="${ctx}/static/js/jquery.js"></script>
+    <script src="${ctx}/static/js/bootstrap.js"></script>
+    <script src="${ctx}/static/js/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="${ctx}/static/js/moment.min.js"></script>
+    <script src="${ctx}/static/js/daterangepicker.js"></script>
+    <link type="image/x-icon" href="favicon.png" rel="shortcut icon"/>
+    <script src="${ctx}/static/js/demo-rtl.js"></script>
+
+    <style>
+
+    </style>
     <script type="text/javascript" >
 
     </script>
+    <sitemesh:write property='head' />
 </head>
 <body >
     <div id="theme-wrapper">
@@ -25,9 +47,11 @@
                 <!--左边导航结束-->
                 <div id="content-wrapper" class="email-inbox-wrapper">
                     <div class="row" style="opacity: 1;">
-                        <div class="col-lg-12">
+                        <div class="col-lg-12" id="main_view">
                             <!--正文开始-->
                             <!--正文结束-->
+                            <sitemesh:write property='body' />
+
                         </div>
                     </div>
                     <!--结尾开始-->

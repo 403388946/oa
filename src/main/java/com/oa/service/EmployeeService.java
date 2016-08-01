@@ -2,12 +2,14 @@ package com.oa.service;
 
 import com.oa.dto.EmployeeDto;
 import com.oa.model.Employee;
+import com.oa.utils.Page;
 import com.oa.utils.Pagination;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by 46637 on 2016/7/26.
@@ -29,17 +31,17 @@ public interface EmployeeService {
 
     /**
      * 分页查询
-     * @param empDto
+     * @param pages
      * @return
      */
-    Pagination<Employee> findEmployeeByPage(EmployeeDto empDto);
+    Page<EmployeeDto> findEmployeeByPage(Page<EmployeeDto> pages);
 
     /**
      * 按条件查询员工
-     * @param empDto
+     * @param paramMap
      * @return
      */
-    List<Employee> selectEmployee(EmployeeDto empDto);
+    List<EmployeeDto> selectEmployee(Map<String, Object> paramMap);
 
     /**
      * 根据id查询员工信息
@@ -54,5 +56,5 @@ public interface EmployeeService {
      * @param request   请求
      * @param response  响应
      */
-    public void export(List<Employee> emps, HttpServletRequest request, HttpServletResponse response);
+    public void export(List<EmployeeDto> emps, HttpServletRequest request, HttpServletResponse response);
 }

@@ -47,22 +47,24 @@
         });
         //初始化表格
         function initTable(){
+
              $('#employeeList').bootstrapTable({
-                method: 'post',
-                contentType: "application/x-www-form-urlencoded",
+                method: 'get',
+                cache : false,
+                sidePagination : 'server',//服务端请求
                 url: "${ctx}/employee/getEmployeeList",
                 height: $(window).height() -150,
                 striped: false,
-                pagination: true,
+                pagination : 'server',
+                showRefresh : true,
                 singleSelect: false,
-                 showToggle:true,
+                showToggle:true,
                 sortable: false,           //是否启用排序
-                pageSize: 50,
+                pagination : true,
+                pageSize: 10,
                 pageList: [10, 50, 100, 200, 500],
                 search: false, //不显示 搜索框
                 showColumns: true, //不显示下拉框（选择显示的列）
-                sidePagination: "server", //服务端请求
-                queryParams: queryParams(),
                 minimunCountColumns: 2,
                  columns: [
                      {field: 'id', checkbox: true},
@@ -84,32 +86,14 @@
                  ],
 //                onLoadError: function () {alert("数据加载失败！");}
             });
-
-
-
         }
 
-        //得到查询的参数
-        function  queryParams(params) {
-            var employee ={
-//                rows: params.limit,  //页面大小
-//                start: params.offset, //页码
-                code : $('#code').val(),
-                name : $('#name').val(),
-                idCard : $('#idCard').val(),
-                customName : $('#customName').val()
-            }
-            return employee;
-        };
         //查询
         function search() {
-            var url = "${ctx}/employee/getEmployeeList?code" + $('#code').val() +"&name="
+            var url = "${ctx}/employee/getEmployeeList?code=" + $('#code').val() +"&name="
                     + $('#name').val() +"&idCard=" + $('#idCard').val() +"&customName=" +$('#customName').val();
-            $("#employeeList").bootstrapTable('refresh', url);
+            $("#employeeList").bootstrapTable('refresh',{url:url});
         }
-
-
-
     </script>
 </head>
 <body >
@@ -122,39 +106,36 @@
             <!--左边导航开始-->
             <jsp:include page="/common/left.jsp"/>
             <!--左边导航结束-->
+
             <div id="content-wrapper" class="email-inbox-wrapper">
                 <div class="row" style="opacity: 1;">
                     <!--正文开始-->
                     <div class="col-lg-12 ">
-                        <table  class="table search-table">
-                            <tbody>
-                            <tr>
-                                <th>编号</th>
-                                <td>
-                                    <input type="text" class="m-wrap input-medium" id="code" name="code" value="" />
-                                </td>
-                                <th>姓名</th>
-                                <td>
-                                    <input type="text" class="m-wrap input-medium" id="name" name="name" value="" />
-                                </td>
-                                <th>身份证号码</th>
-                                <td>
-                                    <input type="text" class="m-wrap input-medium" id="idCard" name="idCard" value="" />
-                                </td>
-                                <th>客户名称</th>
-                                <td>
-                                    <input type="text" class="m-wrap input-medium" id="customName" name="customName" value="" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="8" style="text-align: right;">
-                                    <button type="button" id="g_search" class="btn mini green">查询</button>
-                                    <button type="button" id="g_reset" class="btn mini green">重置</button>
-                                    <a href="${ctx}/employee/exportExcel" id="g_import" class="btn mini green">导出</a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                        <div id="custom-toolbar">
+                            <div class="form-inline" role="form" id="serch_div">
+                                <div class="form-group">
+                                    编号：<input type="text" class="form-control" id="code" name="code" placeholder="请输入员工编号" />
+                                </div>
+                                <div class="form-group">
+                                    姓名：<input type="text" name="name" id="name" class="form-control" placeholder="请输入员工名称" />
+                                </div>
+                                <div class="form-group">
+                                    身份证号码:<input type="text" id="idCard" name="idCard" class="form-control" placeholder="输入身份证号码" />
+                                </div>
+                                <div class="form-group">
+                                    客户名称:<input type="text" id="customName" name="customName" class="form-control" placeholder="输入客户名称" />
+                                </div>
+                                <button type="button" id="g_search" class="btn btn-default ">
+                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                    查询
+                                </button>
+                                <button type="button" id="g_reset" class="btn btn-default ">
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    清空查询
+                                </button>
+                                <a href="${ctx}/employee/exportExcel" id="g_import" class="btn btn-default">导出</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-lg-12">
                         <table id="employeeList" class="table table-bordered">

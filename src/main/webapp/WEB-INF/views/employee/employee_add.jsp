@@ -17,7 +17,7 @@
     </style>
     <link rel="stylesheet" type="text/css" href="${ctx}/static/css/compiled/theme_styles.css"/>
     <link rel="stylesheet" type="text/css" href="${ctx}/static/css/bootstrap/bootstrap.min.css"/>
-    <script src="${ctx}/static/js/bootstrap-datepicker/css/datepicker.css"></script>
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/js/bootstrap-datepicker/css/datepicker.css"/>
     <script src="${ctx}/static/js/jquery.js"></script>
     <script src="${ctx}/static/js/bootstrap.js"></script>
     <script src="${ctx}/static/js/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
@@ -25,8 +25,17 @@
     <script src="${ctx}/static/js/daterangepicker.js"></script>
     <script type="text/javascript" >
 $(function(){
-    $('#jionDate_datetimepicker').datepicker({
-        format: 'yyyy-mm-dd'
+    $(".datetimepicker").datepicker({
+        autoclose : true,// 选中之后自动隐藏日期选择框
+        language : "zh-CN",
+        format : "yyyy-mm-dd"// 日期格式，详见
+    });
+    /*会员列表*/
+    $('#selectCustom').click(function(){
+        $('#customer-modal').on('show.bs.modal', function () {
+            $('#customer_div').load('${ctx}/employee/customerList');
+            $("#customer-select").css("display","inline-block");
+        });
     });
 });
     </script>
@@ -59,51 +68,68 @@ $(function(){
                                                     <input type="hidden" id="id" name="id" class="form-control" value="${employee.id}">
                                                 </div>
                                             </div>
+                                            <br>
+
                                             <div class="form-group">
                                                 <label class="col-lg-1 control-label" for="name">员工姓名：</label>
                                                 <div class="col-lg-11">
                                                     <input type="text" placeholder="请输入员工姓名" id="name" name="name" class="form-control" value="${employee.name}">
                                                 </div>
                                             </div>
+                                            <br>
                                             <div class="form-group">
                                                 <label class="col-lg-1 control-label" for="name">身份证号：</label>
                                                 <div class="col-lg-11">
                                                     <input type="text" placeholder="请输入身份证号" id="idCard" name="idCard" class="form-control" value="${employee.idCard}">
                                                 </div>
                                             </div>
+                                            <br>
                                             <div class="form-group">
                                                 <label class="col-lg-1 control-label" for="name">选择客户：</label>
                                                 <div class="col-lg-11">
-                                                    <input type="button" value="选择客户" id="selectCustom"  class="btn">
+                                                    <input type="button" value="选择客户" id="selectCustom"  class="btn btn-default" data-toggle="modal" data-target="#customer-modal" name="customer" placeholder="请选择客户" readonly="readonly">
                                                 </div>
                                             </div>
+                                            <br>
                                             <div class="form-group">
-                                                <label class="col-lg-1 control-label" for="name"></label>
+                                                <label class="col-lg-1 control-label" for="name">客户编号：</label>
                                                 <div class="col-lg-11">
-                                                    客户编号：<span id="custom-code">${employee.customCode}</span>
-                                                    客户报价单号：<span id="custom-price-num">${employee.customPriceNum}</span>
-                                                    客户姓名：<span id="custom-name">${employee.customName}</span>
+                                                    <input type="text" placeholder="客户编号" id="customCode" name="customCode" class="form-control" value="${employee.customCode}" readonly="readonly">
+                                                </div>
+                                            </div><br>
+                                            <div class="form-group">
+                                                <label class="col-lg-1 control-label" for="name">客户姓名：</label>
+                                                <div class="col-lg-11">
+                                                    <input type="text" placeholder="客户姓名" id="customName" name="customName" class="form-control" value="${employee.customName}" readonly="readonly">
                                                 </div>
                                             </div>
+                                            <br>
+                                            <div class="form-group">
+                                                <label class="col-lg-1 control-label" for="name">客户报价单号：</label>
+                                                <div class="col-lg-11">
+                                                    <input type="text" placeholder="请输入客户报价单号" id="customPriceNum" name="customPriceNum" class="form-control" value="${employee.customPriceNum}">
+                                                </div>
+                                            </div><br>
                                             <div class="form-group">
                                                 <label class="col-lg-1 control-label" for="jionDate">入职日期：</label>
-                                                <div class="col-lg-11 input-group date"  id="jionDate_datetimepicker" data-date-format="yyyy-mm-dd">
-                                                    <span class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
-                                                    </span>
-                                                    <input type="text" placeholder="请选择入职日期" id="jionDate" name="jionDate" class="form-control" value="${employee.jionDate}">
+                                                <div class="col-lg-11 input-group">
+                                                    <%--<span class="input-group-addon datetimepicker" id="jionDate_datetimepicker">--%>
+                                                        <%--<i class="fa fa-calendar"></i>--%>
+                                                    <%--</span>--%>
+                                                    <input type="text" placeholder="请选择入职日期" id="jionDate" name="jionDate" class="form-control datetimepicker" value="${employee.jionDate}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-lg-1 control-label" for="payCode">工资卡号：</label>
                                                 <div class="col-lg-11">
-                                                    <input type="text" placeholder="请选择工资卡号" id="payCode" name="payCode" class="form-control" value="${employee.payCode}">
+                                                    <input type="text" placeholder="请输入工资卡号" id="payCode" name="payCode" class="form-control" value="${employee.payCode}">
                                                 </div>
                                             </div>
+                                            <br>
                                             <div class="form-group">
                                                 <label class="col-lg-1 control-label" for="serviceStatus">在职状态：</label>
                                                 <div class="col-lg-11">
-                                                    <select id="serviceStatus" name="serviceStatus">
+                                                    <select id="serviceStatus" name="serviceStatus" class="form-control">
                                                         <option value="">--请选择--</option>
                                                         <option value="0" <c:if test="${employee.serviceStatus == 0}">selected</c:if>>离职</option>
                                                         <option value="1" <c:if test="${employee.serviceStatus == 1}">selected</c:if>>在职</option>
@@ -111,21 +137,21 @@ $(function(){
                                                     </select>
                                                 </div>
                                             </div>
+                                            <br>
                                             <div class="form-group">
                                                 <label class="col-lg-1 control-label" for="payCode">用工形式：</label>
                                                 <div class="col-lg-11">
-                                                    <select id="employmentForm" name="employmentForm">
+                                                    <select id="employmentForm" name="employmentForm" class="form-control">
                                                         <option value="">--请选择--</option>
                                                         <option value="1" <c:if test="${employee.employmentForm == 1}">selected</c:if>>代理</option>
                                                         <option value="2" <c:if test="${employee.employmentForm == 2}">selected</c:if>>派遣</option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <div class="col-lg-offset-2 col-lg-10">
+                                            <br>
+                                            <div class="modal-footer">
                                                     <button class="btn btn-success" type="submit">保存</button>
                                                     <button class="btn btn-cancel" type="reset">取消</button>
-                                                </div>
                                             </div>
                                         </form>
                                     </div>
@@ -140,6 +166,25 @@ $(function(){
             </div>
         </div>
     </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="customer-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">选择会员</h4>
+            </div>
+            <div id="customer_div" class="modal-body" >
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="customer-select" >确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
 </div>
 </body>
 </html>

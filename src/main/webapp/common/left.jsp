@@ -25,7 +25,7 @@
                     <li class="">
                         <a class="dropdown-toggle" href="#">
                             <i class="fa fa-table"></i>
-                            <span>Tables</span>
+                            <span>客户管理</span>
                             <i class="fa fa-chevron-circle-right drop-icon"></i>
                         </a>
                         <ul class="submenu" style="display: none;">

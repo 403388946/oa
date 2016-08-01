@@ -17,6 +17,7 @@
         <logback.version>1.1.1</logback.version>
         <jackson.version>2.3.2</jackson.version>
         <guava.version>16.0.1</guava.version>
+        <sitemesh.version>3.0.0</sitemesh.version>
     </properties>
     <profiles>
         <profile>
@@ -295,6 +296,13 @@
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
+        </dependency>
+
+        <!-- sitemesh -->
+        <dependency>
+            <groupId>org.sitemesh</groupId>
+            <artifactId>sitemesh</artifactId>
+            <version>${sitemesh.version}</version>
         </dependency>
         <!-- 展示 end -->
         <dependency>
