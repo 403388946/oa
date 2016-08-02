@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemesh>
+	<mapping path="/login" exclude="true" />
+	<mapping path="/static/*" exclude="true" />
+	<mapping path="/oa/index" decorator="../common/BasePage.jsp" />
+</sitemesh>
