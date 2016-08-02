@@ -18,26 +18,17 @@
     <link rel="stylesheet" type="text/css" href="${ctx}/static/css/compiled/theme_styles.css"/>
     <link rel="stylesheet" type="text/css" href="${ctx}/static/css/bootstrap/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="${ctx}/static/js/bootstrap-datepicker/css/datepicker.css"/>
+    <link href="${ctx}/static/js/bootstrapvalidator/css/bootstrapValidator.min.css" type="text/css" rel="stylesheet" />
     <script src="${ctx}/static/js/jquery.js"></script>
     <script src="${ctx}/static/js/bootstrap.js"></script>
     <script src="${ctx}/static/js/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
     <script src="${ctx}/static/js/moment.min.js"></script>
     <script src="${ctx}/static/js/daterangepicker.js"></script>
+    <script src="${ctx}/static/js/bootstrapvalidator/js/bootstrapValidator.min.js"></script>
+    <script src="${ctx}/static/js/employee/employeeAdd.js"></script>
+
     <script type="text/javascript" >
-$(function(){
-    $(".datetimepicker").datepicker({
-        autoclose : true,// 选中之后自动隐藏日期选择框
-        language : "zh-CN",
-        format : "yyyy-mm-dd"// 日期格式，详见
-    });
-    /*会员列表*/
-    $('#selectCustom').click(function(){
-        $('#customer-modal').on('show.bs.modal', function () {
-            $('#customer_div').load('${ctx}/employee/customerList');
-            $("#customer-select").css("display","inline-block");
-        });
-    });
-});
+        var ctx_ = "${ctx}";
     </script>
 </head>
 <body >
@@ -54,13 +45,12 @@ $(function(){
                 <div class="row" style="opacity: 1;">
                     <div class="col-lg-12">
                         <!--正文开始-->
-                            <form action="${ctx}/employee/save">
                                 <div class="main-box">
                                     <header class="main-box-header clearfix">
                                         <h2>新增员工信息</h2>
                                     </header>
                                     <div class="main-box-body clearfix">
-                                        <form role="form" class="form-horizontal">
+                                        <form action="${ctx}/employee/save" id="editFoem" role="form" class="form-horizontal">
                                             <div class="form-group">
                                                 <label class="col-lg-1 control-label" for="code">员工编号：</label>
                                                 <div class="col-lg-11">
@@ -78,14 +68,14 @@ $(function(){
                                             </div>
                                             <br>
                                             <div class="form-group">
-                                                <label class="col-lg-1 control-label" for="name">身份证号：</label>
+                                                <label class="col-lg-1 control-label" for="idCard">身份证号：</label>
                                                 <div class="col-lg-11">
                                                     <input type="text" placeholder="请输入身份证号" id="idCard" name="idCard" class="form-control" value="${employee.idCard}">
                                                 </div>
                                             </div>
                                             <br>
                                             <div class="form-group">
-                                                <label class="col-lg-1 control-label" for="name">选择客户：</label>
+                                                <label class="col-lg-1 control-label" for="selectCustom">选择客户：</label>
                                                 <div class="col-lg-11">
                                                     <input type="button" value="选择客户" id="selectCustom"  class="btn btn-default" data-toggle="modal" data-target="#customer-modal" name="customer" placeholder="请选择客户" readonly="readonly">
                                                 </div>
@@ -98,14 +88,14 @@ $(function(){
                                                 </div>
                                             </div><br>
                                             <div class="form-group">
-                                                <label class="col-lg-1 control-label" for="name">客户姓名：</label>
+                                                <label class="col-lg-1 control-label" for="customName">客户姓名：</label>
                                                 <div class="col-lg-11">
                                                     <input type="text" placeholder="客户姓名" id="customName" name="customName" class="form-control" value="${employee.customName}" readonly="readonly">
                                                 </div>
                                             </div>
                                             <br>
                                             <div class="form-group">
-                                                <label class="col-lg-1 control-label" for="name">客户报价单号：</label>
+                                                <label class="col-lg-1 control-label" for="customPriceNum">客户报价单号：</label>
                                                 <div class="col-lg-11">
                                                     <input type="text" placeholder="请输入客户报价单号" id="customPriceNum" name="customPriceNum" class="form-control" value="${employee.customPriceNum}">
                                                 </div>
@@ -139,7 +129,7 @@ $(function(){
                                             </div>
                                             <br>
                                             <div class="form-group">
-                                                <label class="col-lg-1 control-label" for="payCode">用工形式：</label>
+                                                <label class="col-lg-1 control-label" for="employmentForm">用工形式：</label>
                                                 <div class="col-lg-11">
                                                     <select id="employmentForm" name="employmentForm" class="form-control">
                                                         <option value="">--请选择--</option>
@@ -156,7 +146,6 @@ $(function(){
                                         </form>
                                     </div>
                                 </div>
-                            </form>
                         <!--正文结束-->
                     </div>
                 </div>

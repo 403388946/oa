@@ -7,7 +7,7 @@
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="id_card" property="idCard" jdbcType="VARCHAR" />
     <result column="custom_code" property="customCode" jdbcType="VARCHAR" />
-    <result column="custom_price" property="customPriceNum" jdbcType="VARCHAR" />
+    <result column="custom_price_num" property="customPriceNum" jdbcType="VARCHAR" />
     <result column="order_code" property="orderCode" jdbcType="VARCHAR" />
     <result column="custom_name" property="customName" jdbcType="VARCHAR" />
     <result column="join_date" property="jionDate" jdbcType="TIMESTAMP" />
@@ -21,7 +21,7 @@
     <result column="is_del" property="isDel" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, code, name, id_card, custom_code, custom_price, order_code, custom_name, join_date, 
+    id, code, name, id_card, custom_code, custom_price_num, order_code, custom_name, join_date,
     pay_code, service_status, employment_form, create_time, creater, update_time, updater, 
     is_del
   </sql>
@@ -37,13 +37,13 @@
   </delete>
   <insert id="insert" parameterType="com.oa.dto.EmployeeDto" >
     insert into oa_employee (id, code, name, 
-      id_card, custom_code, custom_price, 
+      id_card, custom_code, custom_price_num,
       order_code, custom_name, join_date, 
       pay_code, service_status, employment_form, 
       create_time, creater, update_time, 
       updater, is_del)
     values (#{id,jdbcType=BIGINT}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{idCard,jdbcType=VARCHAR}, #{customCode,jdbcType=VARCHAR}, #{customPrice,jdbcType=DECIMAL}, 
+      #{idCard,jdbcType=VARCHAR}, #{customCode,jdbcType=VARCHAR}, #{customPriceNum,jdbcType=DECIMAL},
       #{orderCode,jdbcType=VARCHAR}, #{customName,jdbcType=VARCHAR}, #{joinDate,jdbcType=TIMESTAMP}, 
       #{payCode,jdbcType=VARCHAR}, #{serviceStatus,jdbcType=INTEGER}, #{employmentForm,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, 
@@ -67,8 +67,8 @@
       <if test="customCode != null" >
         custom_code,
       </if>
-      <if test="customPrice != null" >
-        custom_price,
+      <if test="customPriceNum != null" >
+        custom_price_num,
       </if>
       <if test="orderCode != null" >
         order_code,
@@ -120,8 +120,8 @@
       <if test="customCode != null" >
         #{customCode,jdbcType=VARCHAR},
       </if>
-      <if test="customPrice != null" >
-        #{customPrice,jdbcType=DECIMAL},
+      <if test="customPriceNum != null" >
+        #{customPriceNum,jdbcType=DECIMAL},
       </if>
       <if test="orderCode != null" >
         #{orderCode,jdbcType=VARCHAR},
@@ -173,8 +173,8 @@
       <if test="customCode != null" >
         custom_code = #{customCode,jdbcType=VARCHAR},
       </if>
-      <if test="customPrice != null" >
-        custom_price = #{customPrice,jdbcType=DECIMAL},
+      <if test="customPriceNum != null" >
+        custom_price_num = #{customPriceNum,jdbcType=DECIMAL},
       </if>
       <if test="orderCode != null" >
         order_code = #{orderCode,jdbcType=VARCHAR},
@@ -218,7 +218,7 @@
       name = #{name,jdbcType=VARCHAR},
       id_card = #{idCard,jdbcType=VARCHAR},
       custom_code = #{customCode,jdbcType=VARCHAR},
-      custom_price = #{customPrice,jdbcType=DECIMAL},
+      custom_price_num = #{customPriceNum,jdbcType=DECIMAL},
       order_code = #{orderCode,jdbcType=VARCHAR},
       custom_name = #{customName,jdbcType=VARCHAR},
       join_date = #{joinDate,jdbcType=TIMESTAMP},

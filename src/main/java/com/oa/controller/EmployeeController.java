@@ -6,12 +6,16 @@ import com.oa.service.EmployeeService;
 import com.oa.utils.Page;
 import com.oa.utils.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -108,6 +112,14 @@ public class EmployeeController {
     public String save(EmployeeDto employeeDto) {
         employeeService.save(employeeDto);
         return "/employee/employee_list";
+    }
+
+    @InitBinder
+    public void initBinder(ServletRequestDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(
+                dateFormat, true));
     }
 
     /**
