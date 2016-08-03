@@ -40,11 +40,9 @@ public interface CustomService {
      * 分页查询客户
      * @author YiMing
      * @param param
-     * @param currentPage
-     * @param pageSize
      * @return
      */
-    Pagination<Custom> findCustomByPage(CustomDto param, Integer currentPage, Integer pageSize);
+    Pagination<Custom> findCustomByPage(CustomDto param);
 
     /**
      * 统计所有符合条件的客户数量

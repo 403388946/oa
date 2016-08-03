@@ -20,8 +20,8 @@
             initTable();
             //重置
             $("#g_reset").bind("click", function(){
-                $('#code').val('');
-                $('#name').val('') ;
+                $('#code_').val('');
+                $('#name_').val('') ;
             });
             //查询
             $("#g_search").bind("click", function(){
@@ -32,7 +32,7 @@
         function initTable(){
              $('#customs').bootstrapTable({
                  method: 'post',
-                 contentType: "application/json",
+                 contentType: "json",
                  url: "${ctx}/custom/findData.json",
                  height: $(window).height() - 200,
                  striped: true,
@@ -44,10 +44,9 @@
                  search: false, //不显示 搜索框
                  showColumns: true, //不显示下拉框（选择显示的列）
                  sidePagination: "server", //服务端请求
-                 queryParams: {param : {
-                    code: $('#code').val(),
-                    name: $('#name').val()
-                 }
+                 queryParams: {
+                     'param.code': $('#code_').val(),
+                    'param.name': $('#name_').val()
                  },
                  minimunCountColumns: 2,
                  columns: [
@@ -64,11 +63,10 @@
 
         //查询
         function queryParams() {
-            $("#customs").bootstrapTable.queryParams = {param : {
-                code: $('#code').val(),
-                name: $('#name').val()
-            }};
-            $("#customs").bootstrapTable('refresh');
+            $("#customs").bootstrapTable('refresh',{
+                code: $('#code_').val(),
+                name: $('#name_').val()
+            });
         }
     </script>
 </head>
@@ -91,11 +89,11 @@
                             <tr>
                                 <th>编号</th>
                                 <td>
-                                    <input type="text" class="m-wrap small" id="code" name="code" value="" />
+                                    <input type="text" class="m-wrap small" id="code_" name="code" value="" />
                                 </td>
                                 <th>姓名</th>
                                 <td>
-                                    <input type="text" class="m-wrap small" id="name" name="name" value="" />
+                                    <input type="text" class="m-wrap small" id="name_" name="name" value="" />
                                 </td>
                             </tr>
                             <tr>

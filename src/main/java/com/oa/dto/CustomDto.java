@@ -17,8 +17,9 @@ public class CustomDto {
     private Long updater;//修改人
     private Date updateDate;//修改时间
 
-    private Integer startItem;
-    private Integer pageSize;
+    private Integer currentPage = 1;
+    private Integer startItem = 0;
+    private Integer pageSize = 10;
 
 
     public Long getId() {
@@ -85,6 +86,14 @@ public class CustomDto {
         this.updateDate = updateDate;
     }
 
+    public Integer getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setCurrentPage(Integer currentPage) {
+        this.currentPage = currentPage;
+    }
+
     public Integer getStartItem() {
         return startItem;
     }
@@ -100,4 +109,5 @@ public class CustomDto {
     public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
     }
+
 }

@@ -40,20 +40,10 @@ public class CustomServiceImpl implements CustomService {
     }
 
     @Override
-    public Pagination<Custom> findCustomByPage(CustomDto param, Integer currentPage, Integer size) {
-        int startItem = 0;
-        int pageSize = 10;
-        if(size > 0) {
-            pageSize = size;
-        }
-        if(currentPage > 1) {
-            startItem = (currentPage -1) * pageSize;
-        }
+    public Pagination<Custom> findCustomByPage(CustomDto param) {
         Pagination<Custom> page = new Pagination<>();
-        page.setCurrentPage(currentPage);
-        page.setPageSize(pageSize);
-        param.setStartItem(startItem);
-        param.setPageSize(pageSize);
+        page.setCurrentPage(param.getCurrentPage());
+        page.setPageSize(page.getPageSize());
         List<Custom> customs = customMapper.findCustomByPage(param);
         Integer total = customMapper.findCustomByPageCount(param);
         page.setRows(customs);
