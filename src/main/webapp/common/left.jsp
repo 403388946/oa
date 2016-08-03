@@ -43,8 +43,8 @@
                         </a>
                         <ul class="submenu" style="display: none;">
                             <li>
-                                <a href="javascript:void(0);">
-                                    Simple
+                                <a href="javascript:void(0);" data-href="${ctx}/custom/findPage" class="menu_click">
+                                    客户管理
                                 </a>
                             </li>
                         </ul>
