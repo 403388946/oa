@@ -8,10 +8,8 @@ import com.oa.utils.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +26,10 @@ public class CustomController {
     @Autowired
     private CustomService customService;
 
+    @InitBinder("param")
+    public void initBinder(WebDataBinder binder) {
+        binder.setFieldDefaultPrefix("param.");
+    }
 //    @ModelAttribute("custom")
 //    public Custom get(@RequestParam(required=false)Long id) {
 //        if (StringUtils.isNotBlank(id.toString())){
@@ -46,8 +48,16 @@ public class CustomController {
 
     @RequestMapping(value = "findData",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public String findData(HttpServletRequest request, @ModelAttribute("param")CustomDto param) {
-        Pagination<Custom> customs = customService.findCustomByPage(param, 0, 10);
+    public String findData(@RequestParam(value = "code",required = false)String code,
+                           @RequestParam(value = "name",required = false)String name,
+                           @RequestParam(value = "currentPage",defaultValue = "1",required = false)Integer currentPage,
+                           @RequestParam(value = "pageSize",defaultValue = "10",required = false)Integer pageSize) {
+        CustomDto param = new CustomDto();
+        param.setCode(code);
+        param.setName(name);
+        param.setCurrentPage(currentPage);
+        param.setPageSize(pageSize);
+        Pagination<Custom> customs = customService.findCustomByPage(param);
         return JSON.toJSONString(customs);
     }
 }
