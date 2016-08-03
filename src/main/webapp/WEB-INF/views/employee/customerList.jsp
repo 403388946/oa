@@ -2,13 +2,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 
-<link rel="stylesheet" type="text/css" href="${ctx}/static/css/compiled/theme_styles.css"/>
+<%--<link rel="stylesheet" type="text/css" href="${ctx}/static/css/compiled/theme_styles.css"/>
 <link rel="stylesheet" type="text/css" href="${ctx}/static/css/bootstrap/bootstrap.min.css"/>
 <link rel="stylesheet" type="text/css" href="${ctx}/static/css/bootstrap/bootstrap-table.css"/>
 <script src="${ctx}/static/js/jquery.js"></script>
 <script src="${ctx}/static/js/bootstrap.js"></script>
 <script src="${ctx}/static/js/bootstrap-table.js"></script>
-<script src="${ctx}/static/js/bootstrap-table-zh-CN.js"></script>
+<script src="${ctx}/static/js/bootstrap-table-zh-CN.js"></script>--%>
 <script src="${ctx}/static/js/employee/customerList.js"></script>
 <script type="text/javascript">
     var ctx_ = "${ctx}";

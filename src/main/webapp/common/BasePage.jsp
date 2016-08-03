@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>武汉巨龙人力资源服务系统</title>
+    <title><sitemesh:write property='title' /></title>
     <style type="text/css">
 
     </style>
@@ -21,20 +21,32 @@
     <link rel="stylesheet" href="${ctx}/static/css/libs/morris.css" type="text/css"/>
     <link rel="stylesheet" href="${ctx}/static/css/libs/daterangepicker.css" type="text/css"/>
     <link href="${ctx}/static/js/bootstrapvalidator/css/bootstrapValidator.min.css" type="text/css" rel="stylesheet" />
-    <script src="${ctx}/static/js/jquery.js"></script>
-    <script src="${ctx}/static/js/bootstrap.js"></script>
-    <script src="${ctx}/static/js/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-    <script src="${ctx}/static/js/moment.min.js"></script>
-    <script src="${ctx}/static/js/daterangepicker.js"></script>
+
+    <script src="${ctx}/static/js/jquery.js" type="text/javascript"></script>
+    <script src="${ctx}/static/js/bootstrap.js" type="text/javascript"></script>
+    <script src="${ctx}/static/js/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
+    <script src="${ctx}/static/js/moment.min.js" type="text/javascript"></script>
     <link type="image/x-icon" href="favicon.png" rel="shortcut icon"/>
-    <script src="${ctx}/static/js/demo-rtl.js"></script>
     <script src="${ctx}/static/js/bootstrapvalidator/js/bootstrapValidator.min.js"></script>
     <script src="${ctx}/static/js/bootstrap-datepicker-master/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script src="${ctx}/static/js/bootstrap-datepicker-master/locales/bootstrap-datepicker.zh-CN.min.js" type="text/javascript"></script>
     <script src="${ctx}/static/js/jquery.scrollToTop.js" type="text/javascript"></script>
-    <style>
+    <script src="${ctx}/static/js/bootstrap-table.js" type="text/javascript"></script>
+    <script src="${ctx}/static/js/bootstrap-table-zh-CN.js" type="text/javascript"></script>
+    <script src="${ctx}/static/js/scripts.js" type="text/javascript"></script>
 
-    </style>
+    <script src="${ctx}/static/js/jquery.nanoscroller.min.js"></script>
+    <script src="${ctx}/static/js/jquery-ui.custom.min.js"></script>
+    <script src="${ctx}/static/js/jquery.slimscroll.min.js"></script>
+    <script src="${ctx}/static/js/morris.min.js"></script>
+    <script src="${ctx}/static/js/moment.min.js"></script>
+    <script src="${ctx}/static/js/flot/jquery.flot.js"></script>
+    <script src="${ctx}/static/js/flot/jquery.flot.min.js"></script>
+    <script src="${ctx}/static/js/flot/jquery.flot.pie.min.js"></script>
+    <script src="${ctx}/static/js/flot/jquery.flot.stack.min.js"></script>
+    <script src="${ctx}/static/js/flot/jquery.flot.resize.min.js"></script>
+    <script src="${ctx}/static/js/flot/jquery.flot.time.min.js"></script>
+    <script src="${ctx}/static/js/flot/jquery.flot.threshold.js"></script>
     <script type="text/javascript" >
         var _ctx = "${ctx}";
         jQuery(function() {
@@ -53,7 +65,7 @@
                 <!--左边导航开始-->
                 <jsp:include page="/common/left.jsp"/>
                 <!--左边导航结束-->
-                <div id="content-wrapper" class="email-inbox-wrapper">
+                <div id="content-wrapper">
                     <div class="row" style="opacity: 1;">
                         <div class="col-lg-12" id="main_view">
                             <!--正文开始-->

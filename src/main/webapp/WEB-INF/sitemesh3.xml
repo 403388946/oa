@@ -2,5 +2,5 @@
 <sitemesh>
 	<mapping path="/login" exclude="true" />
 	<mapping path="/static/*" exclude="true" />
-	<mapping path="/oa/index" decorator="../common/BasePage.jsp" />
+	<mapping path="/index" decorator="/common/BasePage.jsp" />
 </sitemesh>
