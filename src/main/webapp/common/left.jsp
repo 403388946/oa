@@ -47,7 +47,7 @@
                                 <a href="javascript:void(0);" data-href="${ctx}/custom/findPage" class="menu_click">
                                     全部客户
                                 </a>
-                                <a href="javascript:void(0);" data-href="${ctx}/custom/addCustom" class="menu_click">
+                                <a href="javascript:void(0);" data-href="${ctx}/custom/add" class="menu_click">
                                     添加客户
                                 </a>
                             </li>

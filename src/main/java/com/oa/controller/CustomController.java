@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -67,22 +68,50 @@ public class CustomController {
         return JSON.toJSONString(customs);
     }
 
-    @RequestMapping(value = "/addCustom", method = RequestMethod.GET)
-     public String addCustom() {
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+     public String add() {
         return "/custom/custom_add";
     }
 
-    @RequestMapping(value = "/editCustom", method = RequestMethod.GET)
-    public String editCustom(@RequestParam(value = "id",required = true)Long id,Model model) {
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    public String edit(@RequestParam(value = "id",required = true)Long id,Model model) {
         model.addAttribute("custom", customService.findOne(id));
         return "/custom/custom_add";
     }
 
-    @RequestMapping(value = "/saveCustom", method = RequestMethod.POST)
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
-    public String saveCustom(@RequestParam(value = "id",required = false)Long id,
+    public String save(@RequestParam(value = "id",required = false)Long id,
                              @RequestParam(value = "code",required = false)String code,
                              @RequestParam(value = "name",required = false)String name) {
-        return "redirect:/custom/findPage";
+        Map<String, Object> result = new HashMap<>();
+        result.put("status", 0);
+        CustomDto param = new CustomDto();
+        if(id != null) {
+            param.setId(id);
+        }
+        if(StringUtils.isNotBlank(code)) {
+            param.setCode(code);
+        }
+        if(StringUtils.isNotBlank(name)) {
+            param.setCode(name);
+        }
+        Custom flag = customService.save(param);
+        if(flag != null) {
+           result.put("status", 1);
+        }
+        return JSON.toJSONString(result);
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    @ResponseBody
+    public String delete(@RequestParam(value = "id",required = true)Long id) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("status", 0);
+        int flag = customService.delete(id);
+        if(flag > 0) {
+            result.put("status", 1);
+        }
+        return JSON.toJSONString(result);
     }
 }
