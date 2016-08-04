@@ -27,12 +27,13 @@
                  striped: true,
                  pagination: true,
                  singleSelect: false,
-                 showToggle: true,
+                 showToggle: false,
                  pageSize: 10,
                  pageList: [10, 50],
                  search: false, //不显示 搜索框
-                 showColumns: true, //不显示下拉框（选择显示的列）
+                 showColumns: false, //不显示下拉框（选择显示的列）
                  sidePagination: "server", //服务端请求
+                 toolbar : '#custom-toolbar',
                  queryParams: {
                      'param.code': $('#code_').val(),
                     'param.name': $('#name_').val()
@@ -68,11 +69,11 @@
                 <div class="form-group">
                     姓名：<input type="text" class="form-control" id="name_" name="name" placeholder="请输入客户名称" />
                 </div>
-                <button type="button" id="g_search" class="btn btn-default ">
+                <button type="button" id="g_search" class="btn btn-primary">
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                     查询
                 </button>
-                <button type="button" id="g_reset" class="btn btn-default ">
+                <button type="button" id="g_reset" class="btn btn-primary">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     清空查询
                 </button>

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <script type="text/javascript">
     $(function() {
@@ -12,9 +13,9 @@
     <section id="col-left" class="col-left-nano">
         <div id="col-left-inner" class="col-left-nano-content">
             <div class="clearfix hidden-sm hidden-xs" id="user-left-box">
-                <img src="${ctx}/static/img/scarlet-159.png" alt="">
+                <%--<img src="${ctx}/static/img/scarlet-159.png" alt="">--%>
                 <div class="user-box">
-                    <span class="name">欢迎登录, 123</span>
+                    <span class="name">欢迎登录,<shiro:principal/></span>
                 </div>
             </div>
             <div id="sidebar-nav" class="collapse navbar-collapse navbar-ex1-collapse">
@@ -30,7 +31,7 @@
                         <ul id="employeeManager" class="submenu" style="display: none;">
                             <li>
                                 <a href="javascript:void(0);" data-href="${ctx}/employee/list" class="menu_click">
-                                    员工管理
+                                    全部员工
                                 </a>
                             </li>
                         </ul>
@@ -44,7 +45,10 @@
                         <ul class="submenu" style="display: none;">
                             <li>
                                 <a href="javascript:void(0);" data-href="${ctx}/custom/findPage" class="menu_click">
-                                    客户管理
+                                    全部客户
+                                </a>
+                                <a href="javascript:void(0);" data-href="${ctx}/custom/addCustom" class="menu_click">
+                                    添加客户
                                 </a>
                             </li>
                         </ul>

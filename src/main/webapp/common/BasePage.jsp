@@ -53,7 +53,7 @@
     </script>
     <sitemesh:write property='head' />
 </head>
-<body >
+<body class="pace-done fixed-header fixed-leftmenu fixed-footer theme-blue">
     <div id="theme-wrapper">
         <!--头开始-->
         <jsp:include page="/common/header.jsp"/>

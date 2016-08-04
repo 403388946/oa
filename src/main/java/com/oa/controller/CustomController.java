@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.WebUtils;
@@ -64,5 +65,24 @@ public class CustomController {
         param.setPageSize(pageSize);
         Pagination<Custom> customs = customService.findCustomByPage(param);
         return JSON.toJSONString(customs);
+    }
+
+    @RequestMapping(value = "/addCustom", method = RequestMethod.GET)
+     public String addCustom() {
+        return "/custom/custom_add";
+    }
+
+    @RequestMapping(value = "/editCustom", method = RequestMethod.GET)
+    public String editCustom(@RequestParam(value = "id",required = true)Long id,Model model) {
+        model.addAttribute("custom", customService.findOne(id));
+        return "/custom/custom_add";
+    }
+
+    @RequestMapping(value = "/saveCustom", method = RequestMethod.POST)
+    @ResponseBody
+    public String saveCustom(@RequestParam(value = "id",required = false)Long id,
+                             @RequestParam(value = "code",required = false)String code,
+                             @RequestParam(value = "name",required = false)String name) {
+        return "redirect:/custom/findPage";
     }
 }
