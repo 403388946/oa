@@ -60,27 +60,24 @@
     </script>
 </head>
 <body >
-        <table style="width: 100%;">
-            <tbody>
-            <tr>
-                <th>编号</th>
-                <td>
-                    <input type="text" class="m-wrap small" id="code_" name="code" value="" />
-                </td>
-                <th>姓名</th>
-                <td>
-                    <input type="text" class="m-wrap small" id="name_" name="name" value="" />
-                </td>
-            </tr>
-            <tr>
-                <td colspan="4" style="text-align: right;">
-                    <button type="button" id="g_search" class="btn mini green">查询</button>
-                    <button type="button" id="g_reset" class="btn mini green">重置</button>
-                    <button type="button" id="g_import" class="btn mini green">导出</button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div id="custom-toolbar">
+            <div class="form-inline" role="form" id="serch_div">
+                <div class="form-group">
+                    编号：<input type="text" class="form-control" id="code_" name="code" placeholder="请输入客户编号" />
+                </div>
+                <div class="form-group">
+                    姓名：<input type="text" class="form-control" id="name_" name="name" placeholder="请输入客户名称" />
+                </div>
+                <button type="button" id="g_search" class="btn btn-default ">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    查询
+                </button>
+                <button type="button" id="g_reset" class="btn btn-default ">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    清空查询
+                </button>
+            </div>
+        </div>
         <table id="customs" class="table table-bordered">
         </table>
 </body>

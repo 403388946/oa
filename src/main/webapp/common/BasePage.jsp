@@ -13,20 +13,18 @@
     <link rel="stylesheet" type="text/css" href="${ctx}/static/css/bootstrap/bootstrap-table.css"/>
     <link rel="stylesheet" type="text/css" href="${ctx}/static/css/libs/font-awesome.css"/>
     <link rel="stylesheet" type="text/css" href="${ctx}/static/css/libs/nanoscroller.css"/>
-    <link  rel="stylesheet" src="${ctx}/static/js/bootstrap-datepicker/css/datepicker.css"/>
-    <link href="${ctx}/static/css/jquery.scrollToTop.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/js/bootstrap-datepicker/css/datepicker.css"/>
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/css/jquery.scrollToTop.css"/>
     <link rel="stylesheet" type="text/css" href="${ctx}/static/css/compiled/theme_styles.css"/>
-    <link rel="stylesheet" href="${ctx}/static/css/libs/fullcalendar.css" type="text/css"/>
-    <link rel="stylesheet" href="${ctx}/static/css/compiled/calendar.css" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="${ctx}/static/css/libs/morris.css" type="text/css"/>
-    <link rel="stylesheet" href="${ctx}/static/css/libs/daterangepicker.css" type="text/css"/>
-    <link href="${ctx}/static/js/bootstrapvalidator/css/bootstrapValidator.min.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/css/libs/fullcalendar.css"/>
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/css/compiled/calendar.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/css/libs/morris.css"/>
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/css/libs/daterangepicker.css"/>
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/js/bootstrapvalidator/css/bootstrapValidator.min.css"/>
 
     <script src="${ctx}/static/js/jquery.js" type="text/javascript"></script>
     <script src="${ctx}/static/js/bootstrap.js" type="text/javascript"></script>
-    <script src="${ctx}/static/js/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script src="${ctx}/static/js/moment.min.js" type="text/javascript"></script>
-    <link type="image/x-icon" href="favicon.png" rel="shortcut icon"/>
     <script src="${ctx}/static/js/bootstrapvalidator/js/bootstrapValidator.min.js"></script>
     <script src="${ctx}/static/js/bootstrap-datepicker-master/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <script src="${ctx}/static/js/bootstrap-datepicker-master/locales/bootstrap-datepicker.zh-CN.min.js" type="text/javascript"></script>

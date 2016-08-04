@@ -5,6 +5,7 @@ import com.oa.dto.CustomDto;
 import com.oa.model.Custom;
 import com.oa.service.CustomService;
 import com.oa.utils.Pagination;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -53,8 +54,12 @@ public class CustomController {
                            @RequestParam(value = "currentPage",defaultValue = "1",required = false)Integer currentPage,
                            @RequestParam(value = "pageSize",defaultValue = "10",required = false)Integer pageSize) {
         CustomDto param = new CustomDto();
-        param.setCode(code);
-        param.setName(name);
+        if(StringUtils.isNotBlank(code)) {
+            param.setCode("%" + code + "%");
+        }
+        if(StringUtils.isNotBlank(name)) {
+            param.setCode("%" + name + "%");
+        }
         param.setCurrentPage(currentPage);
         param.setPageSize(pageSize);
         Pagination<Custom> customs = customService.findCustomByPage(param);

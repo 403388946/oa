@@ -2,6 +2,5 @@
 <sitemesh>
 	<mapping path="/login" exclude="true" />
 	<mapping path="/static/*" exclude="true" />
-	<mapping path="/**.json" exclude="true" />
 	<mapping path="/index" decorator="/common/BasePage.jsp" />
 </sitemesh>
