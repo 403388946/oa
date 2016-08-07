@@ -6,17 +6,14 @@ import com.oa.model.Employee;
 import com.oa.service.EmployeeService;
 import com.oa.utils.ExcelData;
 import com.oa.utils.Page;
-import com.oa.utils.Pagination;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by 46637 on 2016/7/26.
@@ -27,17 +24,26 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private EmployeeMapper employeeMapper;
 
-    public void save(EmployeeDto emp) {
-        employeeMapper.insertSelective(emp);
+
+    public int save(EmployeeDto emp) {
+        return employeeMapper.insert(emp);
     }
 
-    public void update(EmployeeDto emp) {
-        employeeMapper.updateByPrimaryKey(emp);
+    public int update(EmployeeDto emp) {
+        return employeeMapper.updateByPrimaryKeySelective(emp);
+    }
+
+    @Override
+    public int delete(EmployeeDto emp) {
+        emp.setIsDel(1);
+        return employeeMapper.updateByPrimaryKeySelective(emp);
     }
 
     public Page<EmployeeDto> findEmployeeByPage(Page<EmployeeDto> page) {
         List<EmployeeDto> list = employeeMapper.findEmployeeByPage(page);
+        int total = employeeMapper.findEmployeeByPageCount(page);
         page.setRows(list);
+        page.setTotal(total);
         return page;
     }
 
@@ -82,7 +88,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             fileBody.add(employee.getCustomCode());
             fileBody.add(employee.getCustomPriceNum());
             fileBody.add(employee.getCustomName());
-            fileBody.add(employee.getJionDate() != null ? sdf.format(employee.getJionDate()) : "");
+            fileBody.add(employee.getJoinDate() != null ? sdf.format(employee.getJoinDate()) : "");
             fileBody.add(employee.getPayCode());
             fileBody.add(employee.getServiceStatus() == 0 ? "离职" : employee.getServiceStatus() == 1 ? "在职" : employee.getServiceStatus() == 2 ? "离职申请中" : "");
             fileBody.add(employee.getEmploymentForm() == 1 ? "代理" : employee.getEmploymentForm() == 2 ? "派遣" : "");
@@ -95,5 +101,16 @@ public class EmployeeServiceImpl implements EmployeeService {
         String filePath = request.getSession().getServletContext().getRealPath("/") + "assets" + "/excel" +  "员工信息" +".xls";
         String fileName = "员工信息";
         ExcelData.exportFile(fileMap, filePath, response, request, fileName);
+    }
+
+    @Override
+    public boolean selectEmployeeByIdCard(String id, String idCard) {
+        Employee emp = employeeMapper.selectEmployeeByIdCard(idCard);
+         if(StringUtils.isNotEmpty(id)){
+            Employee entity = employeeMapper.selectByPrimaryKey(Long.parseLong(id));
+            return emp == null || emp.getId().longValue() == entity.getId().longValue();
+        }else{
+            return emp == null;
+        }
     }
 }

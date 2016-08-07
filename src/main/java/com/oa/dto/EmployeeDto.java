@@ -10,4 +10,13 @@ import java.util.Date;
  */
 public class EmployeeDto extends Employee{
 
+    private String joinDateStr;
+
+    public String getJoinDateStr() {
+        return joinDateStr;
+    }
+
+    public void setJoinDateStr(String joinDateStr) {
+        this.joinDateStr = joinDateStr;
+    }
 }

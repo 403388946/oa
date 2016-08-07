@@ -1,11 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
-<head>
-    <title>武汉巨龙人力资源服务系统</title>
 
     <script type="text/javascript" >
         $(function () {
+            var status = "${status}";
+            if(!!status) {
+                alert(status);
+            }
             initTable();
             //重置
             $("#g_reset").bind("click", function(){
@@ -35,16 +37,22 @@
                  sidePagination: "server", //服务端请求
                  toolbar : '#custom-toolbar',
                  queryParams: {
-                     'param.code': $('#code_').val(),
-                    'param.name': $('#name_').val()
+                     'code': $('#code_').val(),
+                    'name': $('#name_').val()
                  },
                  minimunCountColumns: 2,
                  columns: [
-                     {field: 'id', checkbox: true},
+                     {field: 'customId', checkbox: true},
                      {field: 'code', title: '客户编号', width: 100,align: 'center',valign: 'middle',sortable: true},
                      {field: 'name', title: '客户名称', width: 100,align: 'center',valign: 'middle',sortable: true},
                      {field: 'operation', title: '操作', width: 100,align: 'center',valign: 'middle',sortable: true,formatter: function(value,row,index){
-                         return "<a href=''>修改</a><a href=''>删除</a>";
+                         return [
+                             '<a class="edit_employee_click" href="javascript:void(0);" title="Edit">',
+                                '<i class="glyphicon glyphicon-edit">修改</i>',
+                             '</a>',
+                             '<a class="delete_employee_click" href="javascript:void(0);" title="Delete">',
+                                '<i class="glyphicon glyphicon-trash">删除</i>',
+                             '</a>'].join('');
                      }}
                  ],
                 onLoadError: function () {alert("数据加载失败！");}
@@ -58,9 +66,22 @@
                 name: $('#name_').val()
             });
         }
+
+        window.operateEvents = {
+            /*修改客户信息*/
+            'click .edit_employee_click' : function(e, value, row, index){
+                $('#main_view').load(_ctx + '/custom/edit?id=' + row.id);
+            }
+        };
+
+        window.operateEvents = {
+            /*删除客户信息*/
+            'click .delete_employee_click' : function(e, value, row, index){
+                $('#main_view').load(_ctx + '/custom/delete?id=' + row.id);
+            }
+        };
     </script>
-</head>
-<body >
+
         <div id="custom-toolbar">
             <div class="form-inline" role="form" id="serch_div">
                 <div class="form-group">
@@ -81,4 +102,4 @@
         </div>
         <table id="customs" class="table table-bordered">
         </table>
-</body>
+

@@ -3,7 +3,7 @@ USE `oa_test`;
 
 
 CREATE TABLE IF NOT EXISTS `oa_custom` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `name` varchar(255) NOT NULL COMMENT '名称',
   `code` varchar(255) NOT NULL COMMENT '编号',
   `create_time` datetime NOT NULL COMMENT '创建时间',
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `oa_employee` (
 
 
 CREATE TABLE IF NOT EXISTS `oa_employee_pic` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `path` varchar(255) NOT NULL COMMENT '图片路径',
   `local_name` varchar(255) DEFAULT NULL COMMENT '本地文件名称',
   `real_name` varchar(255) DEFAULT NULL COMMENT '真实名称',

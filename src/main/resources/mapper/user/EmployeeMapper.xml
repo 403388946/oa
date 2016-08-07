@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.oa.mapper.EmployeeMapper" >
-  <resultMap id="BaseResultMap" type="com.oa.dto.EmployeeDto" >
+  <resultMap id="BaseResultMap" type="com.oa.model.Employee" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="code" property="code" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
@@ -10,24 +10,49 @@
     <result column="custom_price_num" property="customPriceNum" jdbcType="VARCHAR" />
     <result column="order_code" property="orderCode" jdbcType="VARCHAR" />
     <result column="custom_name" property="customName" jdbcType="VARCHAR" />
-    <result column="join_date" property="jionDate" jdbcType="TIMESTAMP" />
+    <result column="join_date" property="joinDate" jdbcType="TIMESTAMP" />
     <result column="pay_code" property="payCode" jdbcType="VARCHAR" />
     <result column="service_status" property="serviceStatus" jdbcType="INTEGER" />
     <result column="employment_form" property="employmentForm" jdbcType="INTEGER" />
-    <result column="create_time" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="creater" property="creater" jdbcType="BIGINT" />
-    <result column="update_time" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="updater" property="updater" jdbcType="BIGINT" />
     <result column="is_del" property="isDel" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="BaseResultMap1" type="com.oa.dto.EmployeeDto" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="id_card" property="idCard" jdbcType="VARCHAR" />
+    <result column="custom_code" property="customCode" jdbcType="VARCHAR" />
+    <result column="custom_price_num" property="customPriceNum" jdbcType="VARCHAR" />
+    <result column="order_code" property="orderCode" jdbcType="VARCHAR" />
+    <result column="custom_name" property="customName" jdbcType="VARCHAR" />
+    <result column="join_date" property="joinDate" jdbcType="TIMESTAMP" />
+    <result column="pay_code" property="payCode" jdbcType="VARCHAR" />
+    <result column="service_status" property="serviceStatus" jdbcType="INTEGER" />
+    <result column="employment_form" property="employmentForm" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creater" property="creater" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="updater" property="updater" jdbcType="BIGINT" />
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
+    <result column="joinDateStr" property="joinDateStr" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, code, name, id_card, custom_code, custom_price_num, order_code, custom_name, join_date,
     pay_code, service_status, employment_form, create_time, creater, update_time, updater, 
     is_del
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <sql id="Base_Column_List1" >
+    id, code, name, id_card, custom_code, custom_price_num, order_code, custom_name, join_date,
+    pay_code, service_status, employment_form, create_time, creater, update_time, updater,
+    is_del,date_format(join_date,'%Y-%c-%d') joinDateStr
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap1" parameterType="java.lang.Long" >
     select 
-    <include refid="Base_Column_List" />
+    <include refid="Base_Column_List1" />
     from oa_employee
     where id = #{id,jdbcType=BIGINT}
   </select>
@@ -35,26 +60,21 @@
     delete from oa_employee
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.oa.dto.EmployeeDto" >
-    insert into oa_employee (id, code, name, 
+  <insert id="insert" parameterType="com.oa.dto.EmployeeDto" flushCache="true">
+    insert into oa_employee (code, name,
       id_card, custom_code, custom_price_num,
       order_code, custom_name, join_date, 
       pay_code, service_status, employment_form, 
-      create_time, creater, update_time, 
-      updater, is_del)
-    values (#{id,jdbcType=BIGINT}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      create_time, creater, is_del)
+    values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
       #{idCard,jdbcType=VARCHAR}, #{customCode,jdbcType=VARCHAR}, #{customPriceNum,jdbcType=DECIMAL},
       #{orderCode,jdbcType=VARCHAR}, #{customName,jdbcType=VARCHAR}, #{joinDate,jdbcType=TIMESTAMP}, 
       #{payCode,jdbcType=VARCHAR}, #{serviceStatus,jdbcType=INTEGER}, #{employmentForm,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{updater,jdbcType=BIGINT}, #{isDel,jdbcType=INTEGER})
+      now(), #{creater,jdbcType=BIGINT},0)
   </insert>
   <insert id="insertSelective" parameterType="com.oa.dto.EmployeeDto" >
     insert into oa_employee
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
       <if test="code != null" >
         code,
       </if>
@@ -88,26 +108,13 @@
       <if test="employmentForm != null" >
         employment_form,
       </if>
-      <if test="createTime != null" >
         create_time,
-      </if>
       <if test="creater != null" >
         creater,
       </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
-      <if test="updater != null" >
-        updater,
-      </if>
-      <if test="isDel != null" >
-        is_del,
-      </if>
+        is_del
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=BIGINT},
-      </if>
       <if test="code != null" >
         #{code,jdbcType=VARCHAR},
       </if>
@@ -141,26 +148,17 @@
       <if test="employmentForm != null" >
         #{employmentForm,jdbcType=INTEGER},
       </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
+      now(),
       <if test="creater != null" >
         #{creater,jdbcType=BIGINT},
       </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updater != null" >
-        #{updater,jdbcType=BIGINT},
-      </if>
-      <if test="isDel != null" >
-        #{isDel,jdbcType=INTEGER},
-      </if>
+      0
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.oa.dto.EmployeeDto" >
     update oa_employee
     <set >
+      update_time = now(),
       <if test="code != null" >
         code = #{code,jdbcType=VARCHAR},
       </if>
@@ -200,9 +198,6 @@
       <if test="creater != null" >
         creater = #{creater,jdbcType=BIGINT},
       </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
       <if test="updater != null" >
         updater = #{updater,jdbcType=BIGINT},
       </if>
@@ -227,15 +222,15 @@
       employment_form = #{employmentForm,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       creater = #{creater,jdbcType=BIGINT},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_time = now(),
       updater = #{updater,jdbcType=BIGINT},
       is_del = #{isDel,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
 
-  <select id="findEmployeeByPage" resultMap="BaseResultMap" >
+  <select id="findEmployeeByPage" resultMap="BaseResultMap1" >
     select
-    <include refid="Base_Column_List" />
+    <include refid="Base_Column_List1" />
     from oa_employee
     where is_del = 0
     <if test="paramMap.code != null and paramMap.code != ''" >
@@ -247,9 +242,10 @@
     <if test="paramMap.idCard != null and paramMap.idCard != ''" >
       and id_card  like concat('%',replace(#{paramMap.idCard,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
     </if>
-    <if test="paramMap.customCode != null and paramMap.customCode != ''" >
-      and custom_code like concat('%',replace(#{paramMap.customCode,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+    <if test="paramMap.customName != null and paramMap.customName != ''" >
+      and custom_name like concat('%',replace(#{paramMap.customName,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
     </if>
+    limit #{offset}, #{limit}
   </select>
   <select id="findEmployeeByPageCount" resultType="java.lang.Integer" >
     select
@@ -265,13 +261,13 @@
     <if test="paramMap.idCard != null and paramMap.idCard != ''" >
       and id_card  like concat('%',replace(#{paramMap.idCard,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
     </if>
-    <if test="paramMap.customCode != null and paramMap.customCode != ''" >
-      and custom_code like concat('%',replace(#{paramMap.customCode,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+    <if test="paramMap.customName != null and paramMap.customName != ''" >
+      and custom_name like concat('%',replace(#{paramMap.customName,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
     </if>
   </select>
-  <select id="selectEmployeeByMap" resultMap="BaseResultMap" >
+  <select id="selectEmployeeByMap" resultMap="BaseResultMap1" >
     select
-    <include refid="Base_Column_List" />
+    <include refid="Base_Column_List1" />
     from oa_employee
     where is_del = 0
     <if test="code != null and code != ''" >
@@ -286,5 +282,11 @@
     <if test="customCode != null and customCode != ''" >
       cand ustom_code like concat('%',replace(#{customCode,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
     </if>
+  </select>
+  <select id="selectEmployeeByIdCard" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from oa_employee
+    where is_del = 0 and id_card = #{idCard,jdbcType=VARCHAR}
   </select>
 </mapper>

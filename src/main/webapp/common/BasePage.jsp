@@ -21,6 +21,7 @@
     <link rel="stylesheet" type="text/css" href="${ctx}/static/css/libs/morris.css"/>
     <link rel="stylesheet" type="text/css" href="${ctx}/static/css/libs/daterangepicker.css"/>
     <link rel="stylesheet" type="text/css" href="${ctx}/static/js/bootstrapvalidator/css/bootstrapValidator.min.css"/>
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/css/libs/dropzone.css"/>
 
     <script src="${ctx}/static/js/jquery.js" type="text/javascript"></script>
     <script src="${ctx}/static/js/bootstrap.js" type="text/javascript"></script>
@@ -32,6 +33,7 @@
     <script src="${ctx}/static/js/bootstrap-table.js" type="text/javascript"></script>
     <script src="${ctx}/static/js/bootstrap-table-zh-CN.js" type="text/javascript"></script>
     <script src="${ctx}/static/js/scripts.js" type="text/javascript"></script>
+    <script src="${ctx}/static/js/dropzone.js" type="text/javascript"></script>
 
     <script src="${ctx}/static/js/jquery.nanoscroller.min.js"></script>
     <script src="${ctx}/static/js/jquery-ui.custom.min.js"></script>
@@ -75,6 +77,32 @@
                     <!--结尾开始-->
                     <jsp:include page="/common/footer.jsp"/>
                     <!--结尾结束-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="fileUpload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">文件上传</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="main-box-body clearfix">
+                        <div id="dropzone">
+                            <form id="demo-upload" class="dropzone dz-clickable" action="#">
+                                <div class="dz-default dz-message">
+                                    <span>Drop files here to upload</span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-primary">确定</button>
                 </div>
             </div>
         </div>

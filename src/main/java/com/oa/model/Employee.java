@@ -1,6 +1,5 @@
 package com.oa.model;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -19,12 +18,12 @@ public class Employee {
     private String payCode;//工资卡号
     private Integer serviceStatus;//在职状态 0离职 1在职 2离职申请中
     private Integer employmentForm;//用工形式 1代理 2派遣
-    private Date jionDate;//入职日期
+    private Date joinDate;//入职日期
     private Integer isDel;//删除状态 0 未删除 1 已删除
     private Long creater;//创建人
-    private Date createDate;//创建时间
+    private Date createTime;//创建时间
     private Long updater;//修改人
-    private Date updateDate;//修改时间
+    private Date updateTime;//修改时间
 
     public Long getId() {
         return id;
@@ -114,12 +113,12 @@ public class Employee {
         this.employmentForm = employmentForm;
     }
 
-    public Date getJionDate() {
-        return jionDate;
+    public Date getJoinDate() {
+        return joinDate;
     }
 
-    public void setJionDate(Date jionDate) {
-        this.jionDate = jionDate;
+    public void setJoinDate(Date joinDate) {
+        this.joinDate = joinDate;
     }
 
     public Integer getIsDel() {
@@ -138,12 +137,12 @@ public class Employee {
         this.creater = creater;
     }
 
-    public Date getCreateDate() {
-        return createDate;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public Long getUpdater() {
@@ -154,11 +153,11 @@ public class Employee {
         this.updater = updater;
     }
 
-    public Date getUpdateDate() {
-        return updateDate;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

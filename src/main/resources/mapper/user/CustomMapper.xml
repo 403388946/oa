@@ -17,26 +17,29 @@
   </sql>
 
   <insert id="insert" parameterType="com.oa.dto.CustomDto" flushCache="true">
-    <selectKey keyProperty="id" resultType="long" order="AFTER">
-      SELECT @@IDENTITY AS id
-    </selectKey>
     INSERT INTO oa_custom (
         code
         ,name
         ,create_time
+        ,is_del
         ,creater
         ) VALUE (
         #{code}
         ,#{name}
         ,now()
+        ,0
         ,#{creater}
     )
+    <selectKey keyProperty="id" resultType="long" order="AFTER">
+      SELECT @@IDENTITY AS id
+    </selectKey>
   </insert>
 
   <update id="update" parameterType="com.oa.dto.CustomDto" flushCache="true">
     UPDATE oa_custom SET
         code = #{code}
         ,name = #{name}
+        ,is_del = #{isDel}
         ,update_time = now()
         ,updater = #{updater}
     WHERE id = #{id}
@@ -57,10 +60,10 @@
     FROM oa_custom
     WHERE is_del = 0
     <if test="code != null and code != ''" >
-      ,AND code LIKE #{code}
+      AND code LIKE #{code}
     </if>
     <if test="name != null and name != ''" >
-      ,AND name  LIKE #{name}
+      AND name  LIKE #{name}
     </if>
     limit #{startItem},#{pageSize}
   </select>
@@ -70,10 +73,23 @@
     FROM oa_custom
     WHERE is_del = 0
     <if test="code != null and code != ''" >
-      ,AND code LIKE #{code}
+      AND code LIKE #{code}
     </if>
     <if test="name != null and name != ''" >
-      ,AND name  LIKE #{name}
+      AND name  LIKE #{name}
     </if>
   </select>
+
+    <select id="queryCustom" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM oa_custom
+        WHERE is_del = 0
+        <if test="paramMap.code != null and paramMap.code != ''" >
+            AND code LIKE concat('%',replace(#{paramMap.code,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+        </if>
+        <if test="paramMap.name != null and paramMap.name != ''" >
+            AND name  LIKE concat('%',replace(#{paramMap.name,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+        </if>
+    </select>
 </mapper>

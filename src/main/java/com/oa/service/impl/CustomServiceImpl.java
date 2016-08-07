@@ -4,9 +4,14 @@ import com.oa.dto.CustomDto;
 import com.oa.mapper.CustomMapper;
 import com.oa.model.Custom;
 import com.oa.service.CustomService;
+import com.oa.utils.LoginUtils;
+import com.oa.utils.Page;
 import com.oa.utils.Pagination;
+import com.shiro.mapper.UserMapper;
+import com.shiro.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,13 +19,20 @@ import java.util.List;
  * @author YiMing on 2016/7/31.
  */
 @Service(value = "customService")
+@Transactional
 public class CustomServiceImpl implements CustomService {
 
     @Autowired
     private CustomMapper customMapper;
 
+    @Autowired
+    private UserMapper userMapper;
+
     @Override
     public Custom save(CustomDto param) {
+        String userLoginName= LoginUtils.getCurrentUserLoginName();
+        User current = userMapper.findUserByName(userLoginName);
+        param.setCreater(current.getId());
         if(param.getId() == null) {
             customMapper.insert(param);
         } else {
@@ -55,5 +67,12 @@ public class CustomServiceImpl implements CustomService {
     @Override
     public Integer findCustomByPageCount(CustomDto param) {
         return customMapper.findCustomByPageCount(param);
+    }
+
+    @Override
+    public Page<CustomDto> queryCustom(Page<CustomDto> page) {
+        List<CustomDto> list = customMapper.queryCustom(page);
+        page.setRows(list);
+        return page;
     }
 }
