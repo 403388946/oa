@@ -36,6 +36,7 @@ public class CustomServiceImpl implements CustomService {
         if(param.getId() == null) {
             customMapper.insert(param);
         } else {
+            param.setIsDel(0);
             customMapper.update(param);
         }
         return customMapper.findOne(param.getId());
@@ -74,5 +75,10 @@ public class CustomServiceImpl implements CustomService {
         List<CustomDto> list = customMapper.queryCustom(page);
         page.setRows(list);
         return page;
+    }
+
+    @Override
+    public Custom findCustom(CustomDto param) {
+        return customMapper.findCustom(param);
     }
 }

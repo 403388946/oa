@@ -131,6 +131,31 @@ public class EmployeeController {
     }
 
     /**
+     * 保存数据
+     * @param employeeDto
+     * @return
+     */
+    @RequestMapping(value = "bindAgreement", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> bindAgreement(@ModelAttribute("employeeDto") EmployeeDto employeeDto) {
+        Map<String, Object> result = new HashMap<>();
+        try{
+            String loginName = LoginUtils.getCurrentUserLoginName();
+            User user = userService.findByUsername(loginName);
+            employeeDto.setCreater(user.getId());
+            int num = employeeService.save(employeeDto);
+            if(num > 0){
+                result.put("status", 1);
+                result.put("msg", "添加员工成功");
+            }
+        }catch (Exception e){
+            result.put("status", 0);
+            result.put("msg", "添加员工失败");
+        }
+        return result;
+    }
+
+    /**
      * 保存修改员工信息
      * @param employeeDto
      * @return

@@ -7,7 +7,7 @@
         <h2>新增客户信息</h2>
     </header>
     <div class="main-box-body clearfix">
-        <form action="${ctx}/custom/save" id="editForm" method="post" role="form" class="form-horizontal">
+        <form action="${ctx}/custom/save" id="editForm" role="form" class="form-horizontal">
             <div class="form-group">
                 <label class="col-lg-1 control-label" for="code">客户编号：</label>
                 <div class="col-lg-11">

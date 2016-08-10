@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -29,19 +28,6 @@ public class CustomController {
     @Autowired
     private CustomService customService;
 
-    @InitBinder("param")
-    public void initBinder(WebDataBinder binder) {
-        binder.setFieldDefaultPrefix("param.");
-    }
-//    @ModelAttribute("custom")
-//    public Custom get(@RequestParam(required=false)Long id) {
-//        if (StringUtils.isNotBlank(id.toString())){
-//            return customService.findOne(id);
-//        }else{
-//            return new Custom();
-//        }
-//    }
-
 
     @RequestMapping(value = "/findPage", method = RequestMethod.GET)
     public String findPage() {
@@ -51,7 +37,7 @@ public class CustomController {
 
     @RequestMapping(value = "findData",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public String findData(@ModelAttribute("customDto")CustomDto customDto) {
+    public Pagination<Custom> findData(@ModelAttribute("customDto")CustomDto customDto) {
         CustomDto param = new CustomDto();
         if(StringUtils.isNotBlank(customDto.getCode())) {
             customDto.setCode("%" + customDto.getCode() + "%");
@@ -60,7 +46,21 @@ public class CustomController {
             customDto.setCode("%" + customDto.getName() + "%");
         }
         Pagination<Custom> customs = customService.findCustomByPage(param);
-        return JSON.toJSONString(customs);
+        return customs;
+    }
+
+    @RequestMapping(value = "validate",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Map<String, Object> validate(@ModelAttribute("customDto")CustomDto customDto) {
+        Custom had = customService.findCustom(customDto);
+        Map<String, Object> result = new HashMap<>();
+        result.put("status", 0);
+        result.put("message", "无此编号!");
+        if(had != null) {
+            result.put("status", 1);
+            result.put("message", "编号已存在!");
+        }
+        return result;
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -74,37 +74,32 @@ public class CustomController {
         return "/custom/custom_add";
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(@RequestParam(value = "id",required = false)Long id,
-                             @RequestParam(value = "code",required = false)String code,
-                             @RequestParam(value = "name",required = false)String name, RedirectAttributes model) {
-        model.addAttribute("status", "保存失败!");
-        CustomDto param = new CustomDto();
-        if(id != null) {
-            param.setId(id);
-        }
-        if(StringUtils.isNotBlank(code)) {
-            param.setCode(code);
-        }
-        if(StringUtils.isNotBlank(name)) {
-            param.setName(name);
-        }
-        Custom flag = customService.save(param);
+    @RequestMapping(value = "/save", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Map<String, Object> save(@ModelAttribute("customDto")CustomDto customDto) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("status", 0);
+        result.put("message", "保存失败!");
+        Custom flag = customService.save(customDto);
         if(flag != null) {
-            model.addAttribute("status", "保存成功!");
+           result.put("status", 1);
+           result.put("message", "保存成功!");
         }
-        return "/custom/custom_list";
+        return result;
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    public String delete(@RequestParam(value = "id",required = true)Long id, RedirectAttributes model) {
-        model.addAttribute("status", "保存失败!");
+    public Map<String, Object> delete(@RequestParam(value = "id",required = true)Long id, RedirectAttributes model) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("status", 0);
+        result.put("message", "删除失败!");
         int flag = customService.delete(id);
         if(flag > 0) {
-            model.addAttribute("status", "删除成功!");
+            result.put("status", 1);
+            result.put("message", "删除成功!");
         }
-        return "/custom/custom_list";
+        return result;
     }
 
     /**

@@ -80,6 +80,18 @@
     </if>
   </select>
 
+  <select id="findCustom" parameterType="com.oa.dto.CustomDto" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/>
+    FROM oa_custom
+    WHERE is_del = 0
+    <if test="code != null and code != ''" >
+      AND code = #{code}
+    </if>
+    <if test="name != null and name != ''" >
+      AND name = #{name}
+    </if>
+  </select>
+
     <select id="queryCustom" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List" />

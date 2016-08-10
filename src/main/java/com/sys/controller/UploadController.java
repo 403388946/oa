@@ -51,6 +51,7 @@ public class UploadController {
             result.put("status", "Y");
             result.put("currentName", currentName);
             result.put("fileType", fileType);
+            result.put("fileSize", String.valueOf(file.getSize()));
             result.put("uploadedName", uploadedName);
             result.put("downLoadPath", downLoadPath);
             result.put("message", "上传成功");

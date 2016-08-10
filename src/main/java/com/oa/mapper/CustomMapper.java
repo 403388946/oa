@@ -19,6 +19,7 @@ public interface CustomMapper {
     Custom findOne(@Param("id")Long id);
     List<Custom> findCustomByPage(CustomDto param);
     Integer findCustomByPageCount(CustomDto param);
+    Custom findCustom(CustomDto param);
 
     /**
      * 查询客户(用于选择客户)

@@ -1,7 +1,7 @@
 $(function(){
 
     /** 新增 校验* */
-    $('#editFoem').bootstrapValidator({
+    $('#editForm').bootstrapValidator({
         message: 'This value is not valid',
         feedbackIcons: {
             valid: 'glyphicon glyphicon-ok',
@@ -13,6 +13,26 @@ $(function(){
                 validators: {
                     notEmpty: {
                         message: '客户编号不能为空'
+                    },
+                    callback: {
+                        message: '抱歉，此编号已经存在',
+                        callback: function(value) {
+                            var result = false;
+                            $.ajax({
+                                url:_ctx +"/custom/validate",
+                                type:'POST',
+                                async:false,
+                                data:{
+                                    code:value
+                                },
+                                success:function(custom){
+                                    if(custom.status == 0){
+                                        result = true;
+                                    }
+                                }
+                            });
+                            return result;
+                        }
                     }
                 }
             },
@@ -27,11 +47,9 @@ $(function(){
         submitHandler: function(validator, form, submitButton) {
             $.post(form.attr('action'), form.serialize(), function(result) {
                 if (result.status == 1) {
-                    $('#main_view', window.parent.document).load(_ctx + '/business/busi/list');
-                }else{
-                    $addbusiess.prop('disabled',false);
+                    $('#main_view').load(_ctx + '/custom/findPage');
                 }
-                Messenger().post(result.msg);
+                alert(result.message);
             }, 'json');
         }
     });

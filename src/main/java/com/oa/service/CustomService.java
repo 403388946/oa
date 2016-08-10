@@ -59,4 +59,12 @@ public interface CustomService {
      * @return
      */
     Page<CustomDto> queryCustom(Page<CustomDto> page);
+
+    /**
+     * 匹配code 匹配名称 查询唯一客户 用于验证
+     * @autho YiMing
+     * @param param
+     * @return
+     */
+    Custom findCustom(CustomDto param);
 }

@@ -52,6 +52,50 @@
         jQuery(function() {
             jQuery(window).scrollToTop();
         });
+        $("#dropzone").dropzone({
+            url: _ctx + "/sys/upload", //必须填写
+            method:"post",  //
+            paramName:"file", //默认为file
+            maxFiles:10,//一次性上传的文件数量上限
+            maxFilesize: 20, //MB
+            acceptedFiles: ".jpg,.png", //上传的类型
+            previewsContainer:"#adds", //显示的容器
+            //parallelUploads: 3,
+            dictMaxFilesExceeded: "您最多只能上传10个文件！",
+            dictResponseError: '文件上传失败!',
+            dictInvalidFileType: "你不能上传该类型文件,文件类型只能是*.jpg,*.png。",
+            dictFallbackMessage:"浏览器不支持",
+            dictFileTooBig:"文件过大上传文件最大支持20MB",
+            init:function(){
+                //this.on("addedfile", function(file) {
+                    //上传文件时触发的事件
+                //});
+                this.on("queuecomplete",function(file) {
+                    //上传完成后触发的方法
+                });
+                this.on("removedfile",function(file){
+                    //删除文件时触发的方法
+                });
+            }
+        });
+        Dropzone.options.myAwesomeDropzone = {
+            paramName: "file",// input name
+            method: "POST",
+            maxFilesize: 2,// MB
+            addRemoveLinks:true,//移除按钮
+            //acceptedFiles:[jpg,png],//移除按钮
+            dictDefaultMessage:"拖拽或者点击上传文件",
+            dictFallbackMessage:"你的浏览器不支持拖拽文件,请使用火狐浏览器",
+            accept: function(file, done) {
+                if (file.name == "justinbieber.jpg") {
+                    done("Naha, you don't.");
+                }
+                else { done(); }
+            },
+            fallback:function(file) {
+                alert(file.status);
+            }
+        };
     </script>
     <sitemesh:write property='head' />
 </head>
@@ -82,22 +126,20 @@
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="fileUpload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="fileUpload" tabindex="-1" role="dialog" aria-labelledby="fileUploadModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">文件上传</h4>
+                    <h4 class="modal-title" id="fileUploadModalLabel">拖拽或者点击虚框上传文件</h4>
                 </div>
                 <div class="modal-body">
                     <div class="main-box-body clearfix">
-                        <div id="dropzone">
-                            <form id="demo-upload" class="dropzone dz-clickable" action="#">
-                                <div class="dz-default dz-message">
-                                    <span>Drop files here to upload</span>
-                                </div>
-                            </form>
-                        </div>
+                        <form id="dropzone" class="dropzone dz-clickable" action="${ctx}/sys/upload">
+                            <div class="dz-default dz-message">
+                                <span>选择文件上传</span>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="modal-footer">
