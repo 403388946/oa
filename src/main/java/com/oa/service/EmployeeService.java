@@ -5,6 +5,7 @@ import com.oa.model.Employee;
 import com.oa.utils.Page;
 import com.oa.utils.Pagination;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,19 +16,27 @@ import java.util.Map;
  * Created by 46637 on 2016/7/26.
  */
 @Service
+@Transactional
 public interface EmployeeService {
 
     /**
      * 保存
      * @param emp
      */
-    void save(EmployeeDto emp);
+    int save(EmployeeDto emp);
 
     /**
      * 修改
      * @param emp
      */
-    void update(EmployeeDto emp);
+    int update(EmployeeDto emp);
+
+    /**
+     * 删除
+     * @param id
+     * @return
+     */
+    int delete(EmployeeDto emp);
 
     /**
      * 分页查询
@@ -57,4 +66,12 @@ public interface EmployeeService {
      * @param response  响应
      */
     public void export(List<EmployeeDto> emps, HttpServletRequest request, HttpServletResponse response);
+
+    /**
+     * 判断身份证号是否重复
+     * @param id
+     * @param idCard
+     * @return
+     */
+    public boolean selectEmployeeByIdCard(String id, String idCard);
 }

@@ -3,6 +3,9 @@
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <head>
     <script src="${ctx}/static/js/employee/employeeList.js"></script>
+    <script type="text/javascript" >
+        var ctx_ = "${ctx}";
+    </script>
 </head>
 <body>
         <div id="employee-toolbar">
@@ -28,6 +31,10 @@
                     清空查询
                 </button>
                 <a href="${ctx}/employee/exportExcel" id="g_import" class="btn btn-default">导出</a>
+                <button type="button" id="add_employee" class="btn btn-default ">
+                    <span class="glyphicon glyphicon-add" aria-hidden="true"></span>
+                    新增员工
+                </button>
             </div>
         </div>
         <table id="employeeList" class="table table-bordered">

@@ -18,7 +18,15 @@
         <h2>新增员工信息</h2>
     </header>
     <div class="main-box-body clearfix">
-        <form action="${ctx}/employee/save" id="editFoem" role="form" class="form-horizontal">
+        <c:choose>
+            <c:when test="${not empty employee.id}">
+                <form action="${ctx}/employee/updateSave" id="editFoem" role="form" class="form-horizontal">
+            </c:when>
+            <c:otherwise>
+                <form action="${ctx}/employee/save" id="editFoem" role="form" class="form-horizontal">
+            </c:otherwise>
+        </c:choose>
+
             <div class="form-group">
                 <label class="col-lg-1 control-label" for="code">员工编号：</label>
                 <div class="col-lg-11">
@@ -69,12 +77,12 @@
                 </div>
             </div><br>
             <div class="form-group">
-                <label class="col-lg-1 control-label" for="jionDate">入职日期：</label>
+                <label class="col-lg-1 control-label" for="joinDate">入职日期：</label>
                 <div class="col-lg-11 input-group">
                     <%--<span class="input-group-addon datetimepicker" id="jionDate_datetimepicker">--%>
                     <%--<i class="fa fa-calendar"></i>--%>
                     <%--</span>--%>
-                    <input type="text" placeholder="请选择入职日期" id="jionDate" name="jionDate" class="form-control datetimepicker" value="${employee.jionDate}">
+                    <input type="text" placeholder="请选择入职日期" id="joinDate" name="joinDate" class="form-control datetimepicker" value="${employee.joinDateStr}">
                 </div>
             </div>
             <div class="form-group">

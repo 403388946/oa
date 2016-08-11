@@ -22,5 +22,9 @@ public interface EmployeeMapper {
 
     List<EmployeeDto> findEmployeeByPage(Page<EmployeeDto> page);
 
+    int findEmployeeByPageCount(Page<EmployeeDto> page);
+
     List<EmployeeDto> selectEmployeeByMap(Map<String, Object> paramMap);
+
+    Employee selectEmployeeByIdCard(String idCard);
 }

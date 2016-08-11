@@ -7,10 +7,9 @@
           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 	<!-- 引入jdbc配置文件 -->
-	<context:property-placeholder location="classpath:properties/jdbc_oa.properties"/>
-	<context:component-scan base-package="com.oa,com.shiro">
-		<context:include-filter type="annotation"
-								expression="org.springframework.stereotype.Controller" />
+	<context:property-placeholder location="classpath:properties/*.properties"/>
+	<context:component-scan base-package="com.oa,com.shiro,com.sys">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 
 	<!-- 启用aop注解 -->
@@ -18,6 +17,7 @@
 
 	<import resource="classpath:spring/spring-config-cache.xml"/>
 	<import resource="classpath:spring/spring-config-shiro.xml"/>
+	<import resource="classpath:spring/spring-config-setting.xml"/>
 	<!--数据源-->
 	<import resource="classpath:datasource/datasource_oa.xml"/>
 </beans>  

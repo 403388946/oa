@@ -8,7 +8,7 @@ $(function(){
     $('#selectCustom').click(function(){
         $('#customer-modal').on('show.bs.modal', function () {
             $('#customer_div').load(ctx_ + '/employee/customerList');
-            $("#customer-select").css("display","inline-block");
+            //$("#customer-select").css("display","inline-block");
         });
     });
 
@@ -39,6 +39,29 @@ $(function(){
                 validators: {
                     notEmpty: {
                         message: '身份证号不能为空'
+                    },
+                    callback: {
+                        message: '抱歉，此身份证号已经存在',
+                        callback: function(value, validator,$field) {
+                            var result = false;
+                            $.ajax({
+                                url:_ctx +"/employee/repeatIdCard",
+                                type:'get',
+                                async:false,
+                                data:{
+                                    id:$('#id').val(),
+                                    idCard: value
+                                },
+                                success:function(msg){
+                                    if(msg.status==1){
+                                        result = true;
+                                    }else if (msg.status==0){
+                                        result = false;
+                                    }
+                                }
+                            });
+                            return result;
+                        }
                     }/*,
                     creditCard:{
                             message:'请输入正确的身份证号'
@@ -90,51 +113,14 @@ $(function(){
                         message: '用工形式不能为空'
                     }
                 }
-            },
-            busiNum: {
-                validators: {
-                    notEmpty: {
-                        message: '商户号不能为空'
-                    },
-                    regexp:{
-                        regexp:/^([0-9]){1,20}$/,
-                        message:'商户号输入格式有误'
-                    }
-                }
-            },
-            busiDistrictName: {
-                validators: {
-                    notEmpty: {
-                        message: '详细地址不能为空'
-                    }
-                }
-            },
-            contactName: {
-                validators: {
-                    notEmpty: {
-                        message: '联系人不能为空'
-                    }
-                }
-            },
-            contactEmail: {
-                validators: {
-                    notEmpty: {
-                        message: '联系人邮箱不能为空'
-                    },
-                    emailAddress: {
-                        message: '请输入正确的邮箱'
-                    }
-                }
             }
         },
         submitHandler: function(validator, form, submitButton) {
             $.post(form.attr('action'), form.serialize(), function(result) {
                 if (result.status == 1) {
-                    $('#main_view', window.parent.document).load(_ctx + '/business/busi/list');
-                }else{
-                    $addbusiess.prop('disabled',false);
+                    $('#main_view').load(ctx_ + '/employee/list');
                 }
-                Messenger().post(result.msg);
+                alert(result.msg);
             }, 'json');
         }
     });

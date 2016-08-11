@@ -10,7 +10,7 @@ $(function () {
         var name = $('#name').val();
         var code = $('#code').val();
         $('#customer_table').bootstrapTable('refresh', {
-            url : ctx_ + "/custom/findData.json?name=" + name + "&code=" + code
+            url : ctx_ + "/custom/queryCustom?name=" + name + "&code=" + code
         });
     });
 
@@ -29,23 +29,22 @@ $(function () {
 //初始化表格
 function initTableCustomer(){
     $('#customer_table').bootstrapTable({
-        method: 'post',
-        contentType: "application/json",
-        url: ctx_ + "/custom/findData.json",
-        height: $(window).height() - 600,
-        striped: true,
-        pagination: true,
+        method: 'get',
+        cache : false,
+        sidePagination : 'server',//服务端请求
+        url: _ctx + "/custom/queryCustom",
+        striped: false,
+        pagination : 'server',
+        showRefresh : true,
         singleSelect: false,
-        showToggle: true,
+        showToggle:true,
+        sortable: false,           //是否启用排序
+        pagination : true,
         pageSize: 10,
-        pageList: [10, 50],
+        pageList: [10, 50, 100, 200, 500],
         search: false, //不显示 搜索框
         showColumns: true, //不显示下拉框（选择显示的列）
-        sidePagination: "server", //服务端请求
-        queryParams: {
-            code: $('#code').val(),
-            name: $('#name').val()
-        },
+        toolbar : '#custom-toolbar2',
         minimunCountColumns: 2,
         columns: [
             {field : 'id', radio : true},

@@ -2,6 +2,7 @@ package com.oa.service;
 
 import com.oa.dto.CustomDto;
 import com.oa.model.Custom;
+import com.oa.utils.Page;
 import com.oa.utils.Pagination;
 
 
@@ -51,4 +52,19 @@ public interface CustomService {
      * @return
      */
     Integer findCustomByPageCount(CustomDto param);
+
+    /**
+     * 查询客户(用于选择客户)
+     * @param page
+     * @return
+     */
+    Page<CustomDto> queryCustom(Page<CustomDto> page);
+
+    /**
+     * 匹配code 匹配名称 查询唯一客户 用于验证
+     * @autho YiMing
+     * @param param
+     * @return
+     */
+    Custom findCustom(CustomDto param);
 }

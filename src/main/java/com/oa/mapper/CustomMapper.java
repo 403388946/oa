@@ -2,6 +2,7 @@ package com.oa.mapper;
 
 import com.oa.dto.CustomDto;
 import com.oa.model.Custom;
+import com.oa.utils.Page;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -18,4 +19,12 @@ public interface CustomMapper {
     Custom findOne(@Param("id")Long id);
     List<Custom> findCustomByPage(CustomDto param);
     Integer findCustomByPageCount(CustomDto param);
+    Custom findCustom(CustomDto param);
+
+    /**
+     * 查询客户(用于选择客户)
+     * @param page
+     * @return
+     */
+    List<CustomDto> queryCustom(Page<CustomDto> page);
 }
