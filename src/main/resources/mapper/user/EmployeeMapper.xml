@@ -19,11 +19,12 @@
     <result column="update_time" property="updateDate" jdbcType="TIMESTAMP" />
     <result column="updater" property="updater" jdbcType="BIGINT" />
     <result column="is_del" property="isDel" jdbcType="INTEGER" />
+    <result column="agreement_id" property="agreementId" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, code, name, id_card, custom_code, custom_price_num, order_code, custom_name, join_date,
     pay_code, service_status, employment_form, create_time, creater, update_time, updater, 
-    is_del
+    is_del, agreement_id
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -41,13 +42,13 @@
       order_code, custom_name, join_date, 
       pay_code, service_status, employment_form, 
       create_time, creater, update_time, 
-      updater, is_del)
+      updater, is_del, agreement_id)
     values (#{id,jdbcType=BIGINT}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{idCard,jdbcType=VARCHAR}, #{customCode,jdbcType=VARCHAR}, #{customPriceNum,jdbcType=DECIMAL},
       #{orderCode,jdbcType=VARCHAR}, #{customName,jdbcType=VARCHAR}, #{joinDate,jdbcType=TIMESTAMP}, 
       #{payCode,jdbcType=VARCHAR}, #{serviceStatus,jdbcType=INTEGER}, #{employmentForm,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{updater,jdbcType=BIGINT}, #{isDel,jdbcType=INTEGER})
+      #{updater,jdbcType=BIGINT}, #{isDel,jdbcType=INTEGER}, #{agreement_id,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.oa.dto.EmployeeDto" >
     insert into oa_employee
@@ -103,6 +104,9 @@
       <if test="isDel != null" >
         is_del,
       </if>
+      <if test="agreementId != null">
+        agreement_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -155,6 +159,9 @@
       </if>
       <if test="isDel != null" >
         #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="agreementId != null">
+        #{agreementId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -209,6 +216,9 @@
       <if test="isDel != null" >
         is_del = #{isDel,jdbcType=INTEGER},
       </if>
+      <if test="agreementId != null">
+        agreement_id = #{agreementId,jdbcType=BIGINT},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -229,7 +239,8 @@
       creater = #{creater,jdbcType=BIGINT},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       updater = #{updater,jdbcType=BIGINT},
-      is_del = #{isDel,jdbcType=INTEGER}
+      is_del = #{isDel,jdbcType=INTEGER},
+      agreement_id = #{agreementId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 
