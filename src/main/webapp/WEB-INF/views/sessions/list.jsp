@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@taglib prefix="zhangfn" uri="http://github.com/zhangkaitao/tags/zhang-functions" %>
+<%@taglib prefix="oaTags" uri="com.oa.lib.tags" %>
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html>
 <head>
@@ -30,12 +30,12 @@
         <c:forEach items="${sessions}" var="session">
             <tr>
                 <td>${session.id}</td>
-                <td>${zhangfn:principal(session)}</td>
+                <td>${oaTags:principal(session)}</td>
                 <td>${session.host}</td>
                 <td><fmt:formatDate value="${session.getLastAccessTime()}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-                <td>${zhangfn:isForceLogout(session) ? '是' : '否'}</td>
+                <td>${oaTags:isForceLogout(session) ? '是' : '否'}</td>
                 <td>
-                    <c:if test="${not zhangfn:isForceLogout(session)}">
+                    <c:if test="${not oaTags:isForceLogout(session)}">
                         <a href="${pageContext.request.contextPath}/sessions/${session.id}/forceLogout">强制退出</a>
                     </c:if>
                 </td>

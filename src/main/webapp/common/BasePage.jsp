@@ -1,11 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title><sitemesh:write property='title' /></title>
+    <title><sitemesh:write property='title'/></title>
     <style type="text/css">
 
     </style>
@@ -51,51 +52,59 @@
         var _ctx = "${ctx}";
         jQuery(function() {
             jQuery(window).scrollToTop();
-        });
-        $("#dropzone").dropzone({
-            url: _ctx + "/sys/upload", //必须填写
-            method:"post",  //
-            paramName:"file", //默认为file
-            maxFiles:10,//一次性上传的文件数量上限
-            maxFilesize: 20, //MB
-            acceptedFiles: ".jpg,.png", //上传的类型
-            previewsContainer:"#adds", //显示的容器
-            //parallelUploads: 3,
-            dictMaxFilesExceeded: "您最多只能上传10个文件！",
-            dictResponseError: '文件上传失败!',
-            dictInvalidFileType: "你不能上传该类型文件,文件类型只能是*.jpg,*.png。",
-            dictFallbackMessage:"浏览器不支持",
-            dictFileTooBig:"文件过大上传文件最大支持20MB",
-            init:function(){
-                //this.on("addedfile", function(file) {
-                    //上传文件时触发的事件
-                //});
-                this.on("queuecomplete",function(file) {
-                    //上传完成后触发的方法
-                });
-                this.on("removedfile",function(file){
-                    //删除文件时触发的方法
-                });
-            }
-        });
-        Dropzone.options.myAwesomeDropzone = {
-            paramName: "file",// input name
-            method: "POST",
-            maxFilesize: 2,// MB
-            addRemoveLinks:true,//移除按钮
-            //acceptedFiles:[jpg,png],//移除按钮
-            dictDefaultMessage:"拖拽或者点击上传文件",
-            dictFallbackMessage:"你的浏览器不支持拖拽文件,请使用火狐浏览器",
-            accept: function(file, done) {
-                if (file.name == "justinbieber.jpg") {
-                    done("Naha, you don't.");
+            var haveFile = {id:0,name:'avatar.png',path:'http://demo.mycodes.net/houtai/ace_admin_cn/assets/avatars/avatar.png',size:200};
+            $(".dropzone").dropzone({
+                url: _ctx + "/sys/upload",  //
+                method:"post",  //
+                paramName:"file", //默认为file
+                maxFiles:10,//一次性上传的文件数量上限
+                maxFilesize:20,//MB
+                acceptedFiles:".jpg,.png", //上传的类型
+                dictMaxFilesExceeded: "您最多只能上传10个文件！",
+                dictResponseError:'文件上传失败!',
+                addRemoveLinks:true,
+                dictRemoveFile:"移除",
+                dictDefaultMessage : "<span>上传</span>",
+                dictFallbackMessage:"你的浏览器不支持拖拽文件,请使用火狐浏览器!",
+                dictFileTooBig:"文件过大上传文件最大支持20MB!",
+                init:function() {
+                    this.on("success", function (file, finished) {
+                        console.log(file);
+                        console.log(finished);
+                    });
                 }
-                else { done(); }
-            },
-            fallback:function(file) {
-                alert(file.status);
-            }
-        };
+            });
+        });
+        function edit(haveFile) {
+                    var images = [haveFile];
+                    for(var i = 0; i < images.length; i++) {
+                        var image = '<div id="' + i + '" class="dz-preview dz-processing dz-image-preview dz-success">' +
+                            '<div class="dz-details">' +
+                            '<div class="dz-filename">' +
+                            '<span data-dz-name="">' + images[i].name + '</span>' +
+                            '</div>    ' +
+                            '<div class="dz-size" data-dz-size="">' +
+                            '<strong>' + images[i].size + '</strong>KB' +
+                            '</div>' +
+                            '<img src="' + images[i].path + '" alt="' + images[i].name + '" data-dz-thumbnail="">' +
+                            '</div>' +
+                            '<div class="dz-progress">' +
+                            '<span style="width: 100%;" class="dz-upload" data-dz-uploadprogress=""></span>' +
+                            '</div>  ' +
+                            '<div class="dz-success-mark">' +
+                            '<span>✔</span>' +
+                            '</div>  ' +
+                            '<div class="dz-error-mark">' +
+                            '<span>✘</span>' +
+                            '</div>  ' +
+                            '<div class="dz-error-message">' +
+                            '<span data-dz-errormessage=""></span>' +
+                            '</div>' +
+                            '<a class="dz-remove" href="javascript:remove(' + images[i].id + ');">移除</a>' +
+                            '</div>';
+                    }
+
+        }
     </script>
     <sitemesh:write property='head' />
 </head>
@@ -125,29 +134,6 @@
             </div>
         </div>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="fileUpload" tabindex="-1" role="dialog" aria-labelledby="fileUploadModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="fileUploadModalLabel">拖拽或者点击虚框上传文件</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="main-box-body clearfix">
-                        <form id="dropzone" class="dropzone dz-clickable" action="${ctx}/sys/upload">
-                            <div class="dz-default dz-message">
-                                <span>选择文件上传</span>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                    <button type="submit" class="btn btn-primary">确定</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
 </body>
 </html>
