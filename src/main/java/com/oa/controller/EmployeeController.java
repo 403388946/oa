@@ -131,26 +131,66 @@ public class EmployeeController {
     }
 
     /**
-     * 保存数据
-     * @param employeeDto
+     * 绑定员工合同文件
+     * @author YiMing
+     * @param id 员工ID
+     * @param fileId 文件UUID
      * @return
      */
     @RequestMapping(value = "bindAgreement", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> bindAgreement(@ModelAttribute("employeeDto") EmployeeDto employeeDto) {
+    public Map<String, Object> bindAgreement(@RequestParam Long id, @RequestParam String fileId) {
         Map<String, Object> result = new HashMap<>();
         try{
-            String loginName = LoginUtils.getCurrentUserLoginName();
-            User user = userService.findByUsername(loginName);
-            employeeDto.setCreater(user.getId());
-            int num = employeeService.save(employeeDto);
-            if(num > 0){
                 result.put("status", 1);
-                result.put("msg", "添加员工成功");
-            }
+                result.put("images", 1);
+                result.put("msg", "绑定成功");
         }catch (Exception e){
             result.put("status", 0);
-            result.put("msg", "添加员工失败");
+            result.put("msg", "绑定失败");
+        }
+        return result;
+    }
+
+    /**
+     * 解绑员工合同文件
+     * @author YiMing
+     * @param id 员工ID
+     * @param fileId 文件UUID
+     * @return
+     */
+    @RequestMapping(value = "unbindAgreement", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> unbindAgreement(@RequestParam Long id, @RequestParam String fileId) {
+        Map<String, Object> result = new HashMap<>();
+        try{
+                result.put("status", 1);
+                result.put("images", 1);
+                result.put("msg", "解除成功");
+        }catch (Exception e){
+            result.put("status", 0);
+            result.put("msg", "解除失败");
+        }
+        return result;
+    }
+
+    /**
+     * 查询员工合同文件
+     * @author YiMing
+     * @param id 员工ID
+     * @return
+     */
+    @RequestMapping(value = "findAgreement", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> findAgreement(@RequestParam Long id) {
+        Map<String, Object> result = new HashMap<>();
+        try{
+            result.put("status", 1);
+            result.put("images", 1);
+            result.put("msg", "解除成功");
+        }catch (Exception e){
+            result.put("status", 0);
+            result.put("msg", "解除失败");
         }
         return result;
     }

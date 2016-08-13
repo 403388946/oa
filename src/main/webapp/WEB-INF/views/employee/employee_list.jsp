@@ -1,6 +1,9 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<%@taglib prefix="tags" tagdir="/WEB-INF/tags"%>
+
+
 <head>
     <script src="${ctx}/static/js/employee/employeeList.js"></script>
     <script type="text/javascript" >
@@ -37,6 +40,9 @@
                 </button>
             </div>
         </div>
+        <tags:upload id="employee" saveAction="${ctx}/employee/bindAgreement"
+                     deleteAction="${ctx}/employee/unbindAgreement"
+                     dateAction="${ctx}/employee/findAgreement"/>
         <table id="employeeList" class="table table-bordered">
         </table>
 </body>

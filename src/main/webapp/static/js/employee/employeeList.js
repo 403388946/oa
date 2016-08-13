@@ -69,7 +69,7 @@ $(function () {
                     '<a class="delete_employee_click "  href="javascript:void(0);" title="Edit">',
                     '<i class="glyphicon glyphicon-remove">删除</i>',
                     '</a>&nbsp;&nbsp;',
-                    '<a class="upload"  data-id="' + row.id + '" href="javascript:void(0);" data-toggle="modal" data-target="#fileUpload">',
+                    '<a class="upload"  data-id="' + row.id + '" href="javascript:void(0);" onclick="">',
                         '<i class="glyphicon glyphicon-open">上传图片</i>',
                     '</a>'].join('');
             }}
