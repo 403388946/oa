@@ -65,9 +65,10 @@ public interface AgreementMapper {
 
     /**
      * 根据条件查询报价单号数据（用于选择报价单号）
-     * @param paramMap
+     * @param page
      * @return
      */
     List<AgreementDto> queryAgreementByMap(Page<AgreementDto> page);
+    int queryAgreementByMapCount(Page<AgreementDto> page);
 
 }

@@ -27,4 +27,5 @@ public interface CustomMapper {
      * @return
      */
     List<CustomDto> queryCustom(Page<CustomDto> page);
+    Integer queryCustomCount (Page<CustomDto> page);
 }

@@ -3,7 +3,10 @@ package com.oa.controller;
 import com.oa.dto.AgreementDto;
 import com.oa.model.Agreement;
 import com.oa.service.AgreementService;
+import com.oa.utils.LoginUtils;
 import com.oa.utils.Page;
+import com.shiro.model.User;
+import com.shiro.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +27,8 @@ public class AgreementController {
 
     @Autowired
     private AgreementService agreementService;
-
+    @Autowired
+    private UserService userService;
     /**
      * 进入列表页
      * @return
@@ -59,7 +63,7 @@ public class AgreementController {
             @RequestParam("limit") int limit,
             @RequestParam(value = "customerName", defaultValue = "", required = false) String customerName,
             @RequestParam(value = "customerCode", defaultValue = "", required = false) String customerCode,
-            @RequestParam(value = "priceNum", defaultValue = "", required = false) String priceNum) {
+            @RequestParam(value = "customerPriceNum", defaultValue = "", required = false) String priceNum) {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("customerName", customerName);
         paramMap.put("customerCode", customerCode);
@@ -81,9 +85,9 @@ public class AgreementController {
      * @param priceNum
      * @return
      */
-    @RequestMapping(value = "selectAgreementList")
+    @RequestMapping(value = "queryAgreementByMap")
     @ResponseBody
-    public Page<AgreementDto> selectAgreementList(
+    public Page<AgreementDto> queryAgreementByMap(
             @RequestParam("offset") int offset,
             @RequestParam("limit") int limit,
             @RequestParam(value = "customerName", defaultValue = "", required = false) String customerName,
@@ -111,6 +115,9 @@ public class AgreementController {
     public Map<String, Object> saveAdd(Agreement agreement) {
         Map<String, Object> result = new HashMap<String, Object>();
         try{
+            String loginName = LoginUtils.getCurrentUserLoginName();
+            User user = userService.findByUsername(loginName);
+            agreement.setCreater(user.getId());
             int num = agreementService.insert(agreement);
             result.put("status", num);
             result.put("msg", "添加成功");
@@ -131,6 +138,9 @@ public class AgreementController {
     public Map<String, Object> saveUpdate(Agreement agreement) {
         Map<String, Object> result = new HashMap<String, Object>();
         try{
+            String loginName = LoginUtils.getCurrentUserLoginName();
+            User user = userService.findByUsername(loginName);
+            agreement.setUpdater(user.getId());
             int num = agreementService.updateByPrimaryKeySelective(agreement);
             result.put("status", num);
             result.put("msg", "修改成功");
@@ -154,6 +164,9 @@ public class AgreementController {
             Agreement agreement = new Agreement();
             agreement.setId(id);
             agreement.setIsDel(1);
+            String loginName = LoginUtils.getCurrentUserLoginName();
+            User user = userService.findByUsername(loginName);
+            agreement.setUpdater(user.getId());
             int num = agreementService.updateByPrimaryKeySelective(agreement);
             result.put("status", num);
             result.put("msg", "删除成功");

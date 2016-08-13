@@ -12,10 +12,7 @@ $(function () {
     });
     //导出
     $("#g_import").bind("click", function(){
-        window.location.href=ctx_ + '/employee/exportExcel' + searchParm();
-    });
-    $("#add_employee").bind("click", function(){
-        $('#main_view').load(ctx_ + '/employee/add');
+        window.location.href=_ctx + '/employee/exportExcel' + searchParm();
     });
 
     var $url = _ctx + "/employee/getEmployeeList";

@@ -41,29 +41,20 @@
         where id = #{id,jdbcType=BIGINT}
     </delete>
     <insert id="insert" parameterType="com.oa.model.Agreement" >
-        insert into oa_agreement (id, price_num, salary, create_time, creater, update_time, updater,
+        insert into oa_agreement (price_num, salary, create_time, creater,
         is_del, custom_id)
-        values (#{id,jdbcType=BIGINT}, #{priceNum,jdbcType=VARCHAR}, #{salary,jdbcType=DOUBLE},
-        #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP},
-        #{updater,jdbcType=BIGINT}, #{isDel,jdbcType=INTEGER}, #{customId,jdbcType=BIGINT})
+        values (#{priceNum,jdbcType=VARCHAR}, #{salary,jdbcType=DOUBLE},
+        now(), #{creater,jdbcType=BIGINT}, 0, #{customId,jdbcType=BIGINT})
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.oa.model.Agreement" >
         update oa_agreement
         <set >
+            update_time = now(),
             <if test="priceNum != null" >
                 price_num = #{priceNum,jdbcType=VARCHAR},
             </if>
             <if test="salary != null" >
                 salary = #{salary,jdbcType=DOUBLE},
-            </if>
-            <if test="createTime != null" >
-                create_time = #{createTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="creater != null" >
-                creater = #{creater,jdbcType=BIGINT},
-            </if>
-            <if test="updateTime != null" >
-                update_time = #{updateTime,jdbcType=TIMESTAMP},
             </if>
             <if test="updater != null" >
                 updater = #{updater,jdbcType=BIGINT},
@@ -81,9 +72,7 @@
         update oa_agreement
         set price_num = #{priceNum,jdbcType=VARCHAR},
         salary = #{salary,jdbcType=DOUBLE},
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-        creater = #{creater,jdbcType=BIGINT},
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        update_time = now(),
         updater = #{updater,jdbcType=BIGINT},
         is_del = #{isDel,jdbcType=INTEGER},
         custom_id = #{customId,jdbcType=BIGINT}
@@ -112,7 +101,7 @@
             <if test="paramMap.customerCode != null and paramMap.customerCode != ''" >
                 and t.customerCode like concat('%',replace(#{paramMap.customerCode,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
             </if>
-        </where>
+        </where> limit #{offset}, #{limit}
     </select>
 
     <!--  根据条件查询报价单号表信息总数 -->
@@ -143,6 +132,30 @@
     <select id="queryAgreementByMap" resultMap="BaseResultMap1" >
         SELECT t.id, t.price_num, t.salary, t.create_time, t.creater, t.update_time, t.updater,
         t.is_del, t.custom_id,t.customerName, t.customerCode
+        FROM (
+        select a.id, a.price_num, a.salary, a.create_time, a.creater, a.update_time, a.updater,
+        a.is_del, a.custom_id,
+        (select c.name from oa_custom c where a.custom_id = c.id and c.is_del = 0) as customerName,
+        (select c.code from oa_custom c where a.custom_id = c.id and c.is_del = 0) as customerCode
+        from oa_agreement a
+        where is_del = 0
+        <if test="paramMap.priceNum != null and paramMap.priceNum != ''" >
+            and a.price_num like concat('%',replace(#{paramMap.priceNum,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+        </if>
+        )t
+        <where> 1=1
+            <if test="paramMap.customerName != null and paramMap.customerName != ''" >
+                and  t.customerName  like concat('%',replace(#{paramMap.customerName,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+            </if>
+            <if test="paramMap.customerCode != null and paramMap.customerCode != ''" >
+                and t.customerCode like concat('%',replace(#{paramMap.customerCode,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+            </if>
+        </where>  limit #{offset}, #{limit}
+    </select>
+
+    <!--  根据条件查询报价单号表信息总数 -->
+    <select id="queryAgreementByMapCount" resultType="java.lang.Integer" >
+        SELECT count(1) alltotal
         FROM (
         select a.id, a.price_num, a.salary, a.create_time, a.creater, a.update_time, a.updater,
         a.is_del, a.custom_id,

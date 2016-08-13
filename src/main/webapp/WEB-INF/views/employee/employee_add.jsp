@@ -73,7 +73,8 @@
             <div class="form-group">
                 <label class="col-lg-1 control-label" for="customPriceNum">客户报价单号：</label>
                 <div class="col-lg-11">
-                    <input type="text" placeholder="请输入客户报价单号" id="customPriceNum" name="customPriceNum" class="form-control" value="${employee.customPriceNum}">
+                    <input type="text" placeholder="请输入客户报价单号" id="customPriceNum" name="customPriceNum" class="form-control" value="${employee.customPriceNum}" readonly="readonly">
+                    <input type="hidden" id="agreementId" name="agreementId" class="form-control" value="${employee.agreementId}">
                 </div>
             </div><br>
             <div class="form-group">
@@ -130,7 +131,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                     &times;
                 </button>
-                <h4 class="modal-title" id="myModalLabel">选择会员</h4>
+                <h4 class="modal-title" id="myModalLabel">选择客户报价单号信息</h4>
             </div>
             <div id="customer_div" class="modal-body" >
             </div>

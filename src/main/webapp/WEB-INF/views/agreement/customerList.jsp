@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 
-<script src="${ctx}/static/js/employee/customerList.js"></script>
+<script src="${ctx}/static/js/agreement/customerList.js"></script>
 <script type="text/javascript">
     var ctx_ = "${ctx}";
 </script>
@@ -15,11 +15,11 @@
         <div class="form-group">
             <input type="text" id="cusName" name="cusName" class="form-control" placeholder="请输入名称">
         </div>
-        <button type="button" id="g_search" class="btn btn-default ">
+        <button type="button" id="customer_search" class="btn btn-default ">
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
             查询
         </button>
-        <button type="button" id="g_reset" class="btn btn-default ">
+        <button type="button" id="customer_reset" class="btn btn-default ">
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
             清空查询
         </button>

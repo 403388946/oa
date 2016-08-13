@@ -20,7 +20,7 @@
 	<logger name="com.oa" level="DEBUG" />
 
 	<!--log4jdbc -->
-	<logger name="jdbc.sqltiming" level="INFO"/>
+	<logger name="jdbc.sqltiming" level="DEBUG"/>
 	<logger name="com.ibatis" level="DEBUG" />
 	<logger name="com.ibatis.common.jdbc.SimpleDataSource" level="DEBUG" />
 	<logger name="com.ibatis.common.jdbc.ScriptRunner" level="DEBUG" />

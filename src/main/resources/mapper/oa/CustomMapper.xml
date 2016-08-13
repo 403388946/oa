@@ -102,6 +102,19 @@
         </if>
         <if test="paramMap.name != null and paramMap.name != ''" >
             AND name  LIKE concat('%',replace(#{paramMap.name,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+        </if> limit #{offset}, #{limit}
+    </select>
+
+    <select id="queryCustomCount" resultType="java.lang.Integer">
+        SELECT
+        count(1) allTotal
+        FROM oa_custom
+        WHERE is_del = 0
+        <if test="paramMap.code != null and paramMap.code != ''" >
+            AND code LIKE concat('%',replace(#{paramMap.code,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+        </if>
+        <if test="paramMap.name != null and paramMap.name != ''" >
+            AND name  LIKE concat('%',replace(#{paramMap.name,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
         </if>
     </select>
 </mapper>
