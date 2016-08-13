@@ -65,5 +65,4 @@
         <function-class>com.shiro.web.taglib.Functions</function-class>
         <function-signature>boolean isForceLogout(org.apache.shiro.session.Session)</function-signature>
     </function>
-
 </taglib>
