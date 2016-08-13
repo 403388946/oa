@@ -62,7 +62,7 @@
 
 	<!--  配置参与事务的类 -->
 	<aop:config expose-proxy="true" proxy-target-class="true">
-		<aop:pointcut id="pc" expression="execution(* com.*.*.service.*.*(..))" />
+		<aop:pointcut id="pc" expression="execution(* com.*.service.*.*(..))" />
 		<aop:advisor pointcut-ref="pc" advice-ref="userTxAdvice" />
 	</aop:config>
 

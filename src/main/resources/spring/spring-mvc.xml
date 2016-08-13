@@ -61,6 +61,7 @@
             <props>
                 <prop key="org.apache.shiro.authz.UnauthorizedException">error/403</prop>
                 <prop key="java.lang.Throwable">error/500</prop>
+                <prop key="com.oa.utils.OAExceptionHandler">error</prop>
             </props>
         </property>
     </bean>

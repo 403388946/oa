@@ -73,6 +73,12 @@ public class CustomServiceImpl implements CustomService {
     @Override
     public Page<CustomDto> queryCustom(Page<CustomDto> page) {
         List<CustomDto> list = customMapper.queryCustom(page);
+        if(list != null && list.size() > 0){
+            Integer total = customMapper.queryCustomCount(page);
+            page.setTotal(total);
+        }else{
+            page.setTotal(0);
+        }
         page.setRows(list);
         return page;
     }

@@ -127,4 +127,14 @@ public class CustomController {
         pages = customService.queryCustom(pages);
         return pages;
     }
+
+    /**
+     * 进入选择客户页
+     * @return
+     */
+    @RequestMapping(value = "customerList", method = RequestMethod.GET)
+    public String customerList() {
+        return "agreement/customerList";
+    }
+
 }

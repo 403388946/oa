@@ -5,8 +5,8 @@ import com.oa.dto.EmployeeDto;
 import com.oa.model.Employee;
 import com.oa.service.EmployeeService;
 import com.oa.utils.LoginUtils;
+import com.oa.utils.OAExceptionHandler;
 import com.oa.utils.Page;
-import com.oa.utils.Pagination;
 import com.shiro.model.User;
 import com.shiro.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,15 +65,6 @@ public class EmployeeController {
     }
 
     /**
-     * 进入选择客户页
-     * @return
-     */
-    @RequestMapping(value = "customerList", method = RequestMethod.GET)
-    public String customerList() {
-        return "/employee/customerList";
-    }
-
-    /**
      * 获取列表数据
      * @param offset
      * @param limit
@@ -124,6 +115,7 @@ public class EmployeeController {
                 result.put("msg", "添加员工成功");
             }
         }catch (Exception e){
+            new OAExceptionHandler(e);
             result.put("status", 0);
             result.put("msg", "添加员工失败");
         }

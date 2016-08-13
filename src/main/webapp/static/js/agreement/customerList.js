@@ -1,29 +1,17 @@
 $(function () {
     initTableCustomer();
     //重置
-    $("#g_reset").bind("click", function(){
-        $('#code').val('');
-        $('#name').val('') ;
+    $("#customer_reset").bind("click", function(){
+        $('#cusCode').val('');
+        $('#cusName').val('') ;
     });
     //查询
-    $("#g_search").bind("click", function(){
-        var name = $('#name').val();
-        var code = $('#code').val();
+    $("#customer_search").bind("click", function(){
+        var name = $('#cusName').val();
+        var code = $('#cusCode').val();
         $('#customer_table').bootstrapTable('refresh', {
-            url : ctx_ + "/custom/queryCustom?name=" + name + "&code=" + code
+            url : _ctx + "/custom/queryCustom?name=" + name + "&code=" + code
         });
-    });
-
-    //选中赋值
-    $("#customer-select").on('click',function(){
-        var selectRow = $('#customer_table').bootstrapTable('getSelections');
-        if(selectRow.length == 1){
-            $('#customCode').val(selectRow[0].code);//将BusiId放入隐藏域
-            $("#customName").val(selectRow[0].name);
-        }else{
-            alert('请选中！！！');
-        }
-        $('#customer-modal').modal('hide');
     });
 });
 //初始化表格
@@ -47,7 +35,7 @@ function initTableCustomer(){
         toolbar : '#custom-toolbar2',
         minimunCountColumns: 2,
         columns: [
-            {field : 'id', radio : true},
+            {field : 'state', radio : true},
             {field: 'code', title: '客户编号', width: 100,align: 'center',valign: 'middle',sortable: true},
             {field: 'name', title: '客户名称', width: 100,align: 'center',valign: 'middle',sortable: true}
         ],

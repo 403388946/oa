@@ -42,10 +42,21 @@
                         <ul id="employeeManager" class="submenu" style="display: none;">
                             <li>
                                 <a href="javascript:void(0);" data-href="${ctx}/employee/list" class="menu_click">
-                                    全部员工
+                                    员工列表
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" data-href="${ctx}/employee/add" class="menu_click">
+                                    新增员工
                                 </a>
                             </li>
                         </ul>
+                    </li>
+                    <li class="">
+                        <a href="javascript:void(0);" data-href="${ctx}/agreement/list" class="menu_click">
+                            <span>报价单号管理</span>
+                            <i class="fa fa-chevron-circle-right drop-icon"></i>
+                        </a>
                     </li>
                 </ul>
             </div>

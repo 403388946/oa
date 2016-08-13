@@ -7,9 +7,22 @@ $(function(){
     /*会员列表*/
     $('#selectCustom').click(function(){
         $('#customer-modal').on('show.bs.modal', function () {
-            $('#customer_div').load(ctx_ + '/employee/customerList');
+            $('#customer_div').load(_ctx + '/agreement/selectAgreementList');
             //$("#customer-select").css("display","inline-block");
         });
+    });
+
+    $('#customer-select').on('click', function () {
+        var selectRow = $('#agreement_table').bootstrapTable('getSelections');
+        if(selectRow.length == 1){
+            $('#customName').val(selectRow[0].customerName);
+            $('#agreementId').val(selectRow[0].id);
+            $('#customCode').val(selectRow[0].customerCode);
+            $('#customPriceNum').val(selectRow[0].priceNum);
+            $('#customer-modal').modal('hide');
+        }else{
+            alert('请选中！！！');
+        }
     });
 
     /** 新增 校验* */
@@ -118,7 +131,7 @@ $(function(){
         submitHandler: function(validator, form, submitButton) {
             $.post(form.attr('action'), form.serialize(), function(result) {
                 if (result.status == 1) {
-                    $('#main_view').load(ctx_ + '/employee/list');
+                    $('#main_view').load(_ctx + '/employee/list');
                 }
                 alert(result.msg);
             }, 'json');

@@ -50,7 +50,7 @@
   <sql id="Base_Column_List1" >
     id, code, name, id_card, custom_code, custom_price_num, order_code, custom_name, join_date,
     pay_code, service_status, employment_form, create_time, creater, update_time, updater,
-    is_del,date_format(join_date,'%Y-%c-%d') joinDateStr
+    is_del,date_format(join_date,'%Y-%c-%d') joinDateStr，agreement_id
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap1" parameterType="java.lang.Long" >
     select 
@@ -72,7 +72,7 @@
       #{idCard,jdbcType=VARCHAR}, #{customCode,jdbcType=VARCHAR}, #{customPriceNum,jdbcType=DECIMAL},
       #{orderCode,jdbcType=VARCHAR}, #{customName,jdbcType=VARCHAR}, #{joinDate,jdbcType=TIMESTAMP}, 
       #{payCode,jdbcType=VARCHAR}, #{serviceStatus,jdbcType=INTEGER}, #{employmentForm,jdbcType=INTEGER}, 
-      now(), #{creater,jdbcType=BIGINT}, #{agreement_id,jdbcType=BIGINT},0)
+      now(), #{creater,jdbcType=BIGINT}, #{agreementId,jdbcType=BIGINT},0)
   </insert>
   <insert id="insertSelective" parameterType="com.oa.dto.EmployeeDto" >
     insert into oa_employee
