@@ -1,5 +1,6 @@
 package com.oa.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -24,7 +25,7 @@ public class Employee {
     private Date createTime;//创建时间
     private Long updater;//修改人
     private Date updateTime;//修改时间
-
+    private Long agreementId;//报价单号id
     public Long getId() {
         return id;
     }
@@ -159,5 +160,13 @@ public class Employee {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Long getAgreementId() {
+        return agreementId;
+    }
+
+    public void setAgreementId(Long agreementId) {
+        this.agreementId = agreementId;
     }
 }

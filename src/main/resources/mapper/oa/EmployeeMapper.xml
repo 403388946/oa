@@ -19,6 +19,7 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="updater" property="updater" jdbcType="BIGINT" />
     <result column="is_del" property="isDel" jdbcType="INTEGER" />
+    <result column="agreement_id" property="agreementId" jdbcType="BIGINT" />
   </resultMap>
   <resultMap id="BaseResultMap1" type="com.oa.dto.EmployeeDto" >
     <id column="id" property="id" jdbcType="BIGINT" />
@@ -39,11 +40,12 @@
     <result column="updater" property="updater" jdbcType="BIGINT" />
     <result column="is_del" property="isDel" jdbcType="INTEGER" />
     <result column="joinDateStr" property="joinDateStr" jdbcType="VARCHAR" />
+    <result column="agreement_id" property="agreementId" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, code, name, id_card, custom_code, custom_price_num, order_code, custom_name, join_date,
     pay_code, service_status, employment_form, create_time, creater, update_time, updater, 
-    is_del
+    is_del, agreement_id
   </sql>
   <sql id="Base_Column_List1" >
     id, code, name, id_card, custom_code, custom_price_num, order_code, custom_name, join_date,
@@ -65,12 +67,12 @@
       id_card, custom_code, custom_price_num,
       order_code, custom_name, join_date, 
       pay_code, service_status, employment_form, 
-      create_time, creater, is_del)
+      create_time, creater, agreement_id, is_del)
     values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
       #{idCard,jdbcType=VARCHAR}, #{customCode,jdbcType=VARCHAR}, #{customPriceNum,jdbcType=DECIMAL},
       #{orderCode,jdbcType=VARCHAR}, #{customName,jdbcType=VARCHAR}, #{joinDate,jdbcType=TIMESTAMP}, 
       #{payCode,jdbcType=VARCHAR}, #{serviceStatus,jdbcType=INTEGER}, #{employmentForm,jdbcType=INTEGER}, 
-      now(), #{creater,jdbcType=BIGINT},0)
+      now(), #{creater,jdbcType=BIGINT}, #{agreement_id,jdbcType=BIGINT},0)
   </insert>
   <insert id="insertSelective" parameterType="com.oa.dto.EmployeeDto" >
     insert into oa_employee
@@ -112,7 +114,10 @@
       <if test="creater != null" >
         creater,
       </if>
-        is_del
+      <if test="agreementId != null">
+        agreement_id,
+      </if>
+      is_del
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="code != null" >
@@ -151,6 +156,9 @@
       now(),
       <if test="creater != null" >
         #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="agreementId != null">
+        #{agreementId,jdbcType=BIGINT},
       </if>
       0
     </trim>
@@ -204,6 +212,9 @@
       <if test="isDel != null" >
         is_del = #{isDel,jdbcType=INTEGER},
       </if>
+      <if test="agreementId != null">
+        agreement_id = #{agreementId,jdbcType=BIGINT},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -224,7 +235,8 @@
       creater = #{creater,jdbcType=BIGINT},
       update_time = now(),
       updater = #{updater,jdbcType=BIGINT},
-      is_del = #{isDel,jdbcType=INTEGER}
+      is_del = #{isDel,jdbcType=INTEGER},
+      agreement_id = #{agreementId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 
