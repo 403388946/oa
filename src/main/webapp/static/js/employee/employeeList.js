@@ -48,27 +48,24 @@ $(function () {
             {field: 'serviceStatus', title: '在职状态', width: 80,align: 'center',valign: 'middle',sortable: true,formatter:function(val){
                 switch (val) {
                     case 2:
-                        return "<span color=#009933>离职申请中</span>";
-                        break;
+                        return "<span color='#009933'>离职申请中</span>";
                     case 1:
-                        return "<span color=#009933>在职</span>";
-                        break;
+                        return "<span color='#009933'>在职</span>";
                     case 0:
-                        return "<span color=#FF0000>离职</span>";
-                        break;
+                        return "<span color='#009933'>离职</span>";
                 }
             }},
-            {field: 'operation', title: '操作', width: 200,align: 'center',valign: 'middle',sortable: false,events: 'operateEvents',formatter: function(value,row,index){
-                return [
-                    '<a class="edit_employee_click "  href="javascript:void(0);" title="Edit">',
-                    '<i class="glyphicon glyphicon-edit">修改</i>',
-                    '</a>&nbsp;&nbsp;',
-                    '<a class="delete_employee_click "  href="javascript:void(0);" title="Edit">',
-                    '<i class="glyphicon glyphicon-remove">删除</i>',
-                    '</a>&nbsp;&nbsp;',
-                    '<a class="upload"  data-id="' + row.id + '" href="javascript:void(0);" data-toggle="modal" data-target="#fileUpload">',
-                        '<i class="glyphicon glyphicon-open">上传图片</i>',
-                    '</a>'].join('');
+            {field: 'operation', title: '操作', width: 200,align: 'center',valign: 'middle',sortable: false,formatter: function(value,row,index){
+                var str_ = '<a class="edit_employee_click "  onclick="edit('+ row.id +');" href="javascript:void(0);" title="Edit">'
+                    +'<i class="glyphicon glyphicon-edit">修改</i>'
+                    +'</a>'
+                    +'<a class="delete_employee_click " onclick="del('+ row.id +');" href="javascript:void(0);" title="Edit">'
+                    +'<i class="glyphicon glyphicon-remove">删除</i>'
+                    +'</a>'
+                    +'<a class="upload"  data-id="' + row.id + '" href="javascript:void(0);" onclick="imageEdit(' + row.id + ')">'
+                    +'<i class="glyphicon glyphicon-open">编辑文件</i>'
+                    +'</a>';
+                return str_;
             }}
         ]
     });

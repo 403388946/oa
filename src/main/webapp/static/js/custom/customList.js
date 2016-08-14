@@ -1,10 +1,10 @@
 $(function () {
     //初始化表格
     var customs = $('#customs').bootstrapTable({
-        method: 'post',
+        method: 'get',
         contentType: "json",
-        url: _ctx + "/custom/findData.json",
-        height: $(window).height() - 200,
+        url: _ctx + "/custom/findData",
+        //height: 880,
         striped: true,
         pagination: true,
         singleSelect: false,
@@ -15,10 +15,6 @@ $(function () {
         showColumns: false, //不显示下拉框（选择显示的列）
         sidePagination: "server", //服务端请求
         toolbar : '#custom-toolbar',
-        queryParams: {
-            'code': $('#code_').val(),
-            'name': $('#name_').val()
-        },
         minimunCountColumns: 2,
         columns: [
             {field: 'customId', checkbox: true},
@@ -45,11 +41,6 @@ $(function () {
     $("#g_search").bind("click", function(){
         queryParams();
     });
-
-    $("#g_add").bind("click", function(){
-        $('#main_view').load(_ctx + "/custom/add");
-    });
-
     window.operateEvents = {
         /*修改客户信息*/
         'click .edit_custom_click' : function(e, value, row, index){
@@ -61,9 +52,7 @@ $(function () {
                     id : row.id
                 }, function(res) {
                     if (res.status == 1) {
-                        $("#customs").bootstrapTable('refresh',{code: $('#code_').val(),
-                                name: $('#name_').val()}
-                        );
+                        $("#customs").bootstrapTable('refresh',{url: _ctx + "/custom/findData?code=" + $('#code_').val() + "&name=" + $('#name_').val()});
                     }
                     alert(res.message);
                 });
@@ -75,8 +64,5 @@ $(function () {
 
 //查询
 function queryParams() {
-    $("#customs").bootstrapTable('refresh',{
-        code: $('#code_').val(),
-        name: $('#name_').val()
-    });
+    $("#customs").bootstrapTable('refresh',{url: _ctx + "/custom/findData?code=" + $('#code_').val() + "&name=" + $('#name_').val()});
 }

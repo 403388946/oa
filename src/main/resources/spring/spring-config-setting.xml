@@ -8,6 +8,7 @@
             <map>
                 <entry key="uploadPathOA" value="${fileStorePath_oa}"/>
                 <entry key="downLoadUrlOA" value="${downLoadUrl_oa}"/>
+                <entry key="deleteFileOA" value="${deleteFile_oa}"/>
             </map>
         </constructor-arg>
     </bean>

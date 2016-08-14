@@ -65,7 +65,7 @@
     <if test="name != null and name != ''" >
       AND name  LIKE #{name}
     </if>
-    limit #{startItem},#{pageSize}
+    limit #{offset},#{limit}
   </select>
   <select id="findCustomByPageCount" parameterType="com.oa.dto.CustomDto" resultType="java.lang.Integer">
     SELECT

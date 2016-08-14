@@ -36,11 +36,15 @@ CREATE TABLE IF NOT EXISTS `oa_employee` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='员工表';
 
 
-CREATE TABLE IF NOT EXISTS `oa_employee_pic` (
+CREATE TABLE `oa_file_info` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
-  `path` varchar(255) NOT NULL COMMENT '图片路径',
-  `local_name` varchar(255) DEFAULT NULL COMMENT '本地文件名称',
-  `real_name` varchar(255) DEFAULT NULL COMMENT '真实名称',
-  `pic_size` bigint(20) DEFAULT '0' COMMENT '大小',
+  `path` varchar(200) DEFAULT NULL,
+  `local_name` varchar(50) DEFAULT NULL  COMMENT '本地文件名',
+  `real_name` varchar(50) DEFAULT NULL  COMMENT '服务器文件名',
+  `file_size` bigint(20) DEFAULT NULL COMMENT '文件大小',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP  COMMENT '业务主键',
+  `service_id` bigint(20) NOT NULL COMMENT '业务主键',
+  `service_type` int(2) NOT NULL COMMENT '业务类型',
+  `file_type` varchar(20) NOT NULL COMMENT '文件类型',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT '文件信息'

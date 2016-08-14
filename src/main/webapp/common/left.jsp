@@ -22,24 +22,27 @@
                 <ul class="nav nav-pills nav-stacked">
                     <!--右边导航-->
                     <li class="">
-                        <a class="dropdown-toggle menu_click" href="javascript:void(0);">
+                        <a class="dropdown-toggle" href="#resource_1">
                             <span>客户管理</span>
                             <i class="fa fa-chevron-circle-right drop-icon"></i>
                         </a>
-                        <ul class="submenu" style="display: none;">
+                        <ul id="resource_1" class="submenu" style="display: none;">
                             <li>
                                 <a href="javascript:void(0);" data-href="${ctx}/custom/findPage" class="menu_click">
-                                    全部客户
+                                    客户列表
                                 </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" data-href="${ctx}/custom/add" class="menu_click">添加客户</a>
                             </li>
                         </ul>
                     </li>
                     <li class="">
-                        <a href="#employeeManager" class="dropdown-toggle">
+                        <a href="#resource_2" class="dropdown-toggle">
                             <span>员工管理</span>
                             <i class="fa fa-chevron-circle-right drop-icon"></i>
                         </a>
-                        <ul id="employeeManager" class="submenu" style="display: none;">
+                        <ul id="resource_2" class="submenu" style="display: none;">
                             <li>
                                 <a href="javascript:void(0);" data-href="${ctx}/employee/list" class="menu_click">
                                     员工列表
@@ -53,10 +56,17 @@
                         </ul>
                     </li>
                     <li class="">
-                        <a href="javascript:void(0);" data-href="${ctx}/agreement/list" class="menu_click">
+                        <a href="#resource_3" class="dropdown-toggle">
                             <span>报价单号管理</span>
                             <i class="fa fa-chevron-circle-right drop-icon"></i>
                         </a>
+                        <ul id="resource_3" class="submenu" style="display: none;">
+                            <li>
+                                <a href="javascript:void(0);" data-href="${ctx}/agreement/list" class="menu_click">
+                                    员工列表
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>

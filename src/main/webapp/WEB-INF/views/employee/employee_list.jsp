@@ -1,6 +1,8 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<%@taglib prefix="tags" tagdir="/WEB-INF/tags"%>
+
 <head>
     <script src="${ctx}/static/js/employee/employeeList.js"></script>
 </head>
@@ -30,6 +32,12 @@
                 <a href="${ctx}/employee/exportExcel" id="g_import" class="btn btn-default">导出</a>
             </div>
         </div>
-        <table id="employeeList" class="table table-bordered">
-        </table>
+        <tags:table id="employeeList"/>
+        <tags:upload id="employee"
+                     uploadAction="${ctx}/sys/upload"
+                     serviceType="1"
+                     downloadAction="${ctx}/sys/down"
+                     saveAction="${ctx}/sys/save"
+                     deleteAction="${ctx}/sys/delete"
+                     dateAction="${ctx}/sys/findFiles" />
 </body>

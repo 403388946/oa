@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sys.mapper.FileInfoMapper" >
+    <resultMap id="BaseResultMap" type="com.sys.model.FileInfo" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="path" property="path" jdbcType="VARCHAR" />
+        <result column="local_name" property="localName" jdbcType="VARCHAR" />
+        <result column="real_name" property="realName" jdbcType="VARCHAR" />
+        <result column="file_size" property="fileSize" jdbcType="BIGINT" />
+        <result column="service_id" property="serviceId" jdbcType="BIGINT" />
+        <result column="service_type" property="serviceType" jdbcType="INTEGER" />
+        <result column="file_type" property="fileType" jdbcType="VARCHAR" />
+        <result column="file_id" property="fileId" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, path, local_name, real_name, file_size, service_id, service_type, file_type, file_id, create_time
+    </sql>
+
+    <insert id="insert" parameterType="com.oa.dto.CustomDto" flushCache="true">
+        INSERT INTO oa_file_info (
+             path
+            ,local_name
+            ,real_name
+            ,file_size
+            ,service_id
+            ,service_type
+            ,file_type
+            ,file_id
+            ) VALUE (
+            #{path}
+            ,#{localName}
+            ,#{realName}
+            ,#{fileSize}
+            ,#{serviceId}
+            ,#{serviceType}
+            ,#{fileType}
+            ,#{fileId}
+        )
+        <selectKey keyProperty="id" resultType="long" order="AFTER">
+          SELECT @@IDENTITY AS id
+        </selectKey>
+    </insert>
+
+
+    <delete id="delete" flushCache="true">
+        DELETE FROM oa_file_info WHERE file_id = #{fileId}
+    </delete>
+
+    <select id="findOne" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM oa_file_info
+        WHERE id = #{id}
+    </select>
+
+    <select id="findOneByFileId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM oa_file_info
+        WHERE file_id = #{fileId}
+    </select>
+
+    <select id="findFiles" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> FROM oa_file_info
+        WHERE service_id = #{serviceId} and service_type = #{serviceType}
+    </select>
+</mapper>
