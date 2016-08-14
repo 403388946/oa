@@ -1,18 +1,22 @@
 <%@ tag pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <%@ attribute name="id" required="true"%>
 <%@ attribute name="saveAction" required="true"%>
+<%@ attribute name="uploadAction" required="true"%>
+<%@ attribute name="downloadAction" required="true"%>
 <%@ attribute name="deleteAction" required="true"%>
 <%@ attribute name="dateAction" required="true"%>
+<%@ attribute name="serviceType" required="true"%>
 <%@ attribute name="title" fragment="true"%>
 <%@ attribute name="message" fragment="true"%>
 <link rel="stylesheet" type="text/css" href="${ctx}/static/css/libs/dropzone.css"/>
 <script src="${ctx}/static/js/dropzone.js" type="text/javascript"></script>
 <script type="text/javascript" >
-    jQuery(function() {
+    var localServiceId = 0;
+    $(function() {
         $("#dropzone").dropzone({
-            url: "${action}",  //
+            url: "${uploadAction}",  //
             method:"post",  //
             paramName:"file", //默认为file
             maxFiles:10,//一次性上传的文件数量上限
@@ -27,26 +31,41 @@
             dictFileTooBig:"文件过大上传文件最大支持20MB!",
             init:function() {
                 this.on("success", function(file, finished) {
-                    console.log(file);
-                    console.log(finished);
+                    $(file.previewElement).children('.dz-remove').attr('href',"javascript:imageRemove('" + finished.fileId + "')");
+                    $(file.previewElement).addClass(finished.fileId);
+                    if(finished.status && localServiceId > 0) {
+                        $.post("${saveAction}",{
+                            serviceId : localServiceId,
+                            serviceType : "${serviceType}",
+                            localName : finished.localName,
+                            realName : finished.realName,
+                            fileId : finished.fileId,
+                            fileType : finished.fileType,
+                            fileSize : finished.fileSize,
+                            path : finished.path
+                        }, function(info) {
+                            $(file.previewElement).children('.dz-details').attr('onclick','down(' + info.id + ')');
+                        });
+                    }
                 });
             }
         });
     });
-    function imageEdit(id) {
-        $.post(${dateAction},{id : id}, function(result) {
-            if(result.status == 1) {
-                var images = result.images;
+    function imageEdit(serviceId) {
+        localServiceId = serviceId;
+        $("#dropzone").children('.dz-preview').remove();
+        $.post("${dateAction}",{serviceId : serviceId,serviceType : "${serviceType}"}, function(images) {
+            if(!!images && images.length > 0) {
                 for(var i = 0; i < images.length; i++) {
-                    var image = '<div id="oa_upload_image_' + i + '" class="dz-preview dz-processing dz-image-preview dz-success">' +
-                            '<div class="dz-details">' +
+                    var image = '<div id="oa_upload_image_' + i + '" class="dz-preview dz-processing dz-image-preview dz-success ' + images[i].fileId + '">' +
+                            '<div class="dz-details"  onclick="down(' + images[i].id + ')">' +
                             '<div class="dz-filename">' +
-                            '<span data-dz-name="">' + images[i].name + '</span>' +
+                            '<span data-dz-name="">' + images[i].localName + '</span>' +
                             '</div>' +
                             '<div class="dz-size" data-dz-size="">' +
-                            '<strong>' + images[i].size + '</strong>KB' +
+                            '<strong>' + images[i].fileSize + '</strong>KB' +
                             '</div>' +
-                            '<img src="' + images[i].path + '" alt="' + images[i].name + '" data-dz-thumbnail="">' +
+                            '<img src="' + "${downloadAction}?id=" + images[i].id + '" alt="" data-dz-thumbnail="">' +
                             '</div>' +
                             '<div class="dz-progress">' +
                             '<span style="width: 100%;" class="dz-upload" data-dz-uploadprogress=""></span>' +
@@ -60,23 +79,30 @@
                             '<div class="dz-error-message">' +
                             '<span data-dz-errormessage=""></span>' +
                             '</div>' +
-                            '<a class="dz-remove" href="javascript:remove(' + images[i].id + ');">移除</a>' +
+                            '<a class="dz-remove" href="javascript:imageRemove(\'' + images[i].fileId + '\');">移除</a>' +
                             '</div>';
                     if(i == 0) {
-                        $('#oa_upload_' + ${id} + '>div.dz-message').html(image);
+                        $('#oa_upload_' + "${id}").find('div.dz-message').after(image);
                     } else {
-                        $('#oa_upload_image_' + i).after(image);
+                        $('#oa_upload_image_' + (i - 1)).after(image);
                     }
                 }
             }
         });
-
-        $('#oa_upload_' + ${id}).modal();
+        $('#oa_upload_' + "${id}").modal();
     }
-    function imageRemove(id) {
-        $.post(${deleteAction},{id : id}, function(result) {
-
+    function imageRemove(fileId) {
+        $.post("${deleteAction}",{fileId : fileId}, function(result) {
+            if(result > 0) {
+                $('#dropzone').children('.' + fileId).remove();
+            }
         });
+    }
+
+    function down(id) {
+        location.href = '${downloadAction}' + '?id=' + id;
+       /* $.post("${downloadAction}",{id : id}, function(result) {
+        });*/
     }
 </script>
 <!-- Modal -->
@@ -89,7 +115,7 @@
             </div>
             <div class="modal-body">
                 <div class="main-box-body clearfix">
-                    <form id="dropzone" class="dropzone dz-clickable" action="${action}">
+                    <form id="dropzone" class="dropzone dz-clickable" action="${saveAction}">
                         <div class="dz-message">
                             <span>${empty message ? "" : message}</span>
                         </div>
@@ -97,8 +123,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="submit" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">确认</button>
             </div>
         </div>
     </div>

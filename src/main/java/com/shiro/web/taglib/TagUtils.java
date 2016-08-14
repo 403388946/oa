@@ -15,7 +15,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.Collection;
 
-public class Functions {
+public class TagUtils {
 
 
     public static boolean in(Iterable iterable, Object element) {

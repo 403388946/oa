@@ -134,11 +134,11 @@ public class EmployeeController {
     public Map<String, Object> bindAgreement(@RequestParam Long id, @RequestParam String fileId) {
         Map<String, Object> result = new HashMap<>();
         try{
-                result.put("status", 1);
+                result.put("status", true);
                 result.put("images", 1);
                 result.put("msg", "绑定成功");
         }catch (Exception e){
-            result.put("status", 0);
+            result.put("status", false);
             result.put("msg", "绑定失败");
         }
         return result;
@@ -156,11 +156,11 @@ public class EmployeeController {
     public Map<String, Object> unbindAgreement(@RequestParam Long id, @RequestParam String fileId) {
         Map<String, Object> result = new HashMap<>();
         try{
-                result.put("status", 1);
+                result.put("status", true);
                 result.put("images", 1);
                 result.put("msg", "解除成功");
         }catch (Exception e){
-            result.put("status", 0);
+            result.put("status", false);
             result.put("msg", "解除失败");
         }
         return result;
@@ -177,12 +177,10 @@ public class EmployeeController {
     public Map<String, Object> findAgreement(@RequestParam Long id) {
         Map<String, Object> result = new HashMap<>();
         try{
-            result.put("status", 1);
+            result.put("status", true);
             result.put("images", 1);
-            result.put("msg", "解除成功");
         }catch (Exception e){
-            result.put("status", 0);
-            result.put("msg", "解除失败");
+            result.put("status", false);
         }
         return result;
     }
