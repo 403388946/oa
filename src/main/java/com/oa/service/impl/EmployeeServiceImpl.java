@@ -52,7 +52,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         return list;
     }
 
-    public Employee findOne(Long id) {
+    public EmployeeDto findOne(Long id) {
         return employeeMapper.selectByPrimaryKey(id);
     }
 

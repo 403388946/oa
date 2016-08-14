@@ -57,7 +57,7 @@ public interface EmployeeService {
      * @param id
      * @return
      */
-    Employee findOne(Long id);
+    EmployeeDto findOne(Long id);
 
     /**
      * 导出员工信息

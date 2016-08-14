@@ -12,7 +12,6 @@ public class Employee {
     private String code;//编号
     private String name;//姓名
     private String idCard;//身份证号码
-    private String orderCode;//单号
     private String customCode;//客户编号
     private String customName;//客户名称
     private String customPriceNum;//客户报价单号
@@ -56,14 +55,6 @@ public class Employee {
 
     public void setIdCard(String idCard) {
         this.idCard = idCard;
-    }
-
-    public String getOrderCode() {
-        return orderCode;
-    }
-
-    public void setOrderCode(String orderCode) {
-        this.orderCode = orderCode;
     }
 
     public String getCustomCode() {
