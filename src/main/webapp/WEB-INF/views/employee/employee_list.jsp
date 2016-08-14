@@ -32,8 +32,7 @@
                 <a href="${ctx}/employee/exportExcel" id="g_import" class="btn btn-default">导出</a>
             </div>
         </div>
-        <table id="employeeList" class="table table-bordered">
-        </table>
+        <tags:table id="employeeList"/>
         <tags:upload id="employee"
                      uploadAction="${ctx}/sys/upload"
                      serviceType="1"

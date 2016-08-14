@@ -1,13 +1,7 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 46637
-  Date: 2016/8/11
-  Time: 21:51
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<%@taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <head>
     <script src="${ctx}/static/js/employee/selectAgreementList.js"></script>
 </head>
@@ -32,5 +26,4 @@
         </button>
     </div>
 </div>
-<table id="agreement_table" class="table table-bordered">
-</table>
+<tags:table id="agreement_table"/>

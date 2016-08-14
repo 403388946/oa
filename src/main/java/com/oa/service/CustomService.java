@@ -43,7 +43,7 @@ public interface CustomService {
      * @param param
      * @return
      */
-    Pagination<Custom> findCustomByPage(CustomDto param);
+    Page<Custom> findCustomByPage(CustomDto param);
 
     /**
      * 统计所有符合条件的客户数量

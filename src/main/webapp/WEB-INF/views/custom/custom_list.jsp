@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
-
+<%@taglib prefix="tags" tagdir="/WEB-INF/tags"%>
     <script type="text/javascript" src="${ctx}/static/js/custom/customList.js"></script>
 
     <div id="custom-toolbar">
@@ -20,13 +20,7 @@
                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                 清空查询
             </button>
-            <button type="button" id="g_add" class="btn btn-primary">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                添加客户
-            </button>
-
         </div>
     </div>
-    <table id="customs" class="table table-bordered">
-    </table>
+    <tags:table id="customs"/>
 

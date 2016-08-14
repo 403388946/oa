@@ -53,11 +53,10 @@ public class CustomServiceImpl implements CustomService {
     }
 
     @Override
-    public Pagination<Custom> findCustomByPage(CustomDto param) {
-        Pagination<Custom> page = new Pagination<>();
-        page.setCurrentPage(param.getCurrentPage());
-        page.setPageSize(param.getPageSize());
-        param.setStartItem(page.getPageNum());
+    public Page<Custom> findCustomByPage(CustomDto param) {
+        Page<Custom> page = new Page<>();
+        page.setLimit(param.getLimit());
+        page.setOffset(param.getOffset());
         List<Custom> customs = customMapper.findCustomByPage(param);
         Integer total = customMapper.findCustomByPageCount(param);
         page.setRows(customs);

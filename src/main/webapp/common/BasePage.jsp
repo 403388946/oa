@@ -34,7 +34,7 @@
     <script src="${ctx}/static/js/scripts.js" type="text/javascript"></script>
 
     <script src="${ctx}/static/js/jquery.nanoscroller.min.js"></script>
-    <script src="${ctx}/static/js/jquery-ui.custom.min.js"></script>
+    <%--<script src="${ctx}/static/js/jquery-ui.custom.min.js"></script>--%>
     <script src="${ctx}/static/js/jquery.slimscroll.min.js"></script>
     <script src="${ctx}/static/js/morris.min.js"></script>
     <script src="${ctx}/static/js/moment.min.js"></script>
@@ -64,8 +64,8 @@
                 <jsp:include page="/common/left.jsp"/>
                 <!--左边导航结束-->
                 <div id="content-wrapper">
-                    <div class="row" style="opacity: 1;">
-                        <div class="col-lg-12" id="main_view">
+                    <div class="row">
+                        <div class="col-xs-12" id="main_view">
                             <!--正文开始-->
                             <!--正文结束-->
                             <sitemesh:write property='body' />
