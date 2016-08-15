@@ -14,7 +14,7 @@ public interface EmployeeMapper {
 
     int insertSelective(EmployeeDto employee);
 
-    Employee selectByPrimaryKey(Long id);
+    EmployeeDto selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeySelective(EmployeeDto employee);
 

@@ -59,7 +59,7 @@ public class EmployeeController {
      */
     @RequestMapping(value = "update", method = RequestMethod.GET)
     public String update(@RequestParam(value = "id", required = false)Long id, Model model) {
-        Employee employee = employeeService.findOne(id);
+        EmployeeDto employee = employeeService.findOne(id);
         model.addAttribute("employee", employee);
         return "/employee/employee_add";
     }
