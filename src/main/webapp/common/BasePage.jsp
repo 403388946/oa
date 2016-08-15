@@ -31,7 +31,6 @@
     <script src="${ctx}/static/js/jquery.scrollToTop.js" type="text/javascript"></script>
     <script src="${ctx}/static/js/bootstrap-table.js" type="text/javascript"></script>
     <script src="${ctx}/static/js/bootstrap-table-zh-CN.js" type="text/javascript"></script>
-    <script src="${ctx}/static/js/scripts.js" type="text/javascript"></script>
 
     <script src="${ctx}/static/js/jquery.nanoscroller.min.js"></script>
     <%--<script src="${ctx}/static/js/jquery-ui.custom.min.js"></script>--%>

@@ -10,32 +10,30 @@ insert into sys_organization values(2, '分公司1', 1, '0/1/', true);
 insert into sys_organization values(3, '分公司2', 1, '0/1/', true);
 insert into sys_organization values(4, '分公司11', 2, '0/1/2/', true);
 
-insert into sys_resource values(1, '资源', 'menu', '', 0, '0/', '', true);
-
-insert into sys_resource values(11, '组织机构管理', 'menu', '/organization', 1, '0/1/', 'organization:*', true);
-insert into sys_resource values(12, '组织机构新增', 'button', '', 11, '0/1/11/', 'organization:create', true);
-insert into sys_resource values(13, '组织机构修改', 'button', '', 11, '0/1/11/', 'organization:update', true);
-insert into sys_resource values(14, '组织机构删除', 'button', '', 11, '0/1/11/', 'organization:delete', true);
-insert into sys_resource values(15, '组织机构查看', 'button', '', 11, '0/1/11/', 'organization:view', true);
-
-insert into sys_resource values(21, '用户管理', 'menu', '/user', 1, '0/1/', 'user:*', true);
-insert into sys_resource values(22, '用户新增', 'button', '', 21, '0/1/21/', 'user:create', true);
-insert into sys_resource values(23, '用户修改', 'button', '', 21, '0/1/21/', 'user:update', true);
-insert into sys_resource values(24, '用户删除', 'button', '', 21, '0/1/21/', 'user:delete', true);
-insert into sys_resource values(25, '用户查看', 'button', '', 21, '0/1/21/', 'user:view', true);
-
-insert into sys_resource values(31, '资源管理', 'menu', '/resource', 1, '0/1/', 'resource:*', true);
-insert into sys_resource values(32, '资源新增', 'button', '', 31, '0/1/31/', 'resource:create', true);
-insert into sys_resource values(33, '资源修改', 'button', '', 31, '0/1/31/', 'resource:update', true);
-insert into sys_resource values(34, '资源删除', 'button', '', 31, '0/1/31/', 'resource:delete', true);
-insert into sys_resource values(35, '资源查看', 'button', '', 31, '0/1/31/', 'resource:view', true);
-
-insert into sys_resource values(41, '角色管理', 'menu', '/role', 1, '0/1/', 'role:*', true);
-insert into sys_resource values(42, '角色新增', 'button', '', 41, '0/1/41/', 'role:create', true);
-insert into sys_resource values(43, '角色修改', 'button', '', 41, '0/1/41/', 'role:update', true);
-insert into sys_resource values(44, '角色删除', 'button', '', 41, '0/1/41/', 'role:delete', true);
-insert into sys_resource values(45, '角色查看', 'button', '', 41, '0/1/41/', 'role:view', true);
-
-insert into sys_resource values(51, '会话管理', 'menu', '/sessions', 1, '0/1/', 'session:*', true);
-
+INSERT INTO sys_resource (id, name, type, url, parent_id, parent_ids, permission, available) VALUES (1, '资源', 'menu', '', 0, '0/', '', 1);
+INSERT INTO sys_resource (id, name, type, url, parent_id, parent_ids, permission, available) VALUES (11, '组织机构管理', 'menu', '/organization/index', 1, '0/1/', 'organization:manage', 1);
+INSERT INTO sys_resource (id, name, type, url, parent_id, parent_ids, permission, available) VALUES (12, '组织机构新增', 'button', '', 11, '0/1/11/', 'organization:create', 1);
+INSERT INTO sys_resource (id, name, type, url, parent_id, parent_ids, permission, available) VALUES (13, '组织机构修改', 'button', '', 11, '0/1/11/', 'organization:update', 1);
+INSERT INTO sys_resource (id, name, type, url, parent_id, parent_ids, permission, available) VALUES (14, '组织机构删除', 'button', '', 11, '0/1/11/', 'organization:delete', 1);
+INSERT INTO sys_resource (id, name, type, url, parent_id, parent_ids, permission, available) VALUES (15, '组织机构查看', 'button', '', 11, '0/1/11/', 'organization:view', 1);
+INSERT INTO sys_resource (id, name, type, url, parent_id, parent_ids, permission, available) VALUES (21, '用户管理', 'menu', '/user/index', 1, '0/1/', 'user:manage', 1);
+INSERT INTO sys_resource (id, name, type, url, parent_id, parent_ids, permission, available) VALUES (22, '用户新增', 'button', '', 21, '0/1/21/', 'user:create', 1);
+INSERT INTO sys_resource (id, name, type, url, parent_id, parent_ids, permission, available) VALUES (23, '用户修改', 'button', '', 21, '0/1/21/', 'user:update', 1);
+INSERT INTO sys_resource (id, name, type, url, parent_id, parent_ids, permission, available) VALUES (24, '用户删除', 'button', '', 21, '0/1/21/', 'user:delete', 1);
+INSERT INTO sys_resource (id, name, type, url, parent_id, parent_ids, permission, available) VALUES (25, '用户查看', 'button', '', 21, '0/1/21/', 'user:view', 1);
+INSERT INTO sys_resource (id, name, type, url, parent_id, parent_ids, permission, available) VALUES (31, '资源管理', 'menu', '/resource/index', 1, '0/1/', 'resource:manage', 1);
+INSERT INTO sys_resource (id, name, type, url, parent_id, parent_ids, permission, available) VALUES (32, '资源新增', 'button', '', 31, '0/1/31/', 'resource:create', 1);
+INSERT INTO sys_resource (id, name, type, url, parent_id, parent_ids, permission, available) VALUES (33, '资源修改', 'button', '', 31, '0/1/31/', 'resource:update', 1);
+INSERT INTO sys_resource (id, name, type, url, parent_id, parent_ids, permission, available) VALUES (34, '资源删除', 'button', '', 31, '0/1/31/', 'resource:delete', 1);
+INSERT INTO sys_resource (id, name, type, url, parent_id, parent_ids, permission, available) VALUES (35, '资源查看', 'button', '', 31, '0/1/31/', 'resource:view', 1);
+INSERT INTO sys_resource (id, name, type, url, parent_id, parent_ids, permission, available) VALUES (41, '角色管理', 'menu', '/role/index', 1, '0/1/', 'role:manage', 1);
+INSERT INTO sys_resource (id, name, type, url, parent_id, parent_ids, permission, available) VALUES (42, '角色新增', 'button', '', 41, '0/1/41/', 'role:create', 1);
+INSERT INTO sys_resource (id, name, type, url, parent_id, parent_ids, permission, available) VALUES (43, '角色修改', 'button', '', 41, '0/1/41/', 'role:update', 1);
+INSERT INTO sys_resource (id, name, type, url, parent_id, parent_ids, permission, available) VALUES (44, '角色删除', 'button', '', 41, '0/1/41/', 'role:delete', 1);
+INSERT INTO sys_resource (id, name, type, url, parent_id, parent_ids, permission, available) VALUES (45, '角色查看', 'button', '', 41, '0/1/41/', 'role:view', 1);
+INSERT INTO sys_resource (id, name, type, url, parent_id, parent_ids, permission, available) VALUES (51, '会话管理', 'menu', '/sessions/index', 1, '0/1/', 'session:manage', 1);
+INSERT INTO sys_resource (id, name, type, url, parent_id, parent_ids, permission, available) VALUES (52, '客户管理', 'menu', '', 1, '0/1/', 'custom:manage', 1);
+INSERT INTO sys_resource (id, name, type, url, parent_id, parent_ids, permission, available) VALUES (53, '客户信息列表', 'menu', '/custom/findPage', 52, '0/1/52/', 'custom:view', 1);
+INSERT INTO sys_resource (id, name, type, url, parent_id, parent_ids, permission, available) VALUES (54, '新增客户信息', 'menu', '/custom/add', 52, '0/1/52/', 'custom:create', 1);
+INSERT INTO sys_resource (id, name, type, url, parent_id, parent_ids, permission, available) VALUES (55, '保存客户信息', 'button', '', 54, '0/1/52/54/', 'custom:save', 1);
 insert into sys_role values(1, 'admin', '超级管理员', '11,21,31,41,51', true);
