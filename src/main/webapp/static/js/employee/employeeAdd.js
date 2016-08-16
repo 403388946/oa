@@ -95,7 +95,7 @@ $(function(){
                     }
                 }
             },
-            jionDate: {
+            joinDate: {
                 validators: {
                     notEmpty: {
                         message: '入职日期不能为空'

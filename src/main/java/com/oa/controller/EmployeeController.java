@@ -65,6 +65,15 @@ public class EmployeeController {
     }
 
     /**
+     * 进入选择员工页面
+     * @return
+     */
+    @RequestMapping(value = "selectEmployee", method = RequestMethod.GET)
+    public String selectEmployee(){
+        return "/agreementInfo/selectEmployeeList";
+    }
+
+    /**
      * 获取列表数据
      * @param offset
      * @param limit
@@ -281,6 +290,35 @@ public class EmployeeController {
             result.put("msg", "删除员工失败");
         }
         return result;
+    }
+
+    /**
+     * 获取列表数据
+     * @param offset
+     * @param limit
+     * @param code
+     * @param name
+     * @param customName
+     * @return
+     */
+    @RequestMapping(value = "getSelectEmployeeList")
+    @ResponseBody
+    public String getSelectEmployeeList(
+            @RequestParam("offset") int offset,
+            @RequestParam("limit") int limit,
+            @RequestParam(value = "employeeCode", defaultValue = "", required = false) String code,
+            @RequestParam(value = "employeeName", defaultValue = "", required = false) String name,
+            @RequestParam(value = "customerName", defaultValue = "", required = false) String customName) {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("code", code);
+        paramMap.put("name", name);
+        paramMap.put("customName", customName);
+        Page<EmployeeDto> pages = new Page<EmployeeDto>();
+        pages.setOffset(offset);
+        pages.setLimit(limit);
+        pages.setParamMap(paramMap);
+        pages = employeeService.findEmployeeByPage(pages);
+        return JSON.toJSONString(pages);
     }
 
 }

@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oa.mapper.AgreementInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.oa.model.AgreementInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="employee_id" property="employeeId" jdbcType="BIGINT" />
+    <result column="agreement_start_time" property="agreementStartTime" jdbcType="TIMESTAMP" />
+    <result column="agreement_end_time" property="agreementEndTime" jdbcType="TIMESTAMP" />
+    <result column="test_start_time" property="testStartTime" jdbcType="TIMESTAMP" />
+    <result column="test_end_time" property="testEndTime" jdbcType="TIMESTAMP" />
+    <result column="test_salary" property="testSalary" jdbcType="DECIMAL" />
+    <result column="formal_salary" property="formalSalary" jdbcType="DECIMAL" />
+    <result column="agreement_version" property="agreementVersion" jdbcType="VARCHAR" />
+    <result column="term" property="term" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creater" property="creater" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="updater" property="updater" jdbcType="BIGINT" />
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
+  </resultMap>
+
+  <resultMap id="BaseResultMap1" type="com.oa.dto.AgreementInfoDto" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="employee_id" property="employeeId" jdbcType="BIGINT" />
+    <result column="agreement_start_time" property="agreementStartTime" jdbcType="TIMESTAMP" />
+    <result column="agreement_end_time" property="agreementEndTime" jdbcType="TIMESTAMP" />
+    <result column="test_start_time" property="testStartTime" jdbcType="TIMESTAMP" />
+    <result column="test_end_time" property="testEndTime" jdbcType="TIMESTAMP" />
+    <result column="test_salary" property="testSalary" jdbcType="DECIMAL" />
+    <result column="formal_salary" property="formalSalary" jdbcType="DECIMAL" />
+    <result column="agreement_version" property="agreementVersion" jdbcType="VARCHAR" />
+    <result column="term" property="term" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creater" property="creater" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="updater" property="updater" jdbcType="BIGINT" />
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
+    <result column="employeeCode" property="employeeCode" jdbcType="VARCHAR" />
+    <result column="employeeName" property="employeeName" jdbcType="VARCHAR" />
+    <result column="idCard" property="idCard" jdbcType="VARCHAR" />
+    <result column="customerCode" property="customerCode" jdbcType="VARCHAR" />
+    <result column="customerName" property="customerName" jdbcType="VARCHAR" />
+    <result column="customerPriceNum" property="customerPriceNum" jdbcType="VARCHAR" />
+    <result column="employmentForm" property="employmentForm" jdbcType="INTEGER" />
+    <result column="agreementStartTimeStr" property="agreementStartTimeStr" jdbcType="VARCHAR" />
+    <result column="agreementEndTimeStr" property="agreementEndTimeStr" jdbcType="VARCHAR" />
+    <result column="testStartTimeStr" property="testStartTimeStr" jdbcType="VARCHAR" />
+    <result column="testEndTimeStr" property="testEndTimeStr" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, employee_id, agreement_start_time, agreement_end_time, test_start_time, test_end_time, 
+    test_salary, formal_salary, agreement_version, term, create_time, creater, update_time, updater,
+    is_del
+  </sql>
+
+  <sql id="Base_Column_List1" >
+    t.id, t.employee_id, t.agreement_start_time, t.agreement_end_time, t.test_start_time, t.test_end_time,
+    t.test_salary, t.formal_salary, t.agreement_version, t.term, t.create_time, t.creater, t.update_time, t.updater,
+    t.is_del, t.employeeCode, t.employeeName, t.idCard, t.customerCode,
+    t.customerName, t.customerPriceNum, t.employmentForm, t.agreementStartTimeStr, t.agreementEndTimeStr,
+    t.testStartTimeStr, t.testEndTimeStr
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap1" parameterType="java.lang.Long" >
+    select
+      ai.id, ai.employee_id, ai.agreement_start_time, ai.agreement_end_time, ai.test_start_time, ai.test_end_time,
+      ai.test_salary, ai.formal_salary, ai.agreement_version, ai.term,
+      ai.create_time, ai.creater, ai.update_time, ai.updater, ai.is_del,
+      (select e.code from oa_employee e where ai.employee_id = e.id and e.is_del = 0) as employeeCode,
+      (select e.name from oa_employee e where ai.employee_id = e.id and e.is_del = 0) as employeeName,
+      (select e.id_card from oa_employee e where ai.employee_id = e.id and e.is_del = 0) as idCard,
+      (select e.custom_code from oa_employee e where ai.employee_id = e.id and e.is_del = 0) as customerCode,
+      (select e.custom_name from oa_employee e where ai.employee_id = e.id and e.is_del = 0) as customerName,
+      (select e.custom_price_num from oa_employee e where ai.employee_id = e.id and e.is_del = 0) as customerPriceNum,
+      (select e.employment_form from oa_employee e where ai.employee_id = e.id and e.is_del = 0) as employmentForm,
+      date_format(ai.agreement_start_time,'%Y-%c-%d') as agreementStartTimeStr,
+      date_format(ai.agreement_end_time,'%Y-%c-%d') as agreementEndTimeStr,
+      date_format(ai.test_start_time,'%Y-%c-%d') as testStartTimeStr,
+      date_format(ai.test_end_time,'%Y-%c-%d') as testEndTimeStr
+    from oa_agreement_info ai
+    where ai.id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from oa_agreement_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="com.oa.model.AgreementInfo" >
+    insert into oa_agreement_info (employee_id, agreement_start_time,
+      agreement_end_time, test_start_time, test_end_time, 
+      test_salary, formal_salary, agreement_version, 
+      term, create_time, creater, is_del
+      )
+    values (#{employeeId,jdbcType=BIGINT}, #{agreementStartTime,jdbcType=TIMESTAMP},
+      #{agreementEndTime,jdbcType=TIMESTAMP}, #{testStartTime,jdbcType=TIMESTAMP}, #{testEndTime,jdbcType=TIMESTAMP}, 
+      #{testSalary,jdbcType=DECIMAL}, #{formalSalary,jdbcType=DECIMAL}, #{agreementVersion,jdbcType=VARCHAR}, 
+      #{term,jdbcType=INTEGER}, now(), #{creater,jdbcType=BIGINT}, 0)
+  </insert>
+  <insert id="insertSelective" parameterType="com.oa.model.AgreementInfo" >
+    insert into oa_agreement_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="employeeId != null" >
+        employee_id,
+      </if>
+      <if test="agreementStartTime != null" >
+        agreement_start_time,
+      </if>
+      <if test="agreementEndTime != null" >
+        agreement_end_time,
+      </if>
+      <if test="testStartTime != null" >
+        test_start_time,
+      </if>
+      <if test="testEndTime != null" >
+        test_end_time,
+      </if>
+      <if test="testSalary != null" >
+        test_salary,
+      </if>
+      <if test="formalSalary != null" >
+        formal_salary,
+      </if>
+      <if test="agreementVersion != null" >
+        agreement_version,
+      </if>
+      <if test="term != null" >
+        term,
+      </if>
+      create_time,
+      <if test="creater != null" >
+        creater,
+      </if>
+      is_del
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=BIGINT},
+      </if>
+      <if test="agreementStartTime != null" >
+        #{agreementStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="agreementEndTime != null" >
+        #{agreementEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="testStartTime != null" >
+        #{testStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="testEndTime != null" >
+        #{testEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="testSalary != null" >
+        #{testSalary,jdbcType=DECIMAL},
+      </if>
+      <if test="formalSalary != null" >
+        #{formalSalary,jdbcType=DECIMAL},
+      </if>
+      <if test="agreementVersion != null" >
+        #{agreementVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="term != null" >
+        #{term,jdbcType=INTEGER},
+      </if>
+      now(),
+      <if test="creater != null" >
+        creater,
+      </if>
+      0
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.oa.model.AgreementInfo" >
+    update oa_agreement_info
+    <set >
+       update_time = now(),
+      <if test="employeeId != null" >
+        employee_id = #{employeeId,jdbcType=BIGINT},
+      </if>
+      <if test="agreementStartTime != null" >
+        agreement_start_time = #{agreementStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="agreementEndTime != null" >
+        agreement_end_time = #{agreementEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="testStartTime != null" >
+        test_start_time = #{testStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="testEndTime != null" >
+        test_end_time = #{testEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="testSalary != null" >
+        test_salary = #{testSalary,jdbcType=DECIMAL},
+      </if>
+      <if test="formalSalary != null" >
+        formal_salary = #{formalSalary,jdbcType=DECIMAL},
+      </if>
+      <if test="agreementVersion != null" >
+        agreement_version = #{agreementVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="term != null" >
+        term = #{term,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=BIGINT},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.oa.model.AgreementInfo" >
+    update oa_agreement_info
+    set employee_id = #{employeeId,jdbcType=BIGINT},
+      agreement_start_time = #{agreementStartTime,jdbcType=TIMESTAMP},
+      agreement_end_time = #{agreementEndTime,jdbcType=TIMESTAMP},
+      test_start_time = #{testStartTime,jdbcType=TIMESTAMP},
+      test_end_time = #{testEndTime,jdbcType=TIMESTAMP},
+      test_salary = #{testSalary,jdbcType=DECIMAL},
+      formal_salary = #{formalSalary,jdbcType=DECIMAL},
+      agreement_version = #{agreementVersion,jdbcType=VARCHAR},
+      term = #{term,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      creater = #{creater,jdbcType=BIGINT},
+      update_time = now(),
+      updater = #{updater,jdbcType=BIGINT},
+      is_del = #{isDel,jdbcType=INTEGER},
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <!-- 根据条件查询合同信息（分页） -->
+  <select id="queryAgreementInfoByPage" resultMap="BaseResultMap1">
+    select
+        <include refid="Base_Column_List1" />
+    from(
+        select
+        ai.id, ai.employee_id, ai.agreement_start_time, ai.agreement_end_time, ai.test_start_time, ai.test_end_time,
+        ai.test_salary, ai.formal_salary, ai.agreement_version, ai.term,ai.create_time, ai.creater, ai.update_time,
+        ai.updater, ai.is_del,
+        (select e.code from oa_employee e where ai.employee_id = e.id and e.is_del = 0) as employeeCode,
+        (select e.name from oa_employee e where ai.employee_id = e.id and e.is_del = 0) as employeeName,
+        (select e.id_card from oa_employee e where ai.employee_id = e.id and e.is_del = 0) as idCard,
+        (select e.custom_code from oa_employee e where ai.employee_id = e.id and e.is_del = 0) as customerCode,
+        (select e.custom_name from oa_employee e where ai.employee_id = e.id and e.is_del = 0) as customerName,
+        (select e.custom_price_num from oa_employee e where ai.employee_id = e.id and e.is_del = 0) as customerPriceNum,
+        (select e.employment_form from oa_employee e where ai.employee_id = e.id and e.is_del = 0) as employmentForm,
+        date_format(ai.agreement_start_time,'%Y-%c-%d') as agreementStartTimeStr,
+        date_format(ai.agreement_end_time,'%Y-%c-%d') as agreementEndTimeStr,
+        date_format(ai.test_start_time,'%Y-%c-%d') as testStartTimeStr,
+        date_format(ai.test_end_time,'%Y-%c-%d') as testEndTimeStr
+        from oa_agreement_info ai
+        <where>is_del = 0
+          <if test="paramMap.agreementVersion != null and paramMap.agreementVersion != ''" >
+            and ai.agreement_version like concat('%',replace(#{paramMap.agreementVersion,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+          </if>
+          <if test="paramMap.agreementStartTime != null and paramMap.agreementStartTime != ''" >
+            <![CDATA[ and ai.agreement_start_time >= #{paramMap.agreementStartTime} ]]>
+          </if>
+          <if test="paramMap.agreementEndTime != null and paramMap.agreementEndTime != ''" >
+            <![CDATA[ and ai.agreement_end_time < #{paramMap.agreementEndTime} ]]>
+          </if>
+          <if test="paramMap.testStartTime != null and paramMap.testStartTime != ''" >
+            <![CDATA[ and ai.test_start_time >= #{paramMap.testStartTime} ]]>
+          </if>
+          <if test="paramMap.testEndTime != null and paramMap.testEndTime != ''" >
+            <![CDATA[ and ai.test_end_time < #{paramMap.testEndTime} ]]>
+          </if>
+        </where>
+    ) t
+    <where>
+      <if test="paramMap.customerName != null and paramMap.customerName != ''" >
+        and  t.customerName  like concat('%',replace(#{paramMap.customerName,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+      </if>
+      <if test="paramMap.employeeName != null and paramMap.employeeName != ''" >
+        and t.employeeName like concat('%',replace(#{paramMap.employeeName,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+      </if>
+    </where>
+     limit #{offset}, #{limit}
+
+  </select>
+  <!-- 根据条件查询合同信息总数 -->
+  <select id="queryAgreementInfoByPageCount" resultType="java.lang.Integer">
+    select
+      count(1) allTotal
+    from(
+    select
+    ai.id, ai.employee_id, ai.agreement_start_time, ai.agreement_end_time, ai.test_start_time, ai.test_end_time,
+    ai.test_salary, ai.formal_salary, ai.agreement_version, ai.term,ai.create_time, ai.creater, ai.update_time,
+    ai.updater, ai.is_del,
+    (select e.code from oa_employee e where ai.employee_id = e.id and e.is_del = 0) as employeeCode,
+    (select e.name from oa_employee e where ai.employee_id = e.id and e.is_del = 0) as employeeName,
+    (select e.id_card from oa_employee e where ai.employee_id = e.id and e.is_del = 0) as idCard,
+    (select e.custom_code from oa_employee e where ai.employee_id = e.id and e.is_del = 0) as customerCode,
+    (select e.custom_name from oa_employee e where ai.employee_id = e.id and e.is_del = 0) as customerName,
+    (select e.custom_price_num from oa_employee e where ai.employee_id = e.id and e.is_del = 0) as customerPriceNum,
+    (select e.employment_form from oa_employee e where ai.employee_id = e.id and e.is_del = 0) as employmentForm,
+    date_format(ai.agreement_start_time,'%Y-%c-%d') as agreementStartTimeStr,
+    date_format(ai.agreement_end_time,'%Y-%c-%d') as agreementEndTimeStr,
+    date_format(ai.test_start_time,'%Y-%c-%d') as testStartTimeStr,
+    date_format(ai.test_end_time,'%Y-%c-%d') as testEndTimeStr
+    from oa_agreement_info ai
+    <where>is_del = 0
+      <if test="paramMap.agreementVersion != null and paramMap.agreementVersion != ''" >
+        and ai.agreement_version like concat('%',replace(#{paramMap.agreementVersion,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+      </if>
+      <if test="paramMap.agreementStartTime != null and paramMap.agreementStartTime != ''" >
+        <![CDATA[ and ai.agreement_start_time >= #{paramMap.agreementStartTime} ]]>
+      </if>
+      <if test="paramMap.agreementEndTime != null and paramMap.agreementEndTime != ''" >
+        <![CDATA[ and ai.agreement_end_time < #{paramMap.agreementEndTime} ]]>
+      </if>
+      <if test="paramMap.testStartTime != null and paramMap.testStartTime != ''" >
+        <![CDATA[ and ai.test_start_time >= #{paramMap.testStartTime} ]]>
+      </if>
+      <if test="paramMap.testEndTime != null and paramMap.testEndTime != ''" >
+        <![CDATA[ and ai.test_end_time < #{paramMap.testEndTime} ]]>
+      </if>
+    </where>
+    ) t
+    <where>
+      <if test="paramMap.customerName != null and paramMap.customerName != ''" >
+        and  t.customerName  like concat('%',replace(#{paramMap.customerName,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+      </if>
+      <if test="paramMap.employeeName != null and paramMap.employeeName != ''" >
+        and t.employeeName like concat('%',replace(#{paramMap.employeeName,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+      </if>
+    </where>
+  </select>
+
+  <select id="selectAgreementInfoByMap" resultMap="BaseResultMap1">
+    select
+    <include refid="Base_Column_List1" />
+    from(
+    select
+    ai.id, ai.employee_id, ai.agreement_start_time, ai.agreement_end_time, ai.test_start_time, ai.test_end_time,
+    ai.test_salary, ai.formal_salary, ai.agreement_version, ai.term,ai.create_time, ai.creater, ai.update_time,
+    ai.updater, ai.is_del,
+    (select e.code from oa_employee e where ai.employee_id = e.id and e.is_del = 0) as employeeCode,
+    (select e.name from oa_employee e where ai.employee_id = e.id and e.is_del = 0) as employeeName,
+    (select e.id_card from oa_employee e where ai.employee_id = e.id and e.is_del = 0) as idCard,
+    (select e.custom_code from oa_employee e where ai.employee_id = e.id and e.is_del = 0) as customerCode,
+    (select e.custom_name from oa_employee e where ai.employee_id = e.id and e.is_del = 0) as customerName,
+    (select e.custom_price_num from oa_employee e where ai.employee_id = e.id and e.is_del = 0) as customerPriceNum,
+    (select e.employment_form from oa_employee e where ai.employee_id = e.id and e.is_del = 0) as employmentForm,
+    date_format(ai.agreement_start_time,'%Y-%c-%d') as agreementStartTimeStr,
+    date_format(ai.agreement_end_time,'%Y-%c-%d') as agreementEndTimeStr,
+    date_format(ai.test_start_time,'%Y-%c-%d') as testStartTimeStr,
+    date_format(ai.test_end_time,'%Y-%c-%d') as testEndTimeStr
+    from oa_agreement_info ai
+    <where>is_del = 0
+      <if test="agreementVersion != null and agreementVersion != ''" >
+        and ai.agreement_version like concat('%',replace(#{agreementVersion,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+      </if>
+      <if test="agreementStartTime != null and agreementStartTime != ''" >
+        <![CDATA[ and ai.agreement_start_time >= #{agreementStartTime} ]]>
+      </if>
+      <if test="agreementEndTime != null and agreementEndTime != ''" >
+        <![CDATA[ and ai.agreement_end_time < #{agreementEndTime} ]]>
+      </if>
+      <if test="testStartTime != null and testStartTime != ''" >
+        <![CDATA[ and ai.test_start_time >= #{testStartTime} ]]>
+      </if>
+      <if test="testEndTime != null and testEndTime != ''" >
+        <![CDATA[ and ai.test_end_time < #{testEndTime} ]]>
+      </if>
+    </where>
+    ) t
+    <where>
+      <if test="customerName != null and customerName != ''" >
+        and  t.customerName  like concat('%',replace(#{customerName,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+      </if>
+      <if test="employeeName != null and employeeName != ''" >
+        and t.employeeName like concat('%',replace(#{employeeName,jdbcType=VARCHAR},'%','/%'),'%') escape '/'
+      </if>
+    </where>
+  </select>
+</mapper>

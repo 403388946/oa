@@ -48,7 +48,7 @@
   <sql id="Base_Column_List1" >
     id, code, name, id_card, custom_code, custom_price_num, custom_name, join_date,
     pay_code, service_status, employment_form, create_time, creater, update_time, updater,
-    is_del,date_format(join_date,'%Y-%c-%d') joinDateStr，agreement_id
+    is_del,date_format(join_date,'%Y-%c-%d') as joinDateStr, agreement_id
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap1" parameterType="java.lang.Long" >
     select 
