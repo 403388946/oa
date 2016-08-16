@@ -23,7 +23,7 @@
                                 for(var j = 0; j < children.length; j++) {
                                     var child = children[j];
                                     menus.push('<li>');
-                                        menus.push('<a href="javascript:void(0)" data-href="' + _ctx + child.url + '">');
+                                        menus.push('<a href="javascript:void(0)" class="menu_click" data-href="' + _ctx + child.url + '">');
                                             menus.push(child.name);
                                         menus.push('</a>');
                                     menus.push('</li>');
@@ -32,7 +32,7 @@
                             menus.push('</li>');
                         } else {
                             menus.push('<li>');
-                                menus.push('<a href="javascript:void(0)" data-href="' + _ctx +  parent.url + '">');
+                                menus.push('<a href="javascript:void(0)" class="menu_click" data-href="' + _ctx +  parent.url + '">');
                                     menus.push('<span>');
                                         menus.push(parent.name);
                                     menus.push('</span>');
@@ -47,14 +47,13 @@
 
             }
             $.getScript(_ctx + "/static/js/scripts.js");
+            $('.menu_click').on('click', function() {
+                var href = $(this).attr('data-href');
+                $('#main_view').load(href);
+            });
         },'json');
-
-        $('.menu_click').on('click', function() {
-            $('#main_view').load($(this).attr('data-href'));
-        });
-    })
+    });
 </script>
-<script src="${ctx}/static/js/scripts.js" type="text/javascript"></script>
 <div id="nav-col">
     <section id="col-left" class="col-left-nano">
         <div id="col-left-inner" class="col-left-nano-content">
@@ -66,46 +65,6 @@
             </div>
             <div id="sidebar-nav" class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul id="navLeft" class="nav nav-pills nav-stacked">
-                    <!--右边导航-->
-                    <li>
-                        <a class="dropdown-toggle" href="#resource_1">
-                            <span>客户管理</span>
-                            <i class="fa fa-chevron-circle-right drop-icon"></i>
-                        </a>
-                        <ul id="resource_1" class="submenu" style="display: none;">
-                            <li>
-                                <a href="javascript:void(0);" data-href="${ctx}/custom/findPage" class="menu_click">
-                                    客户列表
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);" data-href="${ctx}/custom/add" class="menu_click">添加客户</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#resource_2" class="dropdown-toggle">
-                            <span>员工管理</span>
-                            <i class="fa fa-chevron-circle-right drop-icon"></i>
-                        </a>
-                        <ul id="resource_2" class="submenu" style="display: none;">
-                            <li>
-                                <a href="javascript:void(0);" data-href="${ctx}/employee/list" class="menu_click">
-                                    员工列表
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);" data-href="${ctx}/employee/add" class="menu_click">
-                                    新增员工
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#resource_3" class="dropdown-toggle">
-                            <span>报价单号管理</span>
-                        </a>
-                    </li>
                 </ul>
             </div>
         </div>

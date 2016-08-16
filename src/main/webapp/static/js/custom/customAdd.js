@@ -1,4 +1,4 @@
-$(function(){
+(function(){
 
     /** 新增 校验* */
     $('#editForm').bootstrapValidator({
@@ -54,4 +54,4 @@ $(function(){
         }
     });
     /** 新增 校验end* */
-});
+})(jQuery);

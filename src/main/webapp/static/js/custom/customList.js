@@ -1,4 +1,4 @@
-$(function () {
+(function () {
     //初始化表格
     var customs = $('#customs').bootstrapTable({
         method: 'get',
@@ -59,7 +59,7 @@ $(function () {
             }
         }
     };
-});
+})(jQuery);
 
 
 //查询

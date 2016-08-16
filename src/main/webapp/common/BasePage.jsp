@@ -22,15 +22,17 @@
     <link rel="stylesheet" type="text/css" href="${ctx}/static/css/libs/daterangepicker.css"/>
     <link rel="stylesheet" type="text/css" href="${ctx}/static/js/bootstrapvalidator/css/bootstrapValidator.min.css"/>
 
-    <script src="${ctx}/static/js/jquery.js" type="text/javascript"></script>
-    <script src="${ctx}/static/js/bootstrap.js" type="text/javascript"></script>
-    <script src="${ctx}/static/js/moment.min.js" type="text/javascript"></script>
+
+    <script src="${ctx}/static/js/jquery.js"></script>
+    <script src="${ctx}/static/js/bootstrap.js"></script>
+    <script src="${ctx}/static/js/moment.min.js"></script>
     <script src="${ctx}/static/js/bootstrapvalidator/js/bootstrapValidator.min.js"></script>
-    <script src="${ctx}/static/js/bootstrap-datepicker-master/js/bootstrap-datepicker.js" type="text/javascript"></script>
-    <script src="${ctx}/static/js/bootstrap-datepicker-master/locales/bootstrap-datepicker.zh-CN.min.js" type="text/javascript"></script>
-    <script src="${ctx}/static/js/jquery.scrollToTop.js" type="text/javascript"></script>
-    <script src="${ctx}/static/js/bootstrap-table.js" type="text/javascript"></script>
-    <script src="${ctx}/static/js/bootstrap-table-zh-CN.js" type="text/javascript"></script>
+    <script src="${ctx}/static/js/bootstrap-datepicker-master/js/bootstrap-datepicker.js" ></script>
+    <script src="${ctx}/static/js/bootstrap-datepicker-master/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+    <script src="${ctx}/static/js/jquery.scrollToTop.js" ></script>
+    <script src="${ctx}/static/js/bootstrap-table.js"></script>
+    <script src="${ctx}/static/js/bootstrap-table-zh-CN.js"></script>
+
 
     <script src="${ctx}/static/js/jquery.nanoscroller.min.js"></script>
     <%--<script src="${ctx}/static/js/jquery-ui.custom.min.js"></script>--%>
