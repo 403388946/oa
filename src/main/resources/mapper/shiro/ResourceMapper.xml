@@ -14,7 +14,10 @@
   <sql id="Base_Column_List" >
     id, name, type, url, parent_id, parent_ids, permission, available
   </sql>
-  <insert id="insertSelective" parameterType="com.shiro.model.Resource" >
+
+
+
+  <insert id="insert" parameterType="com.shiro.model.Resource" >
     insert into sys_resource
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -112,4 +115,14 @@
       limit start, pageSize
     </if>
   </select>
+
+  <select id="findResourcesByParentId" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> FROM sys_resource
+    WHERE parent_id = #{parentId} AND available = true;
+  </select>
+
+  <delete id="deleteByPrimaryKey" flushCache="true">
+    DELETE FROM sys_resource
+    WHERE id = #{id}
+  </delete>
 </mapper>

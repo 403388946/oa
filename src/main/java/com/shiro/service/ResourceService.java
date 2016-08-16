@@ -17,6 +17,8 @@ public interface ResourceService {
     Resource findOne(Long resourceId);
     List<Resource> findAll();
 
+    List<Resource> findResourcesByParentId(Long parentId);
+
     /**
      * 得到资源对应的权限字符串
      * @param resourceIds
@@ -30,4 +32,6 @@ public interface ResourceService {
      * @return
      */
     List<Resource> findMenus(Set<String> permissions);
+
+    List<Resource> findMenusByRootId(Set<String> permissions, Long parentId);
 }

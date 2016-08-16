@@ -1,11 +1,16 @@
 package com.oa.model;
 
+
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
 import java.util.Date;
 
 /**
  * 客户信息
  * @author YiMing on 2016/7/25.
  */
+//没有null的Model
+@JsonSerialize(include= JsonSerialize.Inclusion.NON_NULL)
 public class Custom {
 
     private Long id;

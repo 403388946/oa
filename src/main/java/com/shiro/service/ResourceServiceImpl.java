@@ -3,10 +3,12 @@ package com.shiro.service;
 
 import com.shiro.mapper.ResourceMapper;
 import com.shiro.model.Resource;
+import com.sys.SysConstants;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.permission.WildcardPermission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -30,7 +32,7 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Override
     public Resource updateResource(Resource resource) {
-        if(resourceMapper.updateByPrimaryKey(resource) > 0) {
+        if(resourceMapper.updateByPrimaryKeySelective(resource) > 0) {
             return resource;
         }
         return null;
@@ -49,6 +51,11 @@ public class ResourceServiceImpl implements ResourceService {
     @Override
     public List<Resource> findAll() {
         return resourceMapper.findResources(null, 0, 0);
+    }
+
+    @Override
+    public List<Resource> findResourcesByParentId(Long parentId) {
+        return resourceMapper.findResourcesByParentId(parentId);
     }
 
     @Override
@@ -81,6 +88,28 @@ public class ResourceServiceImpl implements ResourceService {
         }
         return menus;
     }
+
+    @Override
+    public List<Resource> findMenusByRootId(Set<String> permissions, Long parentId) {
+        List<Resource> menus = new ArrayList<Resource>();
+        //查所有一级菜单
+        List<Resource> oneLevelMenus = resourceMapper.findResourcesByParentId(parentId);
+        for(Resource parent : oneLevelMenus) {
+            if(parent.isRootNode()) {
+                continue;
+            }
+            if(parent.getType() != Resource.ResourceType.menu) {
+                continue;
+            }
+            if(!hasPermission(permissions, parent)) {
+                continue;
+            }
+            parent.setChildren(this.findMenusByRootId(permissions, parent.getId()));
+            menus.add(parent);
+        }
+        return menus;
+    }
+
 
     private boolean hasPermission(Set<String> permissions, Resource resource) {
         if(StringUtils.isEmpty(resource.getPermission())) {

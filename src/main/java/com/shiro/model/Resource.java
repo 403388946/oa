@@ -1,6 +1,8 @@
 package com.shiro.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Resource implements Serializable {
@@ -12,6 +14,7 @@ public class Resource implements Serializable {
     private Long parentId; //父编号
     private String parentIds; //父编号列表
     private Boolean available = Boolean.FALSE;
+    private List<Resource> children = new ArrayList<>();
 
     public static enum ResourceType {
         menu("菜单"), button("按钮");
@@ -90,6 +93,14 @@ public class Resource implements Serializable {
 
     public void setAvailable(Boolean available) {
         this.available = available;
+    }
+
+    public List<Resource> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Resource> children) {
+        this.children = children;
     }
 
     public boolean isRootNode() {

@@ -1,4 +1,4 @@
-$(function () {
+(function () {
     //重置
     $("#g_reset").bind("click", function(){
         $('#code').val('');
@@ -89,7 +89,7 @@ $(function () {
         }
     };
 
-});
+})(jQuery);
 
 
 //获取查询条件
