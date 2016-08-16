@@ -41,9 +41,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     public Page<EmployeeDto> findEmployeeByPage(Page<EmployeeDto> page) {
         List<EmployeeDto> list = employeeMapper.findEmployeeByPage(page);
-        int total = employeeMapper.findEmployeeByPageCount(page);
+        if(list != null && list.size() > 0){
+            int total = employeeMapper.findEmployeeByPageCount(page);
+            page.setTotal(total);
+        }else{
+            page.setTotal(0);
+        }
         page.setRows(list);
-        page.setTotal(total);
         return page;
     }
 

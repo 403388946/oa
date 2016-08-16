@@ -6,6 +6,7 @@ import com.oa.utils.BaseDto;
 import java.util.Date;
 
 /**
+ * 员工表
  * Created by 46637 on 2016/7/26.
  */
 public class EmployeeDto extends Employee{

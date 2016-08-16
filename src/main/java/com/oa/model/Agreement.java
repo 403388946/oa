@@ -1,5 +1,6 @@
 package com.oa.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Date;
 public class Agreement {
     private Long id;
     private String priceNum;//报价单号
-    private Double salary;//薪资
+    private BigDecimal salary;//薪资
     private Long customId;//客户id
     private Integer isDel;//删除状态 0 未删除 1 已删除
     private Long creater;//创建人
@@ -33,11 +34,11 @@ public class Agreement {
         this.priceNum = priceNum;
     }
 
-    public Double getSalary() {
+    public BigDecimal getSalary() {
         return salary;
     }
 
-    public void setSalary(Double salary) {
+    public void setSalary(BigDecimal salary) {
         this.salary = salary;
     }
 
