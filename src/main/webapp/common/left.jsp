@@ -1,57 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <script type="text/javascript">
     $(function() {
-        $.post(_ctx + "/menus",{},function(data) {
-            if(!!data) {
-                var menus = [];
-                for(var i = 0; i < data.length; i++) {
-                    var parent = data[i];
-                    if(!!parent) {
-                        var children = parent.children;
-                        if(children.length > 0) {
-                            menus.push('<li>');
-                                menus.push('<a class="dropdown-toggle" href="#resource_' + parent.id + '">');
-                                    menus.push('<span>');
-                                        menus.push(parent.name);
-                                    menus.push('</span>');
-                                    menus.push('<i class="fa fa-chevron-circle-right drop-icon"></i>');
-                                menus.push('</a>');
-                                menus.push('<ul id="resource_' + parent.id + '" class="submenu" style="display: none;">');
-                                for(var j = 0; j < children.length; j++) {
-                                    var child = children[j];
-                                    menus.push('<li>');
-                                        menus.push('<a href="javascript:void(0)" class="menu_click" data-href="' + _ctx + child.url + '">');
-                                            menus.push(child.name);
-                                        menus.push('</a>');
-                                    menus.push('</li>');
-                                }
-                                menus.push('</ul>');
-                            menus.push('</li>');
-                        } else {
-                            menus.push('<li>');
-                                menus.push('<a href="javascript:void(0)" class="menu_click" data-href="' + _ctx +  parent.url + '">');
-                                    menus.push('<span>');
-                                        menus.push(parent.name);
-                                    menus.push('</span>');
-                                menus.push('</a>');
-                            menus.push('</li>');
-                        }
-                    }
-                }
-                if(menus.length > 0) {
-                    $('#navLeft').append(menus.join(''));
-                }
-
-            }
-            $.getScript(_ctx + "/static/js/scripts.js");
-            $('.menu_click').on('click', function() {
-                var href = $(this).attr('data-href');
-                $('#main_view').load(href);
-            });
-        },'json');
+        $('.menu_click').on('click', function() {
+            var href = $(this).attr('data-href');
+            $('#main_view').load(href);
+        });
     });
 </script>
 <div id="nav-col">
@@ -64,7 +21,29 @@
                 </div>
             </div>
             <div id="sidebar-nav" class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul id="navLeft" class="nav nav-pills nav-stacked">
+                <ul class="nav nav-pills nav-stacked">
+                    <c:forEach items="${menus}" var="menu">
+                        <c:set var="flag" value="${fn:length(menu.children) > 0}" />
+                        <li>
+                            <a class="dropdown-toggle menu_click"  href="javascript:void(0);" <c:if test="${!flag}">data-href="${ctx}${menu.url}"</c:if> >
+                                <span>${menu.name}</span>
+                                <c:if test="${flag}">
+                                <i class="fa fa-chevron-circle-right drop-icon"></i>
+                                </c:if>
+                            </a>
+                            <c:if test="${flag}">
+                            <ul class="submenu" style="display: none;">
+                                <c:forEach items="${menu.children}" var="child">
+                                <li>
+                                    <a href="javascript:void(0);" data-href="${ctx}${child.url}" class="menu_click">
+                                        ${child.name}
+                                    </a>
+                                </li>
+                                </c:forEach>
+                            </ul>
+                            </c:if>
+                        </li>
+                    </c:forEach>
                 </ul>
             </div>
         </div>

@@ -1,4 +1,4 @@
-(function(){
+$(function(){
     $(".datetimepicker").datepicker({
         autoclose : true,// 选中之后自动隐藏日期选择框
         language : "zh-CN",
@@ -138,4 +138,4 @@
         }
     });
     /** 新增 校验end* */
-})(jQuery);
+});

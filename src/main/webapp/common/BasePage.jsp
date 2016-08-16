@@ -6,9 +6,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title><sitemesh:write property='title'/></title>
-    <style type="text/css">
-
-    </style>
     <link rel="stylesheet" type="text/css" href="${ctx}/static/css/bootstrap/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="${ctx}/static/css/bootstrap/bootstrap-table.css"/>
     <link rel="stylesheet" type="text/css" href="${ctx}/static/css/libs/font-awesome.css"/>
@@ -21,8 +18,6 @@
     <link rel="stylesheet" type="text/css" href="${ctx}/static/css/libs/morris.css"/>
     <link rel="stylesheet" type="text/css" href="${ctx}/static/css/libs/daterangepicker.css"/>
     <link rel="stylesheet" type="text/css" href="${ctx}/static/js/bootstrapvalidator/css/bootstrapValidator.min.css"/>
-
-
     <script src="${ctx}/static/js/jquery.js"></script>
     <script src="${ctx}/static/js/bootstrap.js"></script>
     <script src="${ctx}/static/js/moment.min.js"></script>
@@ -32,6 +27,7 @@
     <script src="${ctx}/static/js/jquery.scrollToTop.js" ></script>
     <script src="${ctx}/static/js/bootstrap-table.js"></script>
     <script src="${ctx}/static/js/bootstrap-table-zh-CN.js"></script>
+    <script src="${ctx}/static/js/scripts.js"></script>
 
 
     <script src="${ctx}/static/js/jquery.nanoscroller.min.js"></script>

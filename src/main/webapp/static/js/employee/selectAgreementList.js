@@ -1,4 +1,4 @@
-(function () {
+$(function () {
     $("#search_div_agreement input[type=text]").keydown(function(e){
         if (e && e.keyCode == 13) {$($("#agreement-toolbar button span.glyphicon-search")[0]).trigger("click");}
     });
@@ -40,7 +40,7 @@
         ],
         onLoadError: function () {alert("数据加载失败！");}
     });
-})(jQuery);
+});
 
 //查询
 function search() {

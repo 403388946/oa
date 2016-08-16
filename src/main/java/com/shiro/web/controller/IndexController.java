@@ -24,13 +24,13 @@ public class IndexController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = {"/manage"})
+    @RequestMapping(value = {"/index"})
     public String index(@CurrentUser User loginUser, Model model) {
         Set<String> permissions = userService.findPermissions(loginUser.getUsername());
-        List<Resource> menus = resourceService.findMenus(permissions);
+        List<Resource> menus = resourceService.findMenusByRootId(permissions, SysConstants.MENU_ROOT_ID);
         model.addAttribute("menus", menus);
         //return this.userStylePath(user) + "/index";
-        return "manage";
+        return "index";
     }
 
     @RequestMapping(value = {"/menus"}, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -46,8 +46,4 @@ public class IndexController {
         return "welcome";
     }
 
-    @RequestMapping(value = {"/index"})
-    public String index() {
-        return "index";
-    }
 }
