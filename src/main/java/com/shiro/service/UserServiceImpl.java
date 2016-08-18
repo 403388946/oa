@@ -1,14 +1,18 @@
 package com.shiro.service;
 
 
+import com.shiro.Constants;
 import com.shiro.mapper.UserMapper;
 import com.shiro.model.User;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -25,16 +29,26 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RoleService roleService;
 
+    @Resource
+    private Map<String, String> settings;
+
     /**
      * 创建用户
      * @param user
      */
-    public User createUser(User user) {
+    public User save(User user) {
         //加密密码
-        passwordHelper.encryptPassword(user);
-        if(userMapper.insert(user) > 0) {
-            return user;
+        if(user.getId() != null) {
+            if(userMapper.updateByPrimaryKeySelective(user) > 0) {
+                return userMapper.selectByPrimaryKey(user.getId());
+            }
+        } else {
+            passwordHelper.encryptPassword(user);
+            if(userMapper.insertSelective(user) > 0) {
+                return userMapper.selectByPrimaryKey(user.getId());
+            }
         }
+
         return null;
     }
 
@@ -56,11 +70,15 @@ public class UserServiceImpl implements UserService {
      * @param userId
      * @param newPassword
      */
-    public void changePassword(Long userId, String newPassword) {
+    public int savePassword(Long userId, String newPassword) {
         User user = userMapper.selectByPrimaryKey(userId);
-        user.setPassword(newPassword);
+        if(StringUtils.isNotBlank(newPassword)) {
+            user.setPassword(newPassword);
+        } else {
+            user.setPassword(settings.get(Constants.NEW_PASSWORD));
+        }
         passwordHelper.encryptPassword(user);
-        userMapper.updateByPrimaryKey(user);
+        return userMapper.updateByPrimaryKeySelective(user);
     }
 
     @Override

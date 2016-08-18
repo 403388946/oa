@@ -1,6 +1,7 @@
 package com.shiro.service;
 
 
+import com.oa.utils.Page;
 import com.shiro.model.Resource;
 
 import java.util.List;
@@ -10,11 +11,15 @@ import java.util.Set;
 public interface ResourceService {
 
 
-    Resource createResource(Resource resource);
+    Resource saveResource(Resource resource);
     Resource updateResource(Resource resource);
     int deleteResource(Long resourceId);
 
     Resource findOne(Long resourceId);
+
+    List<Resource> findAll(Page page);
+
+
     List<Resource> findAll();
 
     List<Resource> findResourcesByParentId(Long parentId);

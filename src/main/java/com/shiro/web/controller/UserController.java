@@ -6,12 +6,16 @@ import com.shiro.service.RoleService;
 import com.shiro.service.UserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
@@ -33,75 +37,84 @@ public class UserController {
     }
 
     @RequiresPermissions("user:create")
-    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String showCreateForm(Model model) {
         setCommonData(model);
         model.addAttribute("user", new User());
-        model.addAttribute("op", "新增");
         return "user/edit";
     }
 
     @RequiresPermissions("user:create")
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(User user, RedirectAttributes redirectAttributes) {
-        userService.createUser(user);
-        redirectAttributes.addFlashAttribute("msg", "新增成功");
-        return "redirect:/user";
+    @RequestMapping(value = "/save", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Map<String, Object> save(User user) {
+        User saved = userService.save(user);
+        Map<String, Object> result = new HashMap<>();
+        result.put("status", 0);
+        result.put("message", "保存失败!");
+        if(saved.getId() != null) {
+            result.put("status", 1);
+            result.put("message", "保存成功!");
+        }
+        return result;
+    }
+
+    @RequestMapping(value = "/findUserName", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Map<String, Object> findUserName(String userName) {
+        User had = userService.findByUsername(userName);
+        Map<String, Object> result = new HashMap<>();
+        result.put("status", 0);
+        if(had.getId() != null) {
+            result.put("status", 1);
+        }
+        return result;
     }
 
     @RequiresPermissions("user:update")
-    @RequestMapping(value = "/{id}/update", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
     public String showUpdateForm(@PathVariable("id") Long id, Model model) {
         setCommonData(model);
         model.addAttribute("user", userService.findOne(id));
-        model.addAttribute("op", "修改");
         return "user/edit";
     }
 
-    @RequiresPermissions("user:update")
-    @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
-    public String update(User user, RedirectAttributes redirectAttributes) {
-        userService.updateUser(user);
-        redirectAttributes.addFlashAttribute("msg", "修改成功");
-        return "redirect:/user";
-    }
+
 
     @RequiresPermissions("user:delete")
-    @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
-    public String showDeleteForm(@PathVariable("id") Long id, Model model) {
-        setCommonData(model);
-        model.addAttribute("user", userService.findOne(id));
-        model.addAttribute("op", "删除");
-        return "user/edit";
-    }
-
-    @RequiresPermissions("user:delete")
-    @RequestMapping(value = "/{id}/delete", method = RequestMethod.POST)
-    public String delete(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
-        userService.deleteUser(id);
-        redirectAttributes.addFlashAttribute("msg", "删除成功");
-        return "redirect:/user";
+    @RequestMapping(value = "/{id}/delete", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public Map<String, Object> delete(@PathVariable("id") Long id) {
+        int flag = userService.deleteUser(id);
+        Map<String, Object> result = new HashMap<>();
+        result.put("status", 0);
+        result.put("message", "删除失败!");
+        if(flag > 0) {
+            result.put("status", 1);
+            result.put("message", "删除成功!");
+        }
+        return result;
     }
 
 
     @RequiresPermissions("user:update")
-    @RequestMapping(value = "/{id}/changePassword", method = RequestMethod.GET)
-    public String showChangePasswordForm(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user", userService.findOne(id));
-        model.addAttribute("op", "修改密码");
-        return "user/changePassword";
+    @RequestMapping(value = "/{id}/reset", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public  Map<String, Object> reset(@PathVariable("id") Long id) {
+        int reset = userService.savePassword(id,null);
+        Map<String, Object> result = new HashMap<>();
+        result.put("status", 0);
+        result.put("message", "重置失败!");
+        if(reset > 0) {
+            result.put("status", 1);
+            result.put("message", "重置成功!");
+        }
+        return result;
     }
 
-    @RequiresPermissions("user:update")
-    @RequestMapping(value = "/{id}/changePassword", method = RequestMethod.POST)
-    public String changePassword(@PathVariable("id") Long id, String newPassword, RedirectAttributes redirectAttributes) {
-        userService.changePassword(id, newPassword);
-        redirectAttributes.addFlashAttribute("msg", "修改密码成功");
-        return "redirect:/user";
-    }
 
     private void setCommonData(Model model) {
-        model.addAttribute("organizationList", organizationService.findAll());
+        //model.addAttribute("organizationList", organizationService.findAll());
         model.addAttribute("roleList", roleService.findAll());
     }
 }

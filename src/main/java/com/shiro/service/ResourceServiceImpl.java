@@ -1,6 +1,7 @@
 package com.shiro.service;
 
 
+import com.oa.utils.Page;
 import com.shiro.mapper.ResourceMapper;
 import com.shiro.model.Resource;
 import com.sys.SysConstants;
@@ -23,17 +24,24 @@ public class ResourceServiceImpl implements ResourceService {
     private ResourceMapper resourceMapper;
 
     @Override
-    public Resource createResource(Resource resource) {
-        if(resourceMapper.insert(resource) > 0) {
-            return resource;
+    public Resource saveResource(Resource resource) {
+        if(resource.getId() != null) {
+            if(resourceMapper.updateByPrimaryKeySelective(resource) > 0) {
+                return resourceMapper.selectByPrimaryKey(resource.getId());
+            }
+        } else {
+            if(resourceMapper.insert(resource) > 0) {
+                return resourceMapper.selectByPrimaryKey(resource.getId());
+            }
         }
+
         return null;
     }
 
     @Override
     public Resource updateResource(Resource resource) {
         if(resourceMapper.updateByPrimaryKeySelective(resource) > 0) {
-            return resource;
+            return resourceMapper.selectByPrimaryKey(resource.getId());
         }
         return null;
     }
@@ -49,8 +57,13 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
+    public List<Resource> findAll(Page page) {
+        return resourceMapper.findResources(page);
+    }
+
+    @Override
     public List<Resource> findAll() {
-        return resourceMapper.findResources(null, 0, 0);
+        return resourceMapper.findAll();
     }
 
     @Override

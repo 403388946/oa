@@ -41,9 +41,7 @@
       <if test="permission != null" >
         permission,
       </if>
-      <if test="available != null" >
-        available,
-      </if>
+        available
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -67,10 +65,11 @@
       <if test="permission != null" >
         #{permission,jdbcType=VARCHAR},
       </if>
-      <if test="available != null" >
-        #{available,jdbcType=BIT},
-      </if>
+        true
     </trim>
+    <selectKey keyProperty="id" resultType="long" order="AFTER">
+      SELECT @@IDENTITY AS id
+    </selectKey>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.shiro.model.Resource" >
     update sys_resource
@@ -101,19 +100,21 @@
   </update>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap">
-    SELECT <include refid="Base_Column_List"/> FROM sys_resource WHERE id = #{id}
+    SELECT <include refid="Base_Column_List"/> FROM sys_resource
+    WHERE available = true AND id = #{id}
   </select>
 
   <select id="findResources" resultMap="BaseResultMap">
     SELECT <include refid="Base_Column_List"/> FROM sys_resource
-    <where>
-      <if test="name != null and name != ''">
-        name LIKE #{name}
-      </if>
-    </where>
-    <if test="start != null and pageSize != null and pageSize > 0 ">
-      limit start, pageSize
+    WHERE available = true
+    <if test="paramMap.name != null and paramMap.name != ''">
+      AND name LIKE #{paramMap.name}
     </if>
+    limit #{offset}, #{limit}
+  </select>
+
+  <select id="findAll" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> FROM sys_resource WHERE available = true
   </select>
 
   <select id="findResourcesByParentId" resultMap="BaseResultMap">

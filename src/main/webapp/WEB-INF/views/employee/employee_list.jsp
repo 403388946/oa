@@ -3,10 +3,7 @@
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <%@taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 
-<head>
     <script src="${ctx}/static/js/employee/employeeList.js"></script>
-</head>
-<body>
         <div id="employee-toolbar">
             <div class="form-inline" role="form" id="serch_div">
                 <div class="form-group">
@@ -40,4 +37,3 @@
                      saveAction="${ctx}/sys/save"
                      deleteAction="${ctx}/sys/delete"
                      dateAction="${ctx}/sys/findFiles" />
-</body>

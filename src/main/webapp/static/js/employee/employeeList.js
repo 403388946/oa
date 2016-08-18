@@ -69,26 +69,6 @@ $(function () {
             }}
         ]
     });
-
-    window.operateEvents = {
-        /*修改员工信息*/
-        'click .edit_employee_click' : function(e, value, row, index){
-            $('#main_view').load(_ctx + '/employee/update?id=' + row.id);
-        },
-        'click .delete_employee_click' : function(e, value, row, index){
-            if(confirm("您确定删除吗？")){
-                $.post(_ctx + '/employee/delete', {
-                    id : row.id
-                }, function(res) {
-                    if (res.status == 1) {
-                        $("#employeeList").bootstrapTable('refresh',{url: $url + searchParm()});
-                    }
-                    alert(res.msg);
-                });
-            }
-        }
-    };
-
 });
 
 
@@ -104,4 +84,22 @@ function searchParm(){
         }
     });
     return parm;
+}
+
+//修改
+function edit(id){
+    $('#main_view').load(_ctx + '/employee/update?id=' + id);
+}
+//删除
+function del(id){
+    if(confirm("您确定删除吗？")){
+        $.post(_ctx + '/employee/delete', {
+            id : id
+        }, function(res) {
+            if (res.status == 1) {
+                $("#employeeList").bootstrapTable('refresh',{url: _ctx + "/employee/getEmployeeList" + searchParm()});
+            }
+            alert(res.msg);
+        });
+    }
 }

@@ -12,7 +12,7 @@ public interface UserService {
      * 创建用户
      * @param user
      */
-    User createUser(User user);
+    User save(User user);
 
     User updateUser(User user);
 
@@ -23,10 +23,12 @@ public interface UserService {
      * @param userId
      * @param newPassword
      */
-    void changePassword(Long userId, String newPassword);
+    int savePassword(Long userId, String newPassword);
 
 
     User findOne(Long userId);
+
+
 
     List<User> findAll();
 

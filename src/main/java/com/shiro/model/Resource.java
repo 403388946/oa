@@ -13,7 +13,7 @@ public class Resource implements Serializable {
     private String permission; //权限字符串
     private Long parentId; //父编号
     private String parentIds; //父编号列表
-    private Boolean available = Boolean.FALSE;
+    private Boolean available = Boolean.TRUE;
     private List<Resource> children = new ArrayList<>();
 
     public static enum ResourceType {

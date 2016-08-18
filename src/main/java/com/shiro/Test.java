@@ -25,7 +25,7 @@ public class Test {
 
     @org.junit.Test
     public void changePassword() {
-        userService.changePassword(1l, "123456");
+        userService.savePassword(1l, "123456");
     }
     @org.junit.Test
     public void clearAllCache() {

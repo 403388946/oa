@@ -1,5 +1,6 @@
 package com.shiro.mapper;
 
+import com.oa.utils.Page;
 import com.shiro.model.Resource;
 import org.apache.ibatis.annotations.*;
 
@@ -17,6 +18,8 @@ public interface ResourceMapper {
     int updateByPrimaryKeySelective(Resource record);
 
 
-    List<Resource> findResources(@Param("name")String name, @Param("start")int start, @Param("pageSize")int pageSize);
+    List<Resource> findResources(Page page);
+    List<Resource> findAll();
+
     List<Resource> findResourcesByParentId(@Param("parentId")Long parentId);
 }

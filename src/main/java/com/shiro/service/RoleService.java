@@ -9,7 +9,7 @@ import java.util.Set;
 public interface RoleService {
 
 
-    Role createRole(Role role);
+    Role save(Role role);
     Role updateRole(Role role);
     int deleteRole(Long roleId);
 

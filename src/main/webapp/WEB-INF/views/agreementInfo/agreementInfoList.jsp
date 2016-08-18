@@ -41,7 +41,7 @@
 <tags:table id="agreementInfo_table"/>
 <tags:upload id="agreementInfo"
              uploadAction="${ctx}/sys/upload"
-             serviceType="1"
+             serviceType="2"
              downloadAction="${ctx}/sys/down"
              saveAction="${ctx}/sys/save"
              deleteAction="${ctx}/sys/delete"

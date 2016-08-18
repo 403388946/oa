@@ -18,9 +18,15 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     private ResourceService resourceService;
 
-    public Role createRole(Role role) {
-        if(roleMapper.insert(role) > 0) {
-            return role;
+    public Role save(Role role) {
+        if(role.getId() != null) {
+            if(roleMapper.updateByPrimaryKey(role) > 0) {
+                return roleMapper.selectByPrimaryKey(role.getId());
+            }
+        } else {
+            if(roleMapper.insert(role) > 0) {
+                return roleMapper.selectByPrimaryKey(role.getId());
+            }
         }
         return null;
     }

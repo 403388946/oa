@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <%@taglib prefix="tags" tagdir="/WEB-INF/tags"%>
-<%@ taglib prefix="sys" uri="http://www.sys.com/sys"%>
     <script type="text/javascript" src="${ctx}/static/js/custom/customList.js"></script>
     <div id="custom-toolbar">
         <div class="form-inline" role="form" id="serch_div">

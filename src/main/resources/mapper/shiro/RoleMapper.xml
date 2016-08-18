@@ -47,6 +47,9 @@
         #{available,jdbcType=BIT},
       </if>
     </trim>
+    <selectKey keyProperty="id" resultType="long" order="AFTER">
+      SELECT @@IDENTITY AS id
+    </selectKey>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.shiro.model.Role" >
     update sys_role

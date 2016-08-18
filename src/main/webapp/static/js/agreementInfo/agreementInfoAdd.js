@@ -147,9 +147,9 @@ function chkAgreementInfoTime($startTime, $endTime){
         $('#testStartTime').val('');
         $('#testEndTime').val('');
     }
-    if(!!testStartTime && !!testEndTime && !!agreementStartTime && !!agreementEndTime && (testStartTime < agreementStartTime || testEndTime > agreementEndTime || testStartTime >= agreementEndTime || testEndTime < agreementStartTime)){
-        $startTime.val('');
-        $endTime.val('');
-    }
+    //if(!!testStartTime && !!testEndTime && !!agreementStartTime && !!agreementEndTime && (testStartTime < agreementStartTime || testEndTime > agreementEndTime || testStartTime >= agreementEndTime || testEndTime < agreementStartTime)){
+    //    $startTime.val('');
+    //    $endTime.val('');
+    //}
     
 }
