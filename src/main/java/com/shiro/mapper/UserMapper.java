@@ -74,4 +74,6 @@ public interface UserMapper {
     User findUserByName(@Param("userName")String userName);
 
     List<User> findUsers(@Param("userName")String userName, @Param("start")int start, @Param("pageSize")int pageSize);
+
+    List<Long> findAll();
 }

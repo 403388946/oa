@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `oa_employee` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='员工表';
 
 
-CREATE TABLE `oa_file_info` (
+CREATE TABLE IF NOT EXISTS `oa_file_info` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `path` varchar(200) DEFAULT NULL,
   `local_name` varchar(50) DEFAULT NULL  COMMENT '本地文件名',
@@ -47,4 +47,25 @@ CREATE TABLE `oa_file_info` (
   `service_type` int(2) NOT NULL COMMENT '业务类型',
   `file_type` varchar(20) NOT NULL COMMENT '文件类型',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT '文件信息'
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT '文件信息';
+
+CREATE TABLE IF NOT EXISTS `sys_notice`
+(
+  id BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  url VARCHAR(200) DEFAULT NULL COMMENT '详情地址',
+  content VARCHAR(200) DEFAULT NULL COMMENT '概要',
+  server_id BIGINT(20) DEFAULT NULL COMMENT '业务关联ID',
+  notice_status INT(2) DEFAULT 0 COMMENT '通知状态',
+  view_type INT(1) DEFAULT 0 COMMENT '查看状态:0未查看,1已查看',
+  server_name VARCHAR(200) DEFAULT NULL COMMENT '通知业务名称',
+  receive_id BIGINT(20) DEFAULT 0 COMMENT '被通知人ID,0指所有人',
+  notice_time TIMESTAMP COMMENT '通知时间',
+  view_type int(1) DEFAULT '0' COMMENT '查看状态:0未看,1已看',
+  notice_state int(2) DEFAULT NULL COMMENT '通知状态',
+  creator BIGINT(20) NOT NULL COMMENT '创建人',
+  creat_time TIMESTAMP COMMENT '创建事件',
+
+  PRIMARY KEY id(id),
+  KEY serverId(server_id),
+  KEY receiveId(receive_id)
+) ENGINE = InnoDB AUTO_INCREMENT = 0 CHARSET = UTF8 COMMENT '通知公告';

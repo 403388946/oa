@@ -109,4 +109,9 @@
       limit start, pageSize
     </if>
   </select>
+
+  <select id="findAll">
+    SELECT id FROM sys_user
+    WHERE username != 'admin'
+  </select>
 </mapper>

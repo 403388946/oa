@@ -6,6 +6,8 @@ import com.shiro.service.ResourceService;
 import com.shiro.service.UserService;
 import com.shiro.web.bind.annotation.CurrentUser;
 import com.sys.SysConstants;
+import com.sys.model.Notice;
+import com.sys.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -24,11 +26,18 @@ public class IndexController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private NoticeService noticeService;
+
     @RequestMapping(value = {"/index"})
     public String index(@CurrentUser User loginUser, Model model) {
         Set<String> permissions = userService.findPermissions(loginUser.getUsername());
         List<Resource> menus = resourceService.findMenusByRootId(permissions, SysConstants.MENU_ROOT_ID);
+        List<Notice> messages = noticeService.myNotices(loginUser.getUsername(),
+                SysConstants.NOTICE_VIEW_TYPE_UNLOOK,
+                SysConstants.NOTICE_VIEW_TYPE_LOOK_LIMIT);
         model.addAttribute("menus", menus);
+        model.addAttribute("messages", messages);
         //return this.userStylePath(user) + "/index";
         return "index";
     }
